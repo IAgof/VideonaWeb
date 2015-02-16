@@ -1,0 +1,44 @@
+registration:
+    check_email: Se ha enviado un email a %email%. Contiene un enlace de activación que debes presionar para activar tu cuenta.
+    confirmed: Felicidades %username%, tu cuenta está ahora confirmada.
+    back: Volver a la página original.
+    submit: Registrar
+    flash:
+        user_created: El usuario se ha creado satisfactoriamente
+    email:
+        subject: Bienvenido %username%!
+        message: |
+            Hola %username%!
+
+            Para completar la validación de tu cuenta - por favor visita %confirmationUrl%
+
+            Atentamente,
+            el Equipo.
+
+# Security
+security:
+    login:
+        username: "Nombre de usuario:"
+        username_email: "Nombre de usuario o email:"
+        email: "Email:"
+        password: "Contraseña:"
+        remember_me: Recordar
+        submit: Entrar
+    
+# Form
+form:
+    registration:
+        username: 
+            name: Nombre de usuario
+            duplicate: 
+                title: Nombre de usuario duplicado!
+                message: 'Por favor, seleccione otro nombre de usuario.'
+            invalidform:
+                title: Nombre de usuario no válido!
+                message: 'El nombre de usuario puede contener letras, números y el símbolo "_", y debe tener entre 4 y 15 caracteres.  Los espacios en blanco no están permitidos.'
+        submit: Seleccionar
+    login:
+        username: Nombre de usuario
+        password: Contraseña
+        social: 'Iniciar sesión con:'
+        submit: Iniciar sesión

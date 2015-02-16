@@ -1,0 +1,8 @@
+videona_rest_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: VideonaRestBundle:Default:index }
+    
+user:
+    type: rest
+    resource: "VideonaRestBundle:UserRest"
+    #name_prefix: api_

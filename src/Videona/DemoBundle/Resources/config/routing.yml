@@ -1,0 +1,24 @@
+_welcome:
+    path:     /
+    defaults: { _controller: VideonaDemoBundle:Welcome:index }
+
+_demo_secured:
+    resource: "@VideonaDemoBundle/Controller/SecuredController.php"
+    type:     annotation
+
+_demo:
+    resource: "@VideonaDemoBundle/Controller/DemoController.php"
+    type:     annotation
+    prefix:   /demo
+    
+prueba_general: 
+    pattern: /prueba
+    defaults:     { _controller: VideonaDemoBundle:Prueba:prueba }
+    
+prueba_login:
+    pattern: /prueba/login
+    defaults:     { _controller: VideonaDemoBundle:Prueba:login }
+    
+prueba_new:
+    pattern: /prueba/newimage
+    defaults:     { _controller: VideonaDemoBundle:Prueba:newimage }

@@ -1,0 +1,293 @@
+{% extends "VideonaBackendUserManagementBundle::layout.html.twig" %}
+
+{% block fos_user_authenticated %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <script>document.location = "{{url("_home")}}";</script>
+    {% endif %}
+{% endblock fos_user_authenticated %}
+
+{% block fos_user_content %}
+<div id="page-wrapper">
+<div id="main">
+{% if error %}
+    <div id="login-error">{{ error.message|trans }}</div>
+{% endif %}
+
+<form action="{{ path('fos_user_security_check') }}" method="post">
+    <input type="hidden" name="_csrf_token" value="{% render(controller('VideonaBackendUserManagementBundle:Security:getToken')) %}" />
+    <div class="form-item">
+        <label for="username">{{ 'form.login.username'|trans({}, 'messages') }}</label>
+        <input id="username" type="text" name="_username" value="{{ last_username }}" />
+    </div>
+    <div class="form-item">
+        <label for="password">{{ 'form.login.password'|trans({}, 'messages') }}</label>
+        <input id="password" type="password" name="_password" />
+    </div>
+
+    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+
+    <input type="submit" name="login" value="{{ 'form.login.submit'|trans({}, 'messages') }}" />
+</form>
+
+{% block social_login %}
+    <script>
+        window.fbAsyncInit = function() {
+            // init the FB JS SDK
+            FB.init({
+                appId      : '1530256123873085',   // App ID from the app dashboard
+                cookie     : true,                 // enable cookies to allow the server to access the session
+                //channelUrl : '//yourdomain.com/channel.html',      // Channel file for x-domain comms
+                status     : true,                 // Check Facebook Login status
+                xfbml      : true                  // Look for social plugins on the page
+            });
+        };
+
+        // Load the SDK asynchronously
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+        /*
+        function fb_login() {
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    // connected
+                    alert('Already connected, redirect to login page to create token.');
+                    document.location = "{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}";
+                } else {
+                    // not_authorized
+                    FB.login(function(response) {
+                        if (response.authResponse) {
+                            document.location = "{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}";
+                        } else {
+                            alert('Cancelled.');
+                        }
+                    }, {scope: 'email'});
+                }
+            });
+        }
+        */
+        function fb_login() {
+            document.location = "{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}";
+        }
+    </script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script>
+        function signinCallback(authResult) {
+            /*
+             * Google calls signinCallback function when it loads google social 
+             * button. To avoid automatically log the user in our system, user 
+             * has to press the button to coninue with the login process. 
+             */
+            if (authResult['access_token'] && authResult["status"]["method"] == "PROMPT") {
+              // Autorizado correctamente
+                      
+              // Load the API and make an API call.
+              var validateTokenUrl = 'https://www.googleapis.com/oauth2/v1/tokeninfo?access_token='+authResult['access_token'];
+              $.ajax({
+                type: 'GET',
+                url: validateTokenUrl,
+                async: false,
+                contentType: "application/json",
+                dataType: 'json',
+                success: function(result) {
+                  validateUserGoogle(result['user_id'], authResult['access_token']);
+                },
+                error: function(e) {
+                  // Manage the error
+                  console.log(e);
+                }
+              });                 
+            } else if (authResult['error']) {
+              // The possible error codes are:
+              //   "access_denied": el usuario ha denegado el acceso a la aplicación.
+              //   "immediate_failed": no se ha podido dar acceso al usuario de forma automática.
+              console.log('There was an error: ' + authResult['error']);
+            }
+        }
+        // Load the API and make an API call.
+        function validateUserGoogle(userid, token) {
+            //var getUserUrl = 'https://www.googleapis.com/plus/v1/people/'+userid+'?access_token='+token;
+            var getUserUrl = 'https://www.googleapis.com/plus/v1/people/me?access_token='+token;
+            $.ajax({
+              type: 'GET',
+              url: getUserUrl,
+              async: false,
+              contentType: "application/json",
+              dataType: 'json',
+              success: function(result) {
+                // Save user data
+                document.location = "{{ url("hwi_oauth_service_redirect", {service: "google"}) }}";
+              },
+              error: function(e) {
+                // Manage the error
+                console.log(e);
+              }
+            }); 
+        }
+    </script>
+    <script type="text/javascript">
+        (function() {
+          var po = document.createElement('script');
+          po.type = 'text/javascript'; po.async = true;
+          po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(po, s);
+        })();
+
+        function render() {
+          gapi.signin.render('customBtnGPlus', {
+            'callback': 'signinCallback',
+            'clientid': '107134464495-ruserbd6t4lb47u8qvqto8n3ov3fla2v.apps.googleusercontent.com',
+            'cookiepolicy': 'single_host_origin',
+            //'requestvisibleactions': 'http://schemas.google.com/AddActivity',
+            //'response_type':'token',
+            'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email'
+          });
+        }
+        /*
+        function disconnectUser(access_token) {
+          var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' +
+              access_token;
+
+          // Realiza una solicitud GET asíncrona.
+          $.ajax({
+            type: 'GET',
+            url: revokeUrl,
+            async: false,
+            contentType: "application/json",
+            dataType: 'jsonp',
+            success: function(nullResponse) {
+              // Lleva a cabo una acción ahora que el usuario está desconectado
+              // La respuesta siempre está indefinida.
+            },
+            error: function(e) {
+              // Manage the error
+              console.log(e);
+            }
+          });
+        }
+        // Se puede activar la desconexión haciendo clic en un botón
+        //$('#revokeButton').click(disconnectUser);
+        */
+    </script>
+</div>
+</div>
+    <!-- Customize social buttons -->
+    <style type="text/css">
+        @font-face {
+          font-family: "Tahoma";
+          src: url('{{ asset('bundles/videonabackendsocial/fonts/Tahoma/tahoma-1361499068.ttf') }}') format("truetype");
+        }
+        @font-face {
+          font-family: "Roboto-Bold";
+          src: url('{{ asset('bundles/videonabackendsocial/fonts/Roboto_v1.2/Roboto/Roboto-Bold.ttf') }}') format("truetype");
+        }
+        @font-face {
+          font-family: "Gotham-Medium";
+          src: url('{{ asset('bundles/videonabackendsocial/fonts/Gotham/Gotham/Gotham-Medium.otf') }}') format("opentype");
+        }
+        #customBtnFacebook {
+          display: inline-block;
+          background: #3b5998;
+          color: white;
+          width: 100px;
+          border-radius: 5px;
+        }
+        #customBtnFacebook:hover {
+          background: #6d84b4;
+          cursor: pointer;
+        }
+        span.iconFacebook {
+          background: url('{{ asset('bundles/videonabackendsocial/images/Facebook/online/png/FB-f-Logo__white_29.png') }}') transparent 10px 50% no-repeat;
+          background-size: 50%;
+          display: inline-block;
+          vertical-align: middle;
+          width: 30px;
+          height: 30px;
+        }
+        span.buttonTextFacebook {
+          display: inline-block;
+          vertical-align: middle;
+          padding-left: 5px;
+          padding-right: 5px;
+          font-family: "Tahoma";
+          font-weight: bold;
+          font-size: 8pt;
+        }
+        #customBtnGPlus {
+          display: inline-block;
+          background: #cc3732;
+          color: white;
+          width: 100px;
+          border-radius: 5px;
+        }
+        #customBtnGPlus:hover {
+          background: #e74b37;
+          cursor: pointer;
+        }
+        span.iconGPlus {
+          background: url('{{ asset('bundles/videonabackendsocial/images/GooglePlus/g+ icon/Desktop/20dp/1x/btn_red.png') }}') transparent 10px 50% no-repeat;
+          display: inline-block;
+          vertical-align: middle;
+          width: 30px;
+          height: 30px;
+        }
+        span.buttonTextGPlus {
+          display: inline-block;
+          vertical-align: middle;
+          padding-left: 10px;
+          padding-right: 10px;
+          font-family: "Roboto-Bold", bold;
+          font-size: 10pt;
+        }
+        #customBtnTwitter {
+          display: inline-block;
+          background: #55acee;
+          color: white;
+          width: 100px;
+          border-radius: 5px;
+        }
+        #customBtnTwitter:hover {
+          background: #6cb7f0;
+          cursor: pointer;
+        }
+        span.iconTwitter {
+          background: url('{{ asset('bundles/videonabackendsocial/images/Twitter/Twitter_logo_white.png') }}') transparent 10px 50% no-repeat;
+          background-size: 50%;
+          display: inline-block;
+          vertical-align: middle;
+          width: 30px;
+          height: 30px;
+        }
+        span.buttonTextTwitter {
+          display: inline-block;
+          vertical-align: middle;
+          padding-left: 10px;
+          padding-right: 10px;
+          font-family: "Gotham-Medium";
+          font-size: 10pt;
+        }
+    </style>
+    <span class="label">{{'form.login.social'|trans({}, 'messages')}}</span>
+    <div id="customBtnFacebook" class="customFacebookSignIn" onclick="fb_login();">  
+        <span class="iconFacebook"></span>
+        <span class="buttonTextFacebook">Facebook</span>
+    </div>
+    <div id="customBtnGPlus" class="customGPlusSignIn">  
+        <span class="iconGPlus"></span>
+        <span class="buttonTextGPlus">Google</span>
+    </div>
+    <a href="{{path('twitter_oauth_token')}}">
+        <div id="customBtnTwitter" class="customTwitterSignIn"">  
+          <span class="iconTwitter"></span>
+          <span class="buttonTextTwitter">Twitter</span>
+        </div>
+    </a>
+{% endblock social_login %}
+{% endblock fos_user_content %}

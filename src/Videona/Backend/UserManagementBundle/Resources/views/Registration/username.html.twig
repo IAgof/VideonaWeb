@@ -1,0 +1,27 @@
+{% extends 'VideonaBackendUserManagementBundle::layout.html.twig' %}
+
+{% block head %}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('bundles/videonabackendusermanagement/css/user.css') }}" />
+    {% endblock %}
+{% endblock %}
+
+{% block title %}Symfony - Register username{% endblock %}
+    
+{% block body %}
+    {% for type, flashMessage in app.session.flashbag.all() %}
+        <div class="alert alert-{{ type }} fade in">
+            {% if flashMessage.title is defined %}
+            <strong>{{ flashMessage.title }}</strong>
+            {{ flashMessage.message }}
+            {% else %}
+            {{ type }}
+            {% endif %}
+        </div>
+    {% endfor %}
+    <form action="{{ path('select_username') }}" method="post">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </form>
+{% endblock %}

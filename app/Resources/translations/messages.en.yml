@@ -1,0 +1,43 @@
+# Registration
+registration:
+    check_email: An email has been sent to %email%. It contains an activation link you must click to activate your account.
+    confirmed: Congrats %username%, your account is now activated.
+    back: Back to the originating page.
+    submit: Register
+    flash:
+        user_created: The user has been created successfully
+    email:
+        subject: Welcome %username%!
+        message: |
+            Hello %username%!
+
+            To finish activating your account - please visit %confirmationUrl%
+
+            Regards,
+            the Team.
+            
+# Security
+security:
+    login:
+        username: "Username:"
+        password: "Password:"
+        remember_me: Remember me
+        submit: Login
+    
+# Form
+form:
+    registration:
+        username: 
+            name: Username
+            duplicate: 
+                title: Duplicate username!
+                message: 'Please, select another username.'
+            invalidform:
+                title: Invalid username!
+                message: 'Username may contain letters, numbers and "_" symbol, and must be from 4 to 15 characters in length.  Spaces are not allowed.'
+        submit: Select
+    login:
+        username: Username
+        password: Password
+        social: 'Sign in with:'
+        submit: Sign in

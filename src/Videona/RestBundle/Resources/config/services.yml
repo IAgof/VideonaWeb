@@ -1,0 +1,4 @@
+services:
+#    videona_rest.example:
+#        class: Videona\RestBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

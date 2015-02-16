@@ -1,0 +1,258 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: "@VideonaBackendSocialBundle/Resources/config/services.yml" }
+
+framework:
+    #esi:             ~
+    translator: { fallback: en }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+
+# Assetic Configuration
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller: false
+    bundles:        [ ]
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        #closure:
+        #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
+        #yui_css:
+        #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   "%database_driver%"
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+        # if using pdo_sqlite as your database driver, add the path in parameters.yml
+        # e.g. database_path: "%kernel.root_dir%/data/data.db3"
+        # path:     "%database_path%"
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
+    
+# FOSUserBundle Configuration
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Videona\DBBundle\Entity\User
+    registration:
+        form:
+           type: my_user_registration
+        confirmation:
+            enabled:    false 
+            # change to true for required email confirmation
+            
+# HWIOauth Configuration
+hwi_oauth:
+    #this is my custom user provider, created from FOSUBUserProvider - will manage the
+    #automatic user registration on your site, with data from the provider (facebook. google, etc.)
+    #and also, the connecting part (get the token and the user_id)
+    connect:
+        account_connector: my_user_provider
+    # name of the firewall in which this bundle is active, this setting MUST be set
+    firewall_name: main
+    fosub:
+        username_iterations: 30
+        properties:
+        # these properties will be used/redefined later in the custom FOSUBUserProvider service.
+            facebook: facebook_id
+            google: google_id
+            twitter: twitter_id
+    # configuration of oauth resource owners to use
+    resource_owners:
+        facebook:
+            type: facebook
+            client_id: 1530256123873085
+            client_secret: 2dc3d24e943e23b8c29d32100f904254
+            scope: "email"
+            #infos_url:     "https://graph.facebook.com/me?fields=username,name,email,picture.type(square)"
+            #paths:
+                #email:          email
+                #profilepicture: picture.data.url
+        google:
+            type: google
+            client_id: 107134464495-ruserbd6t4lb47u8qvqto8n3ov3fla2v.apps.googleusercontent.com
+            client_secret: LlfKSLK1AecDcuf3U0IIDViv
+            #scope: "email profile"
+            #scope: "https://www.googleapis.com/auth/plus.login"
+            scope: "https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"
+            #scope: "https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+            #options:
+                #access_type:     offline
+                # Para acceder a los datos de usuario incluso cuando no esté activo
+            #paths:
+                #email:           email
+                #profilepicture:  picture
+        twitter:
+            type: twitter
+            client_id: kmyjf6sgSRlcPLz1KcCCt7sSV
+            client_secret:  XSYlszDutMdkf1TxfFzZinEPmXO347NHTenN8Zs6riWDjjCWAi
+            
+# FOSRest Configuration
+fos_rest:
+    param_fetcher_listener: true
+    body_listener: true
+    format_listener: true
+    
+    cache_dir:            '%kernel.cache_dir%/fos_rest'
+    allowed_methods_listener:  true
+    
+    view:
+        view_response_listener: 'force'
+        formats:
+            xml: true
+            json : true
+        templating_formats:
+            html: true
+        force_redirects:
+            html: true
+        failed_validation: HTTP_BAD_REQUEST
+        default_engine: twig
+    routing_loader:
+        default_format: json
+#fos_rest:
+#    disable_csrf_role:    null
+#    access_denied_listener:
+#
+#        # Prototype
+#        name:                 ~
+#    unauthorized_challenge:  null
+#    param_fetcher_listener:  false
+#    cache_dir:            '%kernel.cache_dir%/fos_rest'
+#    allowed_methods_listener:  false
+#    routing_loader:
+#        default_format:       null
+#        #default_format: json
+#        include_format:       true
+#    body_converter:
+#        enabled:              false
+#        validate:             false
+#        validation_errors_argument:  validationErrors
+#    service:
+#        router:               router
+#        templating:           templating
+#        serializer:           null
+#        view_handler:         fos_rest.view_handler.default
+#        inflector:            fos_rest.inflector.doctrine
+#        validator:            validator
+#    serializer:
+#        version:              null
+#        groups:               []
+#        serialize_null:       false
+#    view:
+#        default_engine:       twig
+#        force_redirects:
+#
+#            # Prototype
+#            name:                 ~
+#        mime_types:
+#
+#            # Prototype
+#            name:                 ~
+#        formats:
+#
+#            # Prototype
+#            name:                 ~
+#        #formats:
+#        #    xml: true
+#        #    json : true
+#        templating_formats:
+#
+#            # Prototype
+#            name:                 ~
+#        #templating_formats:
+#        #    html: true
+#        view_response_listener:  false
+#        #view_response_listener: 'force'
+#        failed_validation:    400
+#        #failed_validation: HTTP_BAD_REQUEST
+#        empty_content:        204
+#        exception_wrapper_handler:  FOS\RestBundle\View\ExceptionWrapperHandler
+#        serialize_null:       false
+#        jsonp_handler:
+#            callback_param:       callback
+#            callback_filter:      '/(^[a-z0-9_]+$)|(^YUI\.Env\.JSONP\._[0-9]+$)/i'
+#            mime_type:            application/javascript+jsonp
+#        #force_redirects:
+#        #    html: true
+#    exception:
+#        codes:
+#
+#            # Prototype
+#            name:                 ~
+#        messages:
+#
+#            # Prototype
+#            name:                 ~
+#    body_listener:
+#        default_format: null     
+#        throw_exception_on_unsupported_content_type:  false
+#        decoders:
+#
+#            # Prototype
+#            name:                 ~
+#        array_normalizer:     null
+#    format_listener:
+#        rules:
+#
+#            # Prototype array
+#            -
+#                # URL path info
+#                path:                 null
+#
+#                # URL host name
+#                host:                 null
+#
+#                # Method for URL
+#                methods:              null
+#                prefer_extension:     true
+#                fallback_format:      html
+#                priorities:           []
+#        media_type:
+#            version_regex:        '/(v|version)=(?P<version>[0-9\.]+)/'
+            
+# Define services
+#services:
+#  videona.utils:
+#    class: Videona\UtilsBundle\Services\Utils
+#    arguments:
+#      entityManager: "@doctrine.orm.entity_manager"

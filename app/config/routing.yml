@@ -1,0 +1,79 @@
+videona_utils:
+    resource: "@VideonaUtilsBundle/Resources/config/routing.yml"
+    prefix:   /
+
+videona_rest:
+    resource: "@VideonaRestBundle/Resources/config/routing.yml"
+    prefix:   /
+
+videona_backend_social:
+    resource: "@VideonaBackendSocialBundle/Resources/config/routing.yml"
+    prefix:   /
+
+videona_backend_user_management:
+    resource: "@VideonaBackendUserManagementBundle/Resources/config/routing.yml"
+    prefix:   /
+
+_home:
+    path:     /
+    defaults: { _controller: VideonaDemoBundle:Welcome:index }
+
+# REST 
+rest: 
+  type: rest 
+  resource: "@VideonaRestBundle/Resources/config/routing.yml"
+  prefix: /api
+ 
+# FosUserBundle Routes
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile
+
+# HWIOAuthBundle routes
+hwi_oauth_security:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix: /login
+ 
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix: /login
+ 
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix: /login
+    
+facebook_login:
+    pattern: /login/check-facebook
+
+google_login:
+    pattern: /login/check-google
+    
+twitter_login:
+    pattern: /login/check-twitter
+    
+twitter_oauth_token:
+    pattern: /login/twitter/getOauthToken
+    defaults:     { _controller: VideonaBackendSocialBundle:Twitter:getOauthToken }
+    
+twitter_oauth_access_token:
+    pattern: /login/twitter/getOauthAccessToken
+    defaults:     { _controller: VideonaBackendSocialBundle:Twitter:getOauthAccessToken }
+    
+select_username:
+    pattern: /register/username
+    defaults:     { _controller: VideonaBackendUserManagementBundle:Username:getSocialUsername }

@@ -1,0 +1,34 @@
+# Username
+username:
+    already_used: El nombre de usuario ya está en uso
+    blank: Por favor, ingrese un nombre de usuario
+    short: "[-Inf,Inf]El nombre de usuario es demasiado corto"
+    long: "[-Inf,Inf]El nombre de usuario es demasiado largo"
+    invalid: El nombre de usuario no es válido. Puede contener letras, números, "_" o "."
+
+# Email
+email:
+    already_used: La dirección de correo ya está en uso
+    blank: Por favor, ingrese una dirección de correo
+    short: "[-Inf,Inf]La dirección de correo es demasiado corta"
+    long: "[-Inf,Inf]La dirección de correo es demasiado larga"
+    invalid: La dirección de correo no es válida
+    
+# Password
+password:
+    blank: Por favor, ingrese una contraseña
+    short: "[-Inf,Inf]La contraseña es demasiado corta"
+    mismatch: Las dos contraseñas no coinciden
+    invalid: La contraseña no es válida. Debe contener al menos un carácter en minúscula, un carácter en mayúscula, un número y un carácter especial (e.j. @#$%&.,¿?¡!)
+new_password:
+    blank: Por favor, ingrese una nueva contraseña
+    short: "[-Inf,Inf]La nueva contraseña es demasiado corta"
+    invalid: La contraseña no es válida. Debe contener al menos un carácter en minúscula, un carácter en mayúscula, un número y un carácter especial (e.j. @#$%&.,¿?¡!)
+current_password:
+    invalid: La contraseña ingresada no es válida
+
+# Group
+group:
+    blank: Por favor, ingrese un nombre
+    short: "[-Inf,Inf]El nombre es demasiado corto"
+    long: "[-Inf,Inf]El nombre es demasiado largo"

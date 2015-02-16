@@ -1,0 +1,12 @@
+parameters:
+#    videona_db.example.class: Videona\DBBundle\Example
+     videona_db.entity.social_facebook.class: Videona\DBBundle\Entity\SocialFacebook
+     videona_db.manager.social_facebook.class: Videona\DBBundle\Entity\SocialFacebookManager
+
+services:
+#    videona_db.example:
+#        class: %videona_db.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+     videona_db.manager.social_facebook:
+         class: %videona_db.manager.social_facebook.class%
+         arguments: [@doctrine.orm.entity_manager, %videona_db.entity.social_facebook.class%]
