@@ -10,6 +10,7 @@ namespace Videona\RestBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
@@ -248,11 +249,10 @@ class UserRestController extends Controller {
      * 
      * @return \Symfony\Component\HttpFoundation\Response $response Response with cookie session
      */
-    public function loginAction(Request $request) {
-        
-        // Get request data
-        $username = $request->get('username');
-        
+    public function loginAction() {
+                
+//        $token = $this->container->get('security.context')->getToken();
+//        ld($token);
         
         // Update last login of this user
         $user = $this->getUser();
@@ -266,6 +266,32 @@ class UserRestController extends Controller {
         $response = new Response(); 
         
         return $response;
+        
+//        $session = $request->getSession();
+//
+//        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+//            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+//        } else {
+//            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+//        }
+//
+//        return $this->render('VideonaBackendUserManagementBundle:Rest:loginRest.html.twig', array(
+//            // last username entered by the user
+//            'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+//            'error'         => $error,
+//        ));
+    }
+    /**
+     * Sign in user
+     * 
+     * GET Route annotation.
+     * @Get("/check_login")
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response $response Response with cookie session
+     */
+    public function loginCheckAction(Request $request) {
+        
+        return new Response('ok');
     }
     
     /**

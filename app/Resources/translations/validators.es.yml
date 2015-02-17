@@ -4,7 +4,7 @@ username:
     blank: Por favor, ingrese un nombre de usuario
     short: "[-Inf,Inf]El nombre de usuario es demasiado corto"
     long: "[-Inf,Inf]El nombre de usuario es demasiado largo"
-    invalid: El nombre de usuario no es válido. Puede contener letras, números, "_" o "."
+    invalid: El nombre de usuario no es válido. Puede contener letras, números, "_" o ".". Los espacios no están permitidos.
 
 # Email
 email:

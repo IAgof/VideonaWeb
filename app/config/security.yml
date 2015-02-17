@@ -31,12 +31,6 @@ security:
                 target: _demo
 
         api:  
-            remember_me:
-                key:      aSecretKey
-                lifetime: 3600
-                #path:     ~
-                path:     /
-                domain:   ~ 
 #            remember_me:
 #                key:      aSecretKey
 #                lifetime: 3600
@@ -45,15 +39,13 @@ security:
 #                domain:   ~ 
 #                # Defaults to the current domain from $_SERVER
             pattern: ^/api/.* 
-            #provider: fos_userbundle
-#            remember_me:
-#                key:      aSecretKey
-#                lifetime: 3600
-#                path:     /
-#                domain:   ~ # Defaults to the current domain from $_SERVER
             form_login: false
+#            form_login:
+#                provider: fos_userbundle
+#                csrf_provider: form.csrf_provider
+#                login_path:  /api/login
+#                check_path:  /api/login_check
             http_basic:  
-              #remember_me: true
               realm: "REST Service Realm" 
               provider: fos_userbundle
               
@@ -91,18 +83,26 @@ security:
 #                always_remember_me: true
             security:  true  
             stateless: false  
+#            remember_me:
+#                key:      divine_office_hub_123456
+#                lifetime: 31536000
+#                always_remember_me: true
+#                remember_me_parameter: _remember_me
+#                path: /
+#                domain: ~
             anonymous: ~
                             
         main:
             pattern: ^/
             remember_me:
-                key:      "aSecretKey"
+                key:      "%rememberMeKey%"
                 lifetime: 31536000 # 365 days in seconds
                 path:     /
                 domain:   ~ # Defaults to the current domain from $_SERVER
             form_login:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
+                remember_me: true
                 #login_path: /login
                 #check_path: /login_check
                 #default_target_path: /donde yo quiera
@@ -127,7 +127,7 @@ security:
     access_control:
         #Backend
         - { path: ^/api/signup, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: ^/api/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/logout-success, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/check-user, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/, role: ROLE_USER }
