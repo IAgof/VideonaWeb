@@ -127,7 +127,7 @@ security:
     access_control:
         #Backend
         - { path: ^/api/signup, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        #- { path: ^/api/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/logout-success, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/check-user, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/, role: ROLE_USER }

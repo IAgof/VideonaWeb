@@ -1,5 +1,10 @@
+# My bundles routes
 videona_utils:
     resource: "@VideonaUtilsBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+videona_db:
+    resource: "@VideonaDBBundle/Resources/config/routing.yml"
     prefix:   /
 
 videona_rest:
@@ -14,6 +19,7 @@ videona_backend_user_management:
     resource: "@VideonaBackendUserManagementBundle/Resources/config/routing.yml"
     prefix:   /
 
+# Home Page route
 _home:
     path:     /
     defaults: { _controller: VideonaDemoBundle:Welcome:index }
@@ -24,7 +30,7 @@ rest:
   resource: "@VideonaRestBundle/Resources/config/routing.yml"
   prefix: /api
  
-# FosUserBundle Routes
+# FosUserBundle routes
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
@@ -74,6 +80,7 @@ twitter_oauth_access_token:
     pattern: /login/twitter/getOauthAccessToken
     defaults:     { _controller: VideonaBackendSocialBundle:Twitter:getOauthAccessToken }
     
+# Select username route
 select_username:
     pattern: /register/username
     defaults:     { _controller: VideonaBackendUserManagementBundle:Username:getSocialUsername }
