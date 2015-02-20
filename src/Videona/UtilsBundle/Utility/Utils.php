@@ -8,6 +8,9 @@ namespace Videona\UtilsBundle\Utility;
  */
 class Utils {
     
+    // Define our parameters constants
+    const COOKIE_DELIMITER = ':';
+    
 //    private $entityManager;
 //
 //    /**
@@ -69,5 +72,56 @@ class Utils {
      **/
     public static function validatePassword($password_selected) {
         return mb_ereg_match('(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d])(?=.*[@#$%&.,¿?¡!])[a-zA-Z0-9Ç@#$%&.,¿?¡!]{8,16}$', $password_selected);
+    }
+    
+    /**
+     * Generates the cookie value.
+     *
+     * @param string  $class
+     * @param string  $username The username
+     * @param int     $expires  The Unix timestamp when the cookie expires
+     * @param string  $password The encoded password
+     *
+     * @throws \RuntimeException if username contains invalid chars
+     *
+     * @return string
+     */
+    public static function generateCookieValue($class, $username, $expires, $password) {
+        return self::encodeCookie(array(
+            $class,
+            base64_encode($username),
+            $expires,
+            self::generateCookieHash($class, $username, $expires, $password),
+        ));
+    }
+    
+    /**
+     * Encodes the cookie parts
+     *
+     * @param array $cookieParts
+     *
+     * @return string
+     */
+    public static function encodeCookie(array $cookieParts)
+    {
+        return base64_encode(implode(self::COOKIE_DELIMITER, $cookieParts));
+    }
+    
+    /**
+     * Generates a hash for the cookie to ensure it is not being tempered with
+     *
+     * @param string  $class
+     * @param string  $username The username
+     * @param int     $expires  The Unix timestamp when the cookie expires
+     * @param string  $password The encoded password
+     *
+     * @throws \RuntimeException when the private key is empty
+     *
+     * @return string
+     */
+    public static function generateCookieHash($class, $username, $expires, $password)
+    {
+        // TODO: meter la clase utils como servicio y pasarle la key como parámetro
+        return hash_hmac('sha256', $class.$username.$expires.$password, 'videona_vlf_secret_key');
     }
 }

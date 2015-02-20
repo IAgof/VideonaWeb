@@ -40,11 +40,6 @@ security:
 #                # Defaults to the current domain from $_SERVER
             pattern: ^/api/.* 
             form_login: false
-#            form_login:
-#                provider: fos_userbundle
-#                csrf_provider: form.csrf_provider
-#                login_path:  /api/login
-#                check_path:  /api/login_check
             http_basic:  
               realm: "REST Service Realm" 
               provider: fos_userbundle
@@ -60,15 +55,9 @@ security:
 #                httponly: true
 #                always_remember_me: false
 #                remember_me_parameter: _remember_me
-#            remember_me:
-#                key: 'some-unique-key'
-#                remember_me_parameter: 'login[remember_me]'
             logout:
                 path:   /api/logout
-                target: /api/logout-success
-#            remember_me:
-#                key: "aSecretKey"
-#                lifetime: 604800
+                target: /api/logout_success
 #            remember_me:
 #                #key: "%key%"
 #                key: "ProBandO"
@@ -83,7 +72,7 @@ security:
 #                always_remember_me: true
             security:  true  
             stateless: false  
-#            remember_me:
+#            my_remember_me:
 #                key:      divine_office_hub_123456
 #                lifetime: 31536000
 #                always_remember_me: true
@@ -128,6 +117,7 @@ security:
         #Backend
         - { path: ^/api/signup, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/login-check, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/logout-success, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/check-user, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/, role: ROLE_USER }

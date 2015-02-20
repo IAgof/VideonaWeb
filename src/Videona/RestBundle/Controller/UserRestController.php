@@ -9,13 +9,12 @@
 namespace Videona\RestBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Put;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Cookie;
 use Videona\UtilsBundle\Utility\Utils;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\GetResponseUserEvent;
@@ -249,49 +248,56 @@ class UserRestController extends Controller {
      * 
      * @return \Symfony\Component\HttpFoundation\Response $response Response with cookie session
      */
-    public function loginAction() {
+    public function loginAction(Request $request) {
                 
-//        $token = $this->container->get('security.context')->getToken();
-//        ld($token);
+        // Get token
+        $token = $this->container->get('security.context')->getToken();
+        // Get current user
+        $user = $token->getUser();
+        //$user = $this->getUser();
         
+        // TODO: hacer que el listener de symfony lea la cookie remeberme
+        
+        // Get request parameters
+        $rememeber_me = $request->query->get('_remember_me');
+        
+        // Create response
+        $response = new Response();
+        
+        // If user has checked rememeber me option
+        if ($rememeber_me === '1'){
+            
+            // Create cookie REMEMBERME
+            $expires = time() + $this->container->getParameter('rememeberme_rest.expires');
+            $value = Utils::generateCookieValue(get_class($user), $user->getUsername(), $expires, $user->getPassword());
+            
+            $name = $this->container->getParameter('rememeberme_rest.name');
+            $path = $this->container->getParameter('rememeberme_rest.name');
+            $domain = $this->container->getParameter('rememeberme_rest.domain');
+            $secure = $this->container->getParameter('rememeberme_rest.secure');
+            $httponly = $this->container->getParameter('rememeberme_rest.httponly');
+
+            $response->headers->setCookie(
+                new Cookie(
+                    $name,
+                    $value,
+                    $expires,
+                    $path,
+                    $domain,
+                    $secure,
+                    $httponly
+                )
+            );
+        }
+           
         // Update last login of this user
-        $user = $this->getUser();
         $user->setLastLogin(new \DateTime());
                 
         $em = $this->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
-                
-        // Create response
-        $response = new Response(); 
-        
+               
         return $response;
-        
-//        $session = $request->getSession();
-//
-//        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
-//            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
-//        } else {
-//            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
-//        }
-//
-//        return $this->render('VideonaBackendUserManagementBundle:Rest:loginRest.html.twig', array(
-//            // last username entered by the user
-//            'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-//            'error'         => $error,
-//        ));
-    }
-    /**
-     * Sign in user
-     * 
-     * GET Route annotation.
-     * @Get("/check_login")
-     * 
-     * @return \Symfony\Component\HttpFoundation\Response $response Response with cookie session
-     */
-    public function loginCheckAction(Request $request) {
-        
-        return new Response('ok');
     }
     
     /**
@@ -312,7 +318,7 @@ class UserRestController extends Controller {
      * Redirect the user after logout success
      * 
      * GET Route annotation.
-     * @Get("/logout-success")
+     * @Get("/logout_success")
      * 
      * @return \Symfony\Component\HttpFoundation\Response $response
      */
