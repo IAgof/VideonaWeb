@@ -16,6 +16,7 @@ use FOS\RestBundle\Controller\Annotations\Put;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Cookie;
 use Videona\UtilsBundle\Utility\Utils;
+use Videona\UtilsBundle\Utility\CookieManager;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 
@@ -25,6 +26,14 @@ use FOS\UserBundle\Event\GetResponseUserEvent;
  * @author vlf
  */
 class UserRestController extends Controller {
+    
+    /**
+     * This attribute name can be used by the implementation if it needs to set
+     * a cookie on the Request when there is no actual Response, yet.
+     *
+     * @var string
+     */
+    const COOKIE_ATTR_NAME = '_security_remember_me_cookie';
     
     // TODO: devolver en formato json los datos (mirar la configuración de RestBundle)
     
@@ -256,24 +265,32 @@ class UserRestController extends Controller {
         $user = $token->getUser();
         //$user = $this->getUser();
         
-        // TODO: hacer que el listener de symfony lea la cookie remeberme
-        
         // Get request parameters
         $rememeber_me = $request->query->get('_remember_me');
         
         // Create response
         $response = new Response();
         
+        // Make sure any old remember-me cookies are cancelled
+        $name = $this->container->getParameter('rememeberme_rest.name');
+        $path = $this->container->getParameter('rememeberme_rest.path');
+        $domain = $this->container->getParameter('rememeberme_rest.domain');
+        //CookieManager::cancelCookie($request, self::COOKIE_ATTR_NAME, $name, $path, $domain);
+        
         // If user has checked rememeber me option
         if ($rememeber_me === '1'){
             
+            //$this->logger->debug('Remember-me was requested; setting cookie.');
+            
+            // Remove attribute from request that sets a NULL cookie.
+            // It was set by $this->cancelCookie()
+            // (cancelCookie does other things too for some RememberMeServices
+            // so we should still call it at the start of this method)
+            $request->attributes->remove(self::COOKIE_ATTR_NAME);
+            
             // Create cookie REMEMBERME
             $expires = time() + $this->container->getParameter('rememeberme_rest.expires');
-            $value = Utils::generateCookieValue(get_class($user), $user->getUsername(), $expires, $user->getPassword());
-            
-            $name = $this->container->getParameter('rememeberme_rest.name');
-            $path = $this->container->getParameter('rememeberme_rest.name');
-            $domain = $this->container->getParameter('rememeberme_rest.domain');
+            $value = CookieManager::generateCookieValue(get_class($user), $user->getUsername(), $expires, $user->getPassword());
             $secure = $this->container->getParameter('rememeberme_rest.secure');
             $httponly = $this->container->getParameter('rememeberme_rest.httponly');
 
@@ -288,6 +305,8 @@ class UserRestController extends Controller {
                     $httponly
                 )
             );
+        } else {
+            //$this->logger->debug('Remember-me was not requested.');
         }
            
         // Update last login of this user
@@ -318,7 +337,7 @@ class UserRestController extends Controller {
      * Redirect the user after logout success
      * 
      * GET Route annotation.
-     * @Get("/logout_success")
+     * @Get("/logout-success")
      * 
      * @return \Symfony\Component\HttpFoundation\Response $response
      */
@@ -329,7 +348,7 @@ class UserRestController extends Controller {
         
         return $response;
     }
-    
+        
     /**
      * Función mía para probar
      * 

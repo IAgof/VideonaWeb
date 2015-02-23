@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Videona\UtilsBundle\Services\Utils;
+use Videona\UtilsBundle\Utility\Utils;
 use Videona\DBBundle\Entity\User;
 
 /**
@@ -45,17 +45,18 @@ class PruebaController extends Controller {
         //return new Response($user);
         //$hora = new Utils();
         
-        $hora = Utils::prueba_servicio();
-        $user = new User();
-        
-        $name = $user->findUserByUsername('prueba');
-        ld($name);
-        
-        return new Response($hora);
+//        $hora = Utils::prueba_servicio();
+//        $user = new User();
+//        
+//        $name = $user->findUserByUsername('prueba');
+//        ld($name);
+//        
+//        return new Response($hora);
         //return new Response($hora->prueba_servicio());
         //$helper = $this->get('videona.utils');
         //$hora = $helper->prueba_servicio();
         //return new Response($hora);
+        return new Response('ok');
     }
     
     public function loginAction(){

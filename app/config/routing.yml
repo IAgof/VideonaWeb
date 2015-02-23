@@ -24,11 +24,15 @@ _home:
     path:     /
     defaults: { _controller: VideonaDemoBundle:Welcome:index }
 
-# REST 
+# REST routes
 rest: 
   type: rest 
   resource: "@VideonaRestBundle/Resources/config/routing.yml"
   prefix: /api
+
+select_username:
+    pattern: /register/username
+    defaults:     { _controller: VideonaBackendUserManagementBundle:Username:getSocialUsername }
  
 # FosUserBundle routes
 fos_user_security:
@@ -79,8 +83,3 @@ twitter_oauth_token:
 twitter_oauth_access_token:
     pattern: /login/twitter/getOauthAccessToken
     defaults:     { _controller: VideonaBackendSocialBundle:Twitter:getOauthAccessToken }
-    
-# Select username route
-select_username:
-    pattern: /register/username
-    defaults:     { _controller: VideonaBackendUserManagementBundle:Username:getSocialUsername }

@@ -10,7 +10,6 @@ security:
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username_email
-            #remember_me: true
 
     firewalls:
         dev:
@@ -30,34 +29,15 @@ security:
                 path:   _demo_logout
                 target: _demo
 
-        api:  
-#            remember_me:
-#                key:      aSecretKey
-#                lifetime: 3600
-#                path:     ~
-#                #path:     /
-#                domain:   ~ 
-#                # Defaults to the current domain from $_SERVER
+        api:
             pattern: ^/api/.* 
             form_login: false
             http_basic:  
               realm: "REST Service Realm" 
               provider: fos_userbundle
-              
-#            remember_me:
-#                token_provider: name
-#                key: someS3cretKey
-#                name: NameOfTheCookie
-#                lifetime: 3600 # in seconds
-#                path: /api
-#                domain: somedomain.foo
-#                secure: false
-#                httponly: true
-#                always_remember_me: false
-#                remember_me_parameter: _remember_me
             logout:
                 path:   /api/logout
-                target: /api/logout_success
+                target: /api/logout-success
 #            remember_me:
 #                #key: "%key%"
 #                key: "ProBandO"
@@ -71,14 +51,7 @@ security:
 #                #remember_me_parameter: _remember_me
 #                always_remember_me: true
             security:  true  
-            stateless: false  
-#            my_remember_me:
-#                key:      divine_office_hub_123456
-#                lifetime: 31536000
-#                always_remember_me: true
-#                remember_me_parameter: _remember_me
-#                path: /
-#                domain: ~
+            stateless: false
             anonymous: ~
                             
         main:
@@ -117,7 +90,6 @@ security:
         #Backend
         - { path: ^/api/signup, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/login-check, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/logout-success, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/check-user, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/, role: ROLE_USER }
