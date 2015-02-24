@@ -305,10 +305,13 @@ class UserRestController extends Controller {
      */
     public function pruebaAction(Request $request) {
         
-        Utils::validatePassword('¡123!.abcC$%#?¿p');
-        $response = new Response();
+        $facebookmanager = $this->get('my_facebook_manager');
         
-        return new Response();
+        //$facebookmanager = $GLOBALS['kernel']->getContainer()->get('my_facebook_manager');
+        
+        $user = $facebookmanager->loadUserByUserIdFacebook('10');
+        ld($user);
+        return new Response('ok');
                 
     }
         

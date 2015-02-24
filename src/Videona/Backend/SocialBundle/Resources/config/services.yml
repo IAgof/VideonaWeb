@@ -1,18 +1,24 @@
 parameters:
 #    videona_backend_social.example.class: Videona\Backend\SocialBundle\Example
-    my_social_manager.class:       Videona\Backend\SocialBundle\Model\SocialManager
-    #my_social_manager.service_name:   {facebook: facebook_id, google: google_id, twitter: twitter_id}
+    my_facebook_manager.class:       Videona\Backend\SocialBundle\Services\FacebookManager
+    my_google_manager.class:       Videona\Backend\SocialBundle\Services\GoogleManager
+    my_twitter_manager.class:       Videona\Backend\SocialBundle\Services\TwitterManager
 
 services:
 #    videona_backend_social.example:
 #        class: %videona_backend_social.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
-    my_social_manager:
-        class:        %my_social_manager.class%
-        #arguments:    [%my_social_manager.service_name%]
-        #this is the place where the properties are passed to the SocialManager - see config.yml
-        #arguments: [@videona_backend_social.social_manager,{facebook: facebook_id, google: google_id, twitter: twitter_id}]
-    #my_social_provider:
-        #class: "%my_social_provider.class%"
-        #this is the place where the properties are passed to the SocialProvider - see config.yml
-        #arguments: [@videona_backend_social.social_manager,{facebook: facebook_id, google: google_id, twitter: twitter_id}]
+    my_facebook_manager:
+        class: %my_facebook_manager.class%
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+            
+    my_google_manager:
+        class: %my_google_manager.class%
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+            
+    my_twitter_manager:
+        class: %my_twitter_manager.class%
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"

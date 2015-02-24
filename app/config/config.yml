@@ -246,10 +246,3 @@ fos_rest:
 #                priorities:           []
 #        media_type:
 #            version_regex:        '/(v|version)=(?P<version>[0-9\.]+)/'
-            
-# Define services
-#services:
-#  videona.utils:
-#    class: Videona\UtilsBundle\Services\Utils
-#    arguments:
-#      entityManager: "@doctrine.orm.entity_manager"
