@@ -38,18 +38,6 @@ security:
             logout:
                 path:   /api/logout
                 target: /api/logout-success
-#            remember_me:
-#                #key: "%key%"
-#                key: "ProBandO"
-#                lifetime: 31536000 
-#                # 365 days in seconds
-#                #name: RememberMe
-#                #path: /api/
-#                path: /
-#                domain: ~ 
-#                # Defaults to the current domain from $_SERVER
-#                #remember_me_parameter: _remember_me
-#                always_remember_me: true
             security:  true  
             stateless: false
             anonymous: ~

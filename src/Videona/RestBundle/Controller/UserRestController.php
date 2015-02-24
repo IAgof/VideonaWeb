@@ -14,9 +14,7 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Put;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Cookie;
 use Videona\UtilsBundle\Utility\Utils;
-use Videona\UtilsBundle\Utility\CookieManager;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 
@@ -26,15 +24,7 @@ use FOS\UserBundle\Event\GetResponseUserEvent;
  * @author vlf
  */
 class UserRestController extends Controller {
-    
-    /**
-     * This attribute name can be used by the implementation if it needs to set
-     * a cookie on the Request when there is no actual Response, yet.
-     *
-     * @var string
-     */
-    const COOKIE_ATTR_NAME = '_security_remember_me_cookie';
-    
+        
     // TODO: devolver en formato json los datos (mirar la configuración de RestBundle)
     
     /**
@@ -257,58 +247,14 @@ class UserRestController extends Controller {
      * 
      * @return \Symfony\Component\HttpFoundation\Response $response Response with cookie session
      */
-    public function loginAction(Request $request) {
+    public function loginAction() {
                 
-        // Get token
-        $token = $this->container->get('security.context')->getToken();
         // Get current user
-        $user = $token->getUser();
-        //$user = $this->getUser();
-        
-        // Get request parameters
-        $rememeber_me = $request->query->get('_remember_me');
+        $user = $this->getUser();
         
         // Create response
         $response = new Response();
-        
-        // Make sure any old remember-me cookies are cancelled
-        $name = $this->container->getParameter('rememeberme_rest.name');
-        $path = $this->container->getParameter('rememeberme_rest.path');
-        $domain = $this->container->getParameter('rememeberme_rest.domain');
-        //CookieManager::cancelCookie($request, self::COOKIE_ATTR_NAME, $name, $path, $domain);
-        
-        // If user has checked rememeber me option
-        if ($rememeber_me === '1'){
-            
-            //$this->logger->debug('Remember-me was requested; setting cookie.');
-            
-            // Remove attribute from request that sets a NULL cookie.
-            // It was set by $this->cancelCookie()
-            // (cancelCookie does other things too for some RememberMeServices
-            // so we should still call it at the start of this method)
-            $request->attributes->remove(self::COOKIE_ATTR_NAME);
-            
-            // Create cookie REMEMBERME
-            $expires = time() + $this->container->getParameter('rememeberme_rest.expires');
-            $value = CookieManager::generateCookieValue(get_class($user), $user->getUsername(), $expires, $user->getPassword());
-            $secure = $this->container->getParameter('rememeberme_rest.secure');
-            $httponly = $this->container->getParameter('rememeberme_rest.httponly');
-
-            $response->headers->setCookie(
-                new Cookie(
-                    $name,
-                    $value,
-                    $expires,
-                    $path,
-                    $domain,
-                    $secure,
-                    $httponly
-                )
-            );
-        } else {
-            //$this->logger->debug('Remember-me was not requested.');
-        }
-           
+          
         // Update last login of this user
         $user->setLastLogin(new \DateTime());
                 
@@ -364,23 +310,6 @@ class UserRestController extends Controller {
         
         return new Response();
                 
-    }
-    
-    /**
-     * Función mía para probar
-     * 
-     * GET Route annotation.
-     * @Get("/email")
-     * 
-     * @return Array $users list of all users of database
-     */
-    public function isUsernameValidAction(Request $request) {   
-        
-        $email_valid = Utils::validateEmail($request->get('email'));
-        ld($email_valid);
-        
-        return $request->get('email');
-        //return $response;
     }
         
     /**
