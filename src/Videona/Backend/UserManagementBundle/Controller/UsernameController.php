@@ -8,14 +8,6 @@ use Videona\Backend\UserManagementBundle\Form\SelectUsernameFormType;
 
 class UsernameController extends Controller
 {
-    /**
-     * Check if the username selected is valid.
-     * @param string $username_selected
-     * @return boolean
-     **/
-    private function isUsernameValid($username_selected) {
-        return preg_match('/^[a-zA-Z0-9_.]{4,15}$/', $username_selected);
-    }
         
     /**
      * Finds a user by username.
@@ -61,25 +53,8 @@ class UsernameController extends Controller
                 if ($form->isValid()) {
                     // Get username selected
                     $username_selected = $form->get('username')->getData();
-                    
-                    // Check if username is valid
-                    $valid = self::isUsernameValid($username_selected);
-                    
-                    // If username is not valid
-                    if (!$valid){
-                        // This username is not valid
-                        $this->get('session')->getFlashBag()->set(
-                            'success',
-                            array(
-                                'title' => $this->get('translator')->trans('form.registration.username.invalidform.title'),
-                                'message' => $this->get('translator')->trans('form.registration.username.invalidform.message')
-                            )
-                        );
-                        // Redirect to username select form 
-                        return $this->redirect($this->generateUrl('select_username'));
-                    } 
-                                        
-                    // Check if username exists
+                                                           
+                    // If username is valid, check if username exists
                     $check_user = self::findUserByUsername($username_selected);
                     // If username does not exist
                     if (!$check_user) {

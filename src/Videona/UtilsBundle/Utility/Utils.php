@@ -1,6 +1,7 @@
 <?php
 
 namespace Videona\UtilsBundle\Utility;
+
 /**
  * Utility functions.
  *

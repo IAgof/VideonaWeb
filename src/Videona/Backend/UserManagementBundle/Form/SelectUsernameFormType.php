@@ -32,7 +32,7 @@ class SelectUsernameFormType extends AbstractType
 
     public function getName()
     {
-        return 'user';
+        return 'choose_username';
     }
     
 //    Para hacer validaciones en tiempo real

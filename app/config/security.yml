@@ -10,7 +10,6 @@ security:
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username_email
-            #remember_me: true
 
     firewalls:
         dev:
@@ -30,79 +29,30 @@ security:
                 path:   _demo_logout
                 target: _demo
 
-        api:  
-            remember_me:
-                key:      aSecretKey
-                lifetime: 3600
-                #path:     ~
-                path:     /
-                domain:   ~ 
-#            remember_me:
-#                key:      aSecretKey
-#                lifetime: 3600
-#                path:     ~
-#                #path:     /
-#                domain:   ~ 
-#                # Defaults to the current domain from $_SERVER
+        api:
             pattern: ^/api/.* 
-            #provider: fos_userbundle
-#            remember_me:
-#                key:      aSecretKey
-#                lifetime: 3600
-#                path:     /
-#                domain:   ~ # Defaults to the current domain from $_SERVER
             form_login: false
             http_basic:  
-              #remember_me: true
               realm: "REST Service Realm" 
               provider: fos_userbundle
-              
-#            remember_me:
-#                token_provider: name
-#                key: someS3cretKey
-#                name: NameOfTheCookie
-#                lifetime: 3600 # in seconds
-#                path: /api
-#                domain: somedomain.foo
-#                secure: false
-#                httponly: true
-#                always_remember_me: false
-#                remember_me_parameter: _remember_me
-#            remember_me:
-#                key: 'some-unique-key'
-#                remember_me_parameter: 'login[remember_me]'
             logout:
                 path:   /api/logout
                 target: /api/logout-success
-#            remember_me:
-#                key: "aSecretKey"
-#                lifetime: 604800
-#            remember_me:
-#                #key: "%key%"
-#                key: "ProBandO"
-#                lifetime: 31536000 
-#                # 365 days in seconds
-#                #name: RememberMe
-#                #path: /api/
-#                path: /
-#                domain: ~ 
-#                # Defaults to the current domain from $_SERVER
-#                #remember_me_parameter: _remember_me
-#                always_remember_me: true
             security:  true  
-            stateless: false  
+            stateless: false
             anonymous: ~
                             
         main:
             pattern: ^/
             remember_me:
-                key:      "aSecretKey"
+                key:      "%rememberMeKey%"
                 lifetime: 31536000 # 365 days in seconds
                 path:     /
                 domain:   ~ # Defaults to the current domain from $_SERVER
             form_login:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
+                remember_me: true
                 #login_path: /login
                 #check_path: /login_check
                 #default_target_path: /donde yo quiera

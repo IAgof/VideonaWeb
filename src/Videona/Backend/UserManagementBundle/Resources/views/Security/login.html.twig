@@ -1,5 +1,104 @@
 {% extends "VideonaBackendUserManagementBundle::layout.html.twig" %}
 
+{% block stylesheets %}
+    <!-- Customize social buttons -->
+    <style type="text/css">
+        @font-face {
+          font-family: "Tahoma";
+          src: url('{{ asset('bundles/videonabackendsocial/fonts/Tahoma/tahoma-1361499068.ttf') }}') format("truetype");
+        }
+        @font-face {
+          font-family: "Roboto-Bold";
+          src: url('{{ asset('bundles/videonabackendsocial/fonts/Roboto_v1.2/Roboto/Roboto-Bold.ttf') }}') format("truetype");
+        }
+        @font-face {
+          font-family: "Gotham-Medium";
+          src: url('{{ asset('bundles/videonabackendsocial/fonts/Gotham/Gotham/Gotham-Medium.otf') }}') format("opentype");
+        }
+        #customBtnFacebook {
+          display: inline-block;
+          background: #3b5998;
+          color: white;
+          width: 100px;
+          border-radius: 5px;
+        }
+        #customBtnFacebook:hover {
+          background: #6d84b4;
+          cursor: pointer;
+        }
+        span.iconFacebook {
+          background: url('{{ asset('bundles/videonabackendsocial/images/Facebook/online/png/FB-f-Logo__white_29.png') }}') transparent 10px 50% no-repeat;
+          background-size: 50%;
+          display: inline-block;
+          vertical-align: middle;
+          width: 30px;
+          height: 30px;
+        }
+        span.buttonTextFacebook {
+          display: inline-block;
+          vertical-align: middle;
+          padding-left: 5px;
+          padding-right: 5px;
+          font-family: "Tahoma";
+          font-weight: bold;
+          font-size: 8pt;
+        }
+        #customBtnGPlus {
+          display: inline-block;
+          background: #cc3732;
+          color: white;
+          width: 100px;
+          border-radius: 5px;
+        }
+        #customBtnGPlus:hover {
+          background: #e74b37;
+          cursor: pointer;
+        }
+        span.iconGPlus {
+          background: url('{{ asset('bundles/videonabackendsocial/images/GooglePlus/g+ icon/Desktop/20dp/1x/btn_red.png') }}') transparent 10px 50% no-repeat;
+          display: inline-block;
+          vertical-align: middle;
+          width: 30px;
+          height: 30px;
+        }
+        span.buttonTextGPlus {
+          display: inline-block;
+          vertical-align: middle;
+          padding-left: 10px;
+          padding-right: 10px;
+          font-family: "Roboto-Bold", bold;
+          font-size: 10pt;
+        }
+        #customBtnTwitter {
+          display: inline-block;
+          background: #55acee;
+          color: white;
+          width: 100px;
+          border-radius: 5px;
+        }
+        #customBtnTwitter:hover {
+          background: #6cb7f0;
+          cursor: pointer;
+        }
+        span.iconTwitter {
+          background: url('{{ asset('bundles/videonabackendsocial/images/Twitter/Twitter_logo_white.png') }}') transparent 10px 50% no-repeat;
+          background-size: 50%;
+          display: inline-block;
+          vertical-align: middle;
+          width: 30px;
+          height: 30px;
+        }
+        span.buttonTextTwitter {
+          display: inline-block;
+          vertical-align: middle;
+          padding-left: 10px;
+          padding-right: 10px;
+          font-family: "Gotham-Medium";
+          font-size: 10pt;
+        }
+    </style>
+{% endblock %}
+
 {% block fos_user_authenticated %}
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <script>document.location = "{{url("_home")}}";</script>
@@ -67,6 +166,18 @@
                             alert('Cancelled.');
                         }
                     }, {scope: 'email'});
+                }
+            });
+            // Para comprobar si está conectado en facebook y en nuestra aplicación según facebook
+            FB.login(function(response) {
+                if (response.status === 'connected') {
+                  // Logged into your app and Facebook.
+                  console.log(response.authResponse.accessToken);
+                } else if (response.status === 'not_authorized') {
+                  // The person is logged into Facebook, but not your app.
+                } else {
+                  // The person is not logged into Facebook, so we're not sure if
+                  // they are logged into this app or not.
                 }
             });
         }
@@ -178,102 +289,6 @@
     </script>
 </div>
 </div>
-    <!-- Customize social buttons -->
-    <style type="text/css">
-        @font-face {
-          font-family: "Tahoma";
-          src: url('{{ asset('bundles/videonabackendsocial/fonts/Tahoma/tahoma-1361499068.ttf') }}') format("truetype");
-        }
-        @font-face {
-          font-family: "Roboto-Bold";
-          src: url('{{ asset('bundles/videonabackendsocial/fonts/Roboto_v1.2/Roboto/Roboto-Bold.ttf') }}') format("truetype");
-        }
-        @font-face {
-          font-family: "Gotham-Medium";
-          src: url('{{ asset('bundles/videonabackendsocial/fonts/Gotham/Gotham/Gotham-Medium.otf') }}') format("opentype");
-        }
-        #customBtnFacebook {
-          display: inline-block;
-          background: #3b5998;
-          color: white;
-          width: 100px;
-          border-radius: 5px;
-        }
-        #customBtnFacebook:hover {
-          background: #6d84b4;
-          cursor: pointer;
-        }
-        span.iconFacebook {
-          background: url('{{ asset('bundles/videonabackendsocial/images/Facebook/online/png/FB-f-Logo__white_29.png') }}') transparent 10px 50% no-repeat;
-          background-size: 50%;
-          display: inline-block;
-          vertical-align: middle;
-          width: 30px;
-          height: 30px;
-        }
-        span.buttonTextFacebook {
-          display: inline-block;
-          vertical-align: middle;
-          padding-left: 5px;
-          padding-right: 5px;
-          font-family: "Tahoma";
-          font-weight: bold;
-          font-size: 8pt;
-        }
-        #customBtnGPlus {
-          display: inline-block;
-          background: #cc3732;
-          color: white;
-          width: 100px;
-          border-radius: 5px;
-        }
-        #customBtnGPlus:hover {
-          background: #e74b37;
-          cursor: pointer;
-        }
-        span.iconGPlus {
-          background: url('{{ asset('bundles/videonabackendsocial/images/GooglePlus/g+ icon/Desktop/20dp/1x/btn_red.png') }}') transparent 10px 50% no-repeat;
-          display: inline-block;
-          vertical-align: middle;
-          width: 30px;
-          height: 30px;
-        }
-        span.buttonTextGPlus {
-          display: inline-block;
-          vertical-align: middle;
-          padding-left: 10px;
-          padding-right: 10px;
-          font-family: "Roboto-Bold", bold;
-          font-size: 10pt;
-        }
-        #customBtnTwitter {
-          display: inline-block;
-          background: #55acee;
-          color: white;
-          width: 100px;
-          border-radius: 5px;
-        }
-        #customBtnTwitter:hover {
-          background: #6cb7f0;
-          cursor: pointer;
-        }
-        span.iconTwitter {
-          background: url('{{ asset('bundles/videonabackendsocial/images/Twitter/Twitter_logo_white.png') }}') transparent 10px 50% no-repeat;
-          background-size: 50%;
-          display: inline-block;
-          vertical-align: middle;
-          width: 30px;
-          height: 30px;
-        }
-        span.buttonTextTwitter {
-          display: inline-block;
-          vertical-align: middle;
-          padding-left: 10px;
-          padding-right: 10px;
-          font-family: "Gotham-Medium";
-          font-size: 10pt;
-        }
-    </style>
     <span class="label">{{'form.login.social'|trans({}, 'messages')}}</span>
     <div id="customBtnFacebook" class="customFacebookSignIn" onclick="fb_login();">  
         <span class="iconFacebook"></span>
@@ -284,7 +299,7 @@
         <span class="buttonTextGPlus">Google</span>
     </div>
     <a href="{{path('twitter_oauth_token')}}">
-        <div id="customBtnTwitter" class="customTwitterSignIn"">  
+        <div id="customBtnTwitter" class="customTwitterSignIn">  
           <span class="iconTwitter"></span>
           <span class="buttonTextTwitter">Twitter</span>
         </div>
