@@ -33,8 +33,8 @@ security:
             pattern: ^/api/.* 
             form_login: false
             http_basic:  
-              realm: "REST Service Realm" 
-              provider: fos_userbundle
+                realm: "REST Service Realm" 
+                provider: fos_userbundle
             logout:
                 path:   /api/logout
                 target: /api/logout-success
@@ -80,6 +80,7 @@ security:
         - { path: ^/api/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/logout-success, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/check-user, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/prueba, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/, role: ROLE_USER }
         
         #Frontend
