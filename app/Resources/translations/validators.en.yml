@@ -4,7 +4,7 @@ username:
     blank: Please enter a username
     short: "[-Inf,Inf]The username is too short"
     long: "[-Inf,Inf]The username is too long"
-    invalid: The username is invalid. It can only contain letters, numbers, "_" or "."
+    invalid: The username is invalid. It can only contain letters, numbers, "_" or ".". Spaces are not allowed.
 
 # Email
 email:

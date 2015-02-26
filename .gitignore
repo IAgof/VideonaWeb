@@ -1,27 +1,39 @@
-/web/bundles/
-/app/bootstrap*
+# Cache and logs (Symfony2)
 /app/cache/*
 /app/logs/*
-/vendor/composer/
-/vendor/doctrine/
-/vendor/friendsofsymfony/rest-bundle/
-/vendor/friendsofsymfony/user-bundle/
-/vendor/hwi/
-/vendor/incenteev/
-/vendor/jdorn/
-/vendor/jms/
-/vendor/kriswallsmith/
-/vendor/monolog/
-/vendor/phpcollection/
-/vendor/phpoption/
-/vendor/psr/
-/vendor/ptachoire/
-/vendor/raulfraile/
-/vendor/sensio/
-/vendor/sensiolabs/
-/vendor/swiftmailer/
-/vendor/symfony/
-/vendor/twig/
-/vendor/willdurand/
-/vendor/autoload.php
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+
+# Cache and logs (Symfony3)
+/var/cache/*
+/var/logs/*
+!var/cache/.gitkeep
+!var/logs/.gitkeep
+
+# Parameters
 /app/config/parameters.yml
+/app/config/parameters.ini
+
+# Managed by Composer
+/app/bootstrap*
+/var/bootstrap*
+/bin/*
+!bin/console
+!bin/symfony_requirements
+/vendor/
+
+# Assets and user uploads
+/web/bundles/
+/web/uploads/
+/web/css/
+/web/js/
+
+# PHPUnit
+/app/phpunit.xml
+/phpunit.xml
+
+# Build data
+/build/
+
+# Composer PHAR
+/composer.phar

@@ -9,7 +9,6 @@
 namespace Videona\RestBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
@@ -25,7 +24,7 @@ use FOS\UserBundle\Event\GetResponseUserEvent;
  * @author vlf
  */
 class UserRestController extends Controller {
-    
+        
     // TODO: devolver en formato json los datos (mirar la configuración de RestBundle)
     
     /**
@@ -248,23 +247,21 @@ class UserRestController extends Controller {
      * 
      * @return \Symfony\Component\HttpFoundation\Response $response Response with cookie session
      */
-    public function loginAction(Request $request) {
-        
-        // Get request data
-        $username = $request->get('username');
-        
-        
-        // Update last login of this user
+    public function loginAction() {
+                
+        // Get current user
         $user = $this->getUser();
+        
+        // Create response
+        $response = new Response();
+          
+        // Update last login of this user
         $user->setLastLogin(new \DateTime());
                 
         $em = $this->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
-                
-        // Create response
-        $response = new Response(); 
-        
+               
         return $response;
     }
     
@@ -297,7 +294,7 @@ class UserRestController extends Controller {
         
         return $response;
     }
-    
+        
     /**
      * Función mía para probar
      * 
@@ -308,28 +305,14 @@ class UserRestController extends Controller {
      */
     public function pruebaAction(Request $request) {
         
-        Utils::validatePassword('¡123!.abcC$%#?¿p');
-        $response = new Response();
+        $facebookmanager = $this->get('my_facebook_manager');
         
-        return new Response();
+        //$facebookmanager = $GLOBALS['kernel']->getContainer()->get('my_facebook_manager');
+        
+        $user = $facebookmanager->loadUserByUserIdFacebook('10');
+        ld($user);
+        return new Response('ok');
                 
-    }
-    
-    /**
-     * Función mía para probar
-     * 
-     * GET Route annotation.
-     * @Get("/email")
-     * 
-     * @return Array $users list of all users of database
-     */
-    public function isUsernameValidAction(Request $request) {   
-        
-        $email_valid = Utils::validateEmail($request->get('email'));
-        ld($email_valid);
-        
-        return $request->get('email');
-        //return $response;
     }
         
     /**

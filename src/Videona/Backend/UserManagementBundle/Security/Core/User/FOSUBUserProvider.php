@@ -6,10 +6,6 @@ use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseClass;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-use Videona\DBBundle\Entity\SocialFacebookManager;
-use Doctrine\ORM\Query;
-use Videona\DBBundle\Entity\SocialFacebook;
-
 class FOSUBUserProvider extends BaseClass
 {
  
@@ -99,6 +95,13 @@ class FOSUBUserProvider extends BaseClass
                 // Create new facebook user if not exists
                 //userManager->createUser();
                 
+                // Check if this user exists in the database
+                $facebookManager = $GLOBALS['kernel']->getContainer()->get('my_facebook_manager');
+                $socialUser = $facebookManager->loadUserByFacebookId($userid);
+                
+                
+                //$prueba2 = $facebookmanager->updateFacebookUserData($prueba, $info);
+        
                 /* 
                  * TODO: guardar los datos en la tabla de facebook, google, twitter 
                  * y actualizar los datos aunque ya existan.
@@ -133,29 +136,7 @@ class FOSUBUserProvider extends BaseClass
                 $facebook_user->setProfilePicture($profilepicture);
                  * 
                  */
-                //ld($facebook_user);
-                                
-                /*
-                 * A unas malas puedo probar a guardarlo en la sesión y acceder
-                 * a ese objeto social. En plan:
-                 * 
-                 * $session = $this->getRequest()->getSession();
-                 * $session->set('social_user', $facebook_user);
-                 * 
-                 * Para recogerlo desde un controlador:
-                 * $socialUser = $session->get('social_user');
-                 * 
-                 * Problema!!! getRequest no lo reconoce desde fuera de un controlador
-                 */
                 
-                //ld('ahora');
-                //$socialFacebookManager = $this->get('videona_db.manager.social_facebook');
-                                   
-                //$prueba = $this->generateUrl('prueba_controller_db', array('facebook_user'  => $facebook_user));
-                //$em = $this->doctrine->getManager();
-                //$repository = $this->doctrine->getRepository('VideonaDBBundle:SocialFacebook');
-                //ld($prueba);
-                //ld('después');
                 
                 break;
             case 'google':
@@ -230,7 +211,9 @@ class FOSUBUserProvider extends BaseClass
          * primero una comprobación para ver si ya tiene una imagen de perfil. Si
          * la tiene no descargar la de la red social.
          */
-             
+         
+        
+        
         /*
          * TODO: hacer el deslogueo de las redes sociales justo antes de llamar 
          * al logout (en plan cuando el usuario clique en el enlace de cerrar
@@ -251,10 +234,10 @@ class FOSUBUserProvider extends BaseClass
         // When the user is registrating
         if (null === $user) {
             // We check for the username existence - if so, update user.
-            if($existent_user = $this->userManager->findUserByEmail($response->getEmail())){
+            if($existentUser = $this->userManager->findUserByEmail($response->getEmail())){
                 //throw new \Symfony\Component\Security\Core\Exception\AuthenticationException($message);
                 // If user exists - go with the HWIOAuth way
-                $user = $existent_user;
+                $user = $existentUser;
                 
                 // Get user id
                 $useridDB = $user->getId();

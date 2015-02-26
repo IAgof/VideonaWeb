@@ -1,6 +1,7 @@
 <?php
 
 namespace Videona\UtilsBundle\Utility;
+
 /**
  * Utility functions.
  *
@@ -8,18 +9,6 @@ namespace Videona\UtilsBundle\Utility;
  */
 class Utils {
     
-//    private $entityManager;
-//
-//    /**
-//     * Constructor.
-//     *
-//     * @param SessionStorageInterface $storage    A SessionStorageInterface instance.
-//     * @param AttributeBagInterface   $attributes An AttributeBagInterface instance, (defaults null for default AttributeBag)
-//     * @param FlashBagInterface       $flashes    A FlashBagInterface instance (defaults null for default FlashBag)
-//     */
-//    public function __construct(EntityManager $entityManager) {
-//        $this->entityManager = $entityManager;
-//    }
     /**
      * This class should not be instantiated
      */
@@ -34,9 +23,9 @@ class Utils {
      * @return string The original string without dots
      **/
     public static function removeDots($data){
-        $data= str_replace('.', '', $data);
+        $newData = str_replace('.', '', $data);
         
-        return $data;
+        return $newData;
     }
     
     /**
@@ -46,9 +35,9 @@ class Utils {
      * @return boolean
      **/
     public static function validateUsername($username_selected) {
-        $username_selected = self::removeDots($username_selected);
+        $username = self::removeDots($username_selected);
         
-        return mb_ereg_match('[a-zA-Z0-9_.ñÑáéíóúÁÉÍÓÚÇ]{4,15}$', $username_selected);
+        return mb_ereg_match('[a-zA-Z0-9_.ñÑáéíóúÁÉÍÓÚÇ]{4,15}$', $username);
     }
     
     /**

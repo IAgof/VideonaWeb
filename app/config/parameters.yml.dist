@@ -14,3 +14,10 @@ parameters:
     debug_toolbar: true
     debug_redirects: false
     use_assetic_controller: true
+    rememberMeKey: videona_vlf_secret_key
+    facebookId: 1530256123873085
+    facebookKey: 2dc3d24e943e23b8c29d32100f904254
+    googleId: 107134464495-ruserbd6t4lb47u8qvqto8n3ov3fla2v.apps.googleusercontent.com
+    googleKey: LlfKSLK1AecDcuf3U0IIDViv
+    twitterId: kmyjf6sgSRlcPLz1KcCCt7sSV
+    twitterKey: XSYlszDutMdkf1TxfFzZinEPmXO347NHTenN8Zs6riWDjjCWAi

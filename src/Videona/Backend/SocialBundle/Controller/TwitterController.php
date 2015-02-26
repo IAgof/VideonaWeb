@@ -2,13 +2,10 @@
 
 namespace Videona\Backend\SocialBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 
 class TwitterController extends Controller
 {
     // Define our parameters constants
-    const CONSUMER_SECRET ='XSYlszDutMdkf1TxfFzZinEPmXO347NHTenN8Zs6riWDjjCWAi';
-    const OAUTH_CONSUMER_KEY = 'kmyjf6sgSRlcPLz1KcCCt7sSV';
     const REQUEST_METHOD = 'POST';
     const SIGNATURE_METHOD = 'HMAC-SHA1';
     const OAUTH_VERSION = '1.0';
@@ -91,7 +88,7 @@ class TwitterController extends Controller
         $nonce = time();
         $timestamp = time();
         $oauth = array('oauth_callback' => 'http://localhost/Videona/web/app_dev.php/login/twitter/getOauthAccessToken',
-                      'oauth_consumer_key' => self::OAUTH_CONSUMER_KEY,
+                      'oauth_consumer_key' => $this->container->getParameter('twitterId'),
                       'oauth_nonce' => $nonce,
                       'oauth_signature_method' => self::SIGNATURE_METHOD,
                       'oauth_timestamp' => $timestamp,
@@ -100,7 +97,7 @@ class TwitterController extends Controller
         // Get base string
         $baseString = self::buildBaseString($baseURI, $oauth);       
         // Get composite key
-        $compositeKey = self::getCompositeKey(SELF::CONSUMER_SECRET, null); //first request, no request token yet
+        $compositeKey = self::getCompositeKey($this->container->getParameter('twitterKey'), null); //first request, no request token yet
         // Sign the base string
         $oauth_signature = base64_encode(hash_hmac('sha1', $baseString, $compositeKey, true));
         // Add the signature to our array
@@ -135,7 +132,7 @@ class TwitterController extends Controller
             $nonce = time();
             $timestamp = time();
             $oauth = array(
-                          'oauth_consumer_key' => self::OAUTH_CONSUMER_KEY,
+                          'oauth_consumer_key' => $this->container->getParameter('twitterId'),
                           'oauth_nonce' => $nonce,
                           'oauth_signature_method' => self::SIGNATURE_METHOD,
                           'oauth_timestamp' => $timestamp,
@@ -144,7 +141,7 @@ class TwitterController extends Controller
             // Get base string
             $baseString = self::buildBaseString($baseURI, $oauth);
             // Get composite key
-            $compositeKey = self::getCompositeKey(self::CONSUMER_SECRET, $_SESSION['oauth_token_secret']); //second request, there is request token now
+            $compositeKey = self::getCompositeKey($this->container->getParameter('twitterKey'), $_SESSION['oauth_token_secret']); //second request, there is request token now
             // Sign the base string
             $oauth_signature = base64_encode(hash_hmac('sha1', $baseString, $compositeKey, true));
             // Add the signature to our oauth array
