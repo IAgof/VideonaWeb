@@ -1,10 +1,13 @@
 <?php
 
+/*
+ * LICENCIA!!
+ */
+
 namespace Videona\DBBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Videona\Backend\SocialBundle\Model\SocialFacebookManager;
 
 /**
  * SocialFacebook
@@ -12,8 +15,8 @@ use Videona\Backend\SocialBundle\Model\SocialFacebookManager;
  * @ORM\Table(name="social_facebook")
  * @ORM\Entity(repositoryClass="Videona\DBBundle\Entity\SocialFacebookRepository")
  */
-class SocialFacebook
-{
+class SocialFacebook {
+
     /**
      * @var integer
      *
@@ -22,7 +25,7 @@ class SocialFacebook
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * @var integer
      *
@@ -30,8 +33,8 @@ class SocialFacebook
      * @ORM\JoinColumn(name="usr", referencedColumnName="id")
      */
     protected $usr;
-         
-    /** 
+
+    /**
      * @var string
      * 
      * @Assert\NotBlank()
@@ -39,89 +42,89 @@ class SocialFacebook
      */
     protected $facebook_id;
 
-    /** 
+    /**
      * @var string
      * 
      * @Assert\NotBlank()
      * @ORM\Column(name="facebook_access_token", type="string", length=255) 
      */
     protected $facebook_access_token;
-    
-    /** 
+
+    /**
      * @var integer
      * 
      * @ORM\Column(name="facebook_access_token_expires_in", type="bigint", nullable=true) 
      */
     protected $facebook_access_token_expires_in;
-    
+
     /**
      * @var string
      * 
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
     protected $email;
-    
+
     /**
      * @var string
      * 
      * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
      */
     protected $firstname;
-    
+
     /**
      * @var string
      * 
      * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
      */
     protected $lastname;
-    
+
     /**
      * @ORM\Column(name="gender", type="string", length=50, nullable=true)
      */
     protected $gender;
-    
+
     /**
      * @var string
      * 
      * @ORM\Column(name="link", type="string", length=255, nullable=true)
      */
     protected $link;
-    
+
     /**
      * @var string
      * 
      * @ORM\Column(name="locale", type="string", length=50, nullable=true)
      */
     protected $locale;
-    
+
     /**
      * @var string
      * 
      * @ORM\Column(name="realname", type="string", length=255, nullable=true)
      */
     protected $realname;
-    
-    /** 
+
+    /**
      * @var integer
      * 
      * @ORM\Column(name="timezone", type="integer", nullable=true) 
      */
     protected $timezone;
-    
+
     /**
      * @var string
      * 
      * @ORM\Column(name="updated_time", type="string", length=50, nullable=true)
      */
     protected $updated_time;
-    
+
     /**
      * @var boolean
      * 
      * @ORM\Column(name="verified", type="boolean", nullable=true)
      */
     protected $verified;
-    
+
     /**
      * @var integer
      *
@@ -130,14 +133,12 @@ class SocialFacebook
      */
     protected $profile_picture;
 
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -147,8 +148,7 @@ class SocialFacebook
      * @param integer $usr
      * @return SocialFacebook
      */
-    public function setUsr($usr)
-    {
+    public function setUsr($usr) {
         $this->usr = $usr;
 
         return $this;
@@ -159,8 +159,7 @@ class SocialFacebook
      *
      * @return integer 
      */
-    public function getUsr()
-    {
+    public function getUsr() {
         return $this->usr;
     }
 
@@ -170,8 +169,7 @@ class SocialFacebook
      * @param string $facebookId
      * @return SocialFacebook
      */
-    public function setFacebookId($facebookId)
-    {
+    public function setFacebookId($facebookId) {
         $this->facebook_id = $facebookId;
 
         return $this;
@@ -182,8 +180,7 @@ class SocialFacebook
      *
      * @return string 
      */
-    public function getFacebookId()
-    {
+    public function getFacebookId() {
         return $this->facebook_id;
     }
 
@@ -193,8 +190,7 @@ class SocialFacebook
      * @param string $facebookAccessToken
      * @return SocialFacebook
      */
-    public function setFacebookAccessToken($facebookAccessToken)
-    {
+    public function setFacebookAccessToken($facebookAccessToken) {
         $this->facebook_access_token = $facebookAccessToken;
 
         return $this;
@@ -205,8 +201,7 @@ class SocialFacebook
      *
      * @return string 
      */
-    public function getFacebookAccessToken()
-    {
+    public function getFacebookAccessToken() {
         return $this->facebook_access_token;
     }
 
@@ -216,8 +211,7 @@ class SocialFacebook
      * @param integer $facebookAccessTokenExpiresIn
      * @return SocialFacebook
      */
-    public function setFacebookAccessTokenExpiresIn($facebookAccessTokenExpiresIn)
-    {
+    public function setFacebookAccessTokenExpiresIn($facebookAccessTokenExpiresIn) {
         $this->facebook_access_token_expires_in = $facebookAccessTokenExpiresIn;
 
         return $this;
@@ -228,8 +222,7 @@ class SocialFacebook
      *
      * @return integer 
      */
-    public function getFacebookAccessTokenExpiresIn()
-    {
+    public function getFacebookAccessTokenExpiresIn() {
         return $this->facebook_access_token_expires_in;
     }
 
@@ -239,8 +232,7 @@ class SocialFacebook
      * @param string $email
      * @return SocialFacebook
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
 
         return $this;
@@ -251,8 +243,7 @@ class SocialFacebook
      *
      * @return string 
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -262,8 +253,7 @@ class SocialFacebook
      * @param string $firstname
      * @return SocialFacebook
      */
-    public function setFirstname($firstname)
-    {
+    public function setFirstname($firstname) {
         $this->firstname = $firstname;
 
         return $this;
@@ -274,8 +264,7 @@ class SocialFacebook
      *
      * @return string 
      */
-    public function getFirstname()
-    {
+    public function getFirstname() {
         return $this->firstname;
     }
 
@@ -285,8 +274,7 @@ class SocialFacebook
      * @param string $lastname
      * @return SocialFacebook
      */
-    public function setLastname($lastname)
-    {
+    public function setLastname($lastname) {
         $this->lastname = $lastname;
 
         return $this;
@@ -297,8 +285,7 @@ class SocialFacebook
      *
      * @return string 
      */
-    public function getLastname()
-    {
+    public function getLastname() {
         return $this->lastname;
     }
 
@@ -308,8 +295,7 @@ class SocialFacebook
      * @param string $gender
      * @return SocialFacebook
      */
-    public function setGender($gender)
-    {
+    public function setGender($gender) {
         $this->gender = $gender;
 
         return $this;
@@ -320,8 +306,7 @@ class SocialFacebook
      *
      * @return string 
      */
-    public function getGender()
-    {
+    public function getGender() {
         return $this->gender;
     }
 
@@ -331,8 +316,7 @@ class SocialFacebook
      * @param string $link
      * @return SocialFacebook
      */
-    public function setLink($link)
-    {
+    public function setLink($link) {
         $this->link = $link;
 
         return $this;
@@ -343,8 +327,7 @@ class SocialFacebook
      *
      * @return string 
      */
-    public function getLink()
-    {
+    public function getLink() {
         return $this->link;
     }
 
@@ -354,8 +337,7 @@ class SocialFacebook
      * @param string $locale
      * @return SocialFacebook
      */
-    public function setLocale($locale)
-    {
+    public function setLocale($locale) {
         $this->locale = $locale;
 
         return $this;
@@ -366,8 +348,7 @@ class SocialFacebook
      *
      * @return string 
      */
-    public function getLocale()
-    {
+    public function getLocale() {
         return $this->locale;
     }
 
@@ -377,8 +358,7 @@ class SocialFacebook
      * @param string $realname
      * @return SocialFacebook
      */
-    public function setRealname($realname)
-    {
+    public function setRealname($realname) {
         $this->realname = $realname;
 
         return $this;
@@ -389,8 +369,7 @@ class SocialFacebook
      *
      * @return string 
      */
-    public function getRealname()
-    {
+    public function getRealname() {
         return $this->realname;
     }
 
@@ -400,8 +379,7 @@ class SocialFacebook
      * @param integer $timezone
      * @return SocialFacebook
      */
-    public function setTimezone($timezone)
-    {
+    public function setTimezone($timezone) {
         $this->timezone = $timezone;
 
         return $this;
@@ -412,8 +390,7 @@ class SocialFacebook
      *
      * @return integer 
      */
-    public function getTimezone()
-    {
+    public function getTimezone() {
         return $this->timezone;
     }
 
@@ -423,8 +400,7 @@ class SocialFacebook
      * @param string $updatedTime
      * @return SocialFacebook
      */
-    public function setUpdatedTime($updatedTime)
-    {
+    public function setUpdatedTime($updatedTime) {
         $this->updated_time = $updatedTime;
 
         return $this;
@@ -435,8 +411,7 @@ class SocialFacebook
      *
      * @return string 
      */
-    public function getUpdatedTime()
-    {
+    public function getUpdatedTime() {
         return $this->updated_time;
     }
 
@@ -446,8 +421,7 @@ class SocialFacebook
      * @param boolean $verified
      * @return SocialFacebook
      */
-    public function setVerified($verified)
-    {
+    public function setVerified($verified) {
         $this->verified = $verified;
 
         return $this;
@@ -458,8 +432,7 @@ class SocialFacebook
      *
      * @return boolean 
      */
-    public function getVerified()
-    {
+    public function getVerified() {
         return $this->verified;
     }
 
@@ -469,8 +442,7 @@ class SocialFacebook
      * @param integer $profilePicture
      * @return SocialFacebook
      */
-    public function setProfilePicture($profilePicture)
-    {
+    public function setProfilePicture($profilePicture) {
         $this->profile_picture = $profilePicture;
 
         return $this;
@@ -481,8 +453,7 @@ class SocialFacebook
      *
      * @return integer 
      */
-    public function getProfilePicture()
-    {
+    public function getProfilePicture() {
         return $this->profile_picture;
     }
 
@@ -493,8 +464,7 @@ class SocialFacebook
      *
      * @return SocialFacebook
      */
-    public function setUser(\Videona\DBBundle\Entity\User $user = null)
-    {
+    public function setUser(\Videona\DBBundle\Entity\User $user = null) {
         $this->user = $user;
 
         return $this;
@@ -505,8 +475,7 @@ class SocialFacebook
      *
      * @return \Videona\DBBundle\Entity\User
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->user;
     }
 
@@ -517,8 +486,7 @@ class SocialFacebook
      *
      * @return SocialFacebook
      */
-    public function setSocial(\Videona\DBBundle\Entity\User $social = null)
-    {
+    public function setSocial(\Videona\DBBundle\Entity\User $social = null) {
         $this->social = $social;
 
         return $this;
@@ -529,8 +497,8 @@ class SocialFacebook
      *
      * @return \Videona\DBBundle\Entity\User
      */
-    public function getSocial()
-    {
+    public function getSocial() {
         return $this->social;
     }
+
 }

@@ -1,9 +1,7 @@
 <?php
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * LICENCIA!!
  */
 
 namespace Videona\RestBundle\Controller;
@@ -19,95 +17,93 @@ use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 
 /**
- * Description of UserRestController
+ * UserRestController controls the access via API
  *
  * @author vlf
  */
 class UserRestController extends Controller {
-        
     // TODO: devolver en formato json los datos (mirar la configuración de RestBundle)
-    
+
     /**
      * Create new user
      * 
      * POST Route annotation.
      * @Post("/signup")
      * 
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * 
-     * @return \Symfony\Component\HttpFoundation\Response $response
+     * @return Response $response
      */
-    public function signupAction(Request $request) {   
-        
+    public function signupAction(Request $request) {
+
         // Get request data
         $params = array();
         $content = $request->getContent();
-        if (!empty($content))
-        {
+        if (!empty($content)) {
             $params = json_decode($content, true); // 2nd param to get as array
         }
         $username = $params['username'];
         $email = $params['email'];
         $password = $params['password'];
-                       
+
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
         $userManager = $this->get('fos_user.user_manager');
         /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
-        
+
         // Check if username is valid
-        if ($username){
-            $username_valid = Utils::validateUsername($username);
+        if ($username) {
+            $usernameValid = Utils::validateUsername($username);
         } else {
-            $username_valid = false;
+            $usernameValid = false;
         }
         // Check if email is valid
-        if ($email){
-            $email_valid = Utils::validateEmail($email);
+        if ($email) {
+            $emailValid = Utils::validateEmail($email);
         } else {
-            $email_valid = false;
+            $emailValid = false;
         }
-        
+
         // If request data is valid, check if exists in the database
-        if ($username_valid){
-            $username_exists = $userManager->findUserByUsername($username);
-        } 
-        if ($email_valid){
-            $email_exists = $userManager->findUserByEmail($email);
+        if ($usernameValid) {
+            $usernameExists = $userManager->findUserByUsername($username);
         }
-        
+        if ($emailValid) {
+            $emailExists = $userManager->findUserByEmail($email);
+        }
+
         // If username doesn't exist in the DB and username is valid, the user
         // can use this username
-        if ($username_valid == true && $username_exists == false) {
-            $username_invalid = false;
+        if ($usernameValid == true && $usernameExists == false) {
+            $usernameInvalid = false;
         } else {
-            $username_invalid = true;
+            $usernameInvalid = true;
         }
         // If email doesn't exist in the DB and email is valid, the user
         // can use this email
-        if ($email_valid == true && $email_exists == false) {
-            $email_invalid = false;
+        if ($emailValid == true && $emailExists == false) {
+            $emailInvalid = false;
         } else {
-            $email_invalid = true;
+            $emailInvalid = true;
         }
-        
+
         // Generate response
-        $response = new Response(); 
-        
+        $response = new Response();
+
         // If username or email are invalid, the server return a bad request
-        if ($username_invalid || $email_invalid){
-            
+        if ($usernameInvalid || $emailInvalid) {
+
             // Create json response
-            $json_response = array();
-            $json_response[] = array("error" => "Invalid request");
-            
-            $response->setContent(json_encode($json_response));
+            $jsonResponse = array();
+            $jsonResponse[] = array("error" => "Invalid request");
+
+            $response->setContent(json_encode($jsonResponse));
             $response->setStatusCode(Response::HTTP_BAD_REQUEST);
             // Set header as json
             $response->headers->set('Content-Type', 'application/json');
-            
+
             return $response;
-        }       
+        }
 
         // Create new user
         $user = $userManager->createUser();
@@ -119,7 +115,7 @@ class UserRestController extends Controller {
         if (null !== $event->getResponse()) {
             return $event->getResponse();
         }
-        
+
         // Update user
         $user->setUsername($username);
         $user->setEmail($email);
@@ -127,53 +123,53 @@ class UserRestController extends Controller {
         $user->setUsernameChange('0');
         $user->setVideonaRegister('0');
         $userManager->updateUser($user);
-        
+
         // Check if user has been created
-        if ($username == $user->getUsername()){
+        if ($username == $user->getUsername()) {
             $response->setStatusCode(Response::HTTP_CREATED);
         } else {
             $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-        
+
         return $response;
     }
-    
+
     /**
      * Check if the username and/or the email are valid and exist
      * 
      * GET Route annotation.
      * @Get("/check-user")
      * 
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response $response
+     * @return Response $response
      */
-    public function checkIfUserExistsAction(Request $request) {   
-        
+    public function checkIfUserExistsAction(Request $request) {
+
         // Get request data
         $username = $request->get('username');
         $email = $request->get('email');
-        
+
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
         $userManager = $this->get('fos_user.user_manager');
-        
+
         // Create response
         $response = new Response();
-        
+
         // If request has username data, check if username is valid
-        if ($username === null){
-            $username_invalid = null;
+        if ($username === null) {
+            $usernameInvalid = null;
         } else {
-            $username_valid = Utils::validateUsername($username);
-            
+            $usernameValid = Utils::validateUsername($username);
+
             // If username is not valid, send 400 response code
-            if (!$username_valid){
+            if (!$usernameValid) {
 
                 // Create json response
-                $json_response = array();
-                $json_response[] = array("error" => "Invalid request");
+                $jsonResponse = array();
+                $jsonResponse[] = array("error" => "Invalid request");
 
-                $response->setContent(json_encode($json_response));
+                $response->setContent(json_encode($jsonResponse));
                 $response->setStatusCode(Response::HTTP_BAD_REQUEST);
                 // Set header as json
                 $response->headers->set('Content-Type', 'application/json');
@@ -181,32 +177,32 @@ class UserRestController extends Controller {
                 return $response;
             } else {
                 // If request data is valid, check if exists in the database
-                $username_exists = $userManager->findUserByUsername($username);
+                $usernameExists = $userManager->findUserByUsername($username);
             }
-            
+
             // If username doesn't exist in the DB and username is valid, the user
             // can use this username
-            if ($username_valid === true && $username_exists === null) {
-                $username_invalid = false;
+            if ($usernameValid === true && $usernameExists === null) {
+                $usernameInvalid = false;
             } else {
-                $username_invalid = true;
+                $usernameInvalid = true;
             }
         }
-        
+
         // If request has email data, check if email is valid
-        if ($email === null){
-            $email_invalid = null;
+        if ($email === null) {
+            $emailInvalid = null;
         } else {
-            $email_valid = Utils::validateEmail($email);
-            
+            $emailValid = Utils::validateEmail($email);
+
             // If email is not valid, send 400 response code
-            if (!$email_valid){
+            if (!$emailValid) {
 
                 // Create json response
-                $json_response = array();
-                $json_response[] = array("error" => "Invalid request");
+                $jsonResponse = array();
+                $jsonResponse[] = array("error" => "Invalid request");
 
-                $response->setContent(json_encode($json_response));
+                $response->setContent(json_encode($jsonResponse));
                 $response->setStatusCode(Response::HTTP_BAD_REQUEST);
                 // Set header as json
                 $response->headers->set('Content-Type', 'application/json');
@@ -214,23 +210,23 @@ class UserRestController extends Controller {
                 return $response;
             } else {
                 // If request data is valid, check if exists in the database
-                $email_exists = $userManager->findUserByEmail($email);
-            } 
-            
+                $emailExists = $userManager->findUserByEmail($email);
+            }
+
             // If email doesn't exist in the DB and email is valid, the user
             // can use this email
-            if ($email_valid === 1 && $email_exists === null) {
-                $email_invalid = false;
+            if ($emailValid === 1 && $emailExists === null) {
+                $emailInvalid = false;
             } else {
-                $email_invalid = true;
+                $emailInvalid = true;
             }
         }
-              
+
         // Create json response
-        $json_response = array();
-        $json_response[] = array("username" => $username_invalid, "email" => $email_invalid);
-        
-        $response->setContent(json_encode($json_response));
+        $jsonResponse = array();
+        $jsonResponse[] = array("username" => $usernameInvalid, "email" => $emailInvalid);
+
+        $response->setContent(json_encode($jsonResponse));
         $response->setStatusCode(Response::HTTP_OK);
         // Set header as json
         $response->headers->set('Content-Type', 'application/json');
@@ -238,63 +234,63 @@ class UserRestController extends Controller {
         // Send response
         return $response;
     }
-            
+
     /**
      * Sign in user
      * 
      * GET Route annotation.
      * @Get("/login")
      * 
-     * @return \Symfony\Component\HttpFoundation\Response $response Response with cookie session
+     * @return Response $response Response with cookie session
      */
     public function loginAction() {
-                
+
         // Get current user
         $user = $this->getUser();
-        
+
         // Create response
         $response = new Response();
-          
+
         // Update last login of this user
         $user->setLastLogin(new \DateTime());
-                
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
-               
+
         return $response;
     }
-    
+
     /**
      * Sign out user
      * 
      * POST Route annotation.
      * @Post("/logout")
      * 
-     * @return
+     * @throws RuntimeException
      */
-    public function logoutAction() {   
-      
+    public function logoutAction() {
+
         // Throw new exception if the logout is not activate in the security firewall configuration
         throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
     }
-    
+
     /**
      * Redirect the user after logout success
      * 
      * GET Route annotation.
      * @Get("/logout-success")
      * 
-     * @return \Symfony\Component\HttpFoundation\Response $response
+     * @return Response $response
      */
     public function logoutSuccessAction() {
-        
+
         // Create response
-        $response = new Response(); 
-        
+        $response = new Response();
+
         return $response;
     }
-        
+
     /**
      * Función mía para probar
      * 
@@ -304,151 +300,164 @@ class UserRestController extends Controller {
      * @return
      */
     public function pruebaAction(Request $request) {
-        
+
         $facebookmanager = $this->get('my_facebook_manager');
-        
+
         //$facebookmanager = $GLOBALS['kernel']->getContainer()->get('my_facebook_manager');
-        
+
         $user = $facebookmanager->loadUserByUserIdFacebook('10');
         ld($user);
         return new Response('ok');
-                
     }
-        
+
     /**
      * Retrieve user's profile
      * 
      * GET Route annotation.
      * @Get("/users/{id}/profile")
      * 
-     * @param Integer $id The user's identifier
-     * @return Array $user user that you find
+     * @param int $id The user's identifier
+     * 
+     * @throws createNotFoundException
+     * 
+     * @return UserInterface $user user that you find
      */
     public function getProfileAction($id) {
         //ld($this->getRequest());
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('VideonaDBBundle:User')->find($id);
-        if(!is_object($user)){
-          throw $this->createNotFoundException();
+        if (!is_object($user)) {
+            throw $this->createNotFoundException();
         }
-        
+
         $user2 = $this->getUser();
         $userid = $user2->getId();
         //ld($this->getRequest());
         //echo $userid;
         //var_dump($user);
         //var_dump($user->getImages());
-        
+
         /*
          * TODO: tengo mis dudas sobre la relación entre la imagen de perfil y
          * el usuario. Realmente lo que es la imagen de perfil es uno a uno.
          * Si se trata de imágenes sí es uno a muchos.
          */
-        
+
         //echo $user->getProfilePicture()->getId();
-        
+
         return $user;
         //return new Response($username);
     }
-    
+
     /**
      * Update user's profile
      * 
      * PUT Route annotation.
      * @Put("/users/{id}/profile")
      * 
-     * @param Integer $id The user's identifier
-     * @return Array $user User that you find
+     * @param int $id The user's identifier
+     * 
+     * @throws createNotFoundException
+     * 
+     * @return UserInterface $user User that you find
      */
     public function putProfileAction($id) {
-        
+
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('VideonaDBBundle:User')->find($id);
-        if(!is_object($user)){
-          throw $this->createNotFoundException();
-          //throw new NotFoundHttpException('User not found');
+        if (!is_object($user)) {
+            throw $this->createNotFoundException();
+            //throw new NotFoundHttpException('User not found');
         }
         //var_dump($user);
         //var_dump($user->getImages());
-                
         //echo $user->getProfilePicture()->getId();
-        
+
         return $user;
         //return new Response($id);
     }
-    
+
     /**
      * Retrieve user's profile icon
      * 
      * GET Route annotation.
      * @Get("/users/{id}/profile/avatar")
      * 
-     * @param Integer $id The user's identifier
-     * @return Array $user user that you find
+     * @param int $id The user's identifier
+     * 
+     * @throws createNotFoundException
+     * 
+     * @return UserInterface $user user that you find
      */
     public function getProfileImageAction($id) {
-        
+
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('VideonaDBBundle:User')->find($id);
-        if(!is_object($user)){
-          throw $this->createNotFoundException();
+        if (!is_object($user)) {
+            throw $this->createNotFoundException();
         }
-        
-        if ($user->getProfilePicture()){
+
+        if ($user->getProfilePicture()) {
             $profileiconid = $user->getProfilePicture()->getId();
             return $profileiconid;
         }
-        
+
         return 'no tiene';
         //return new Response($username);
     }
-    
+
     /**
      * Update user's profile icon
      * 
      * PUT Route annotation.
      * @Put("/users/{id}/profile/avatar")
      * 
-     * @param Integer $id The user's identifier
-     * @return Array $user user that you find
+     * @param int $id The user's identifier
+     * 
+     * @throws createNotFoundException
+     * 
+     * @return UserInterface $user user that you find
      */
     public function putProfileImageAction($id) {
-        
+
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('VideonaDBBundle:User')->find($id);
-        if(!is_object($user)){
-          throw $this->createNotFoundException();
+        if (!is_object($user)) {
+            throw $this->createNotFoundException();
         }
-        
+
 //        if ($user->getProfilePicture()){
 //            $profileiconid = $user->getProfilePicture()->getId();
 //            return $profileiconid;
 //        }
-        
+
         return new Response('actualizado');
     }
-    
+
     /**
      * Retrieve username of a user
      * 
      * GET Route annotation.
      * @Get("/users/{id}/profile/name")
      * 
-     * @param Integer $id The user's identifier
-     * @return Array $user user that you find
+     * @param int $id The user's identifier
+     * 
+     * @throws createNotFoundException
+     * 
+     * @return UserInterface $user user that you find
      */
     public function getUsernameAction($id) {
-        
+
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('VideonaDBBundle:User')->find($id);
-        if(!is_object($user)){
-          throw $this->createNotFoundException();
+        if (!is_object($user)) {
+            throw $this->createNotFoundException();
         }
-                
+
         return $user->getUsername();
         //return new Response($username);
     }
-    
+
     /**
      * Retrieve username of a user
      * 
@@ -456,25 +465,28 @@ class UserRestController extends Controller {
      * @Get("/users/profile/name")
      * 
      * @param Request $request
-     * @return Array $user user that you find
+     * 
+     * @throws createNotFoundException
+     * 
+     * @return UserInterface $user user that you find
      */
     public function getUsernameMeAction(Request $request) {
-        
-        
+
+
         $username = $request->getUser();
         return $this->getUser();
-         //ld($this->getUser());
+        //ld($this->getUser());
         //return $username;
         //return new Response($username);
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('VideonaDBBundle:User')->findOneByUsername($username);
-        if(!is_object($user)){
-          throw $this->createNotFoundException();
+        if (!is_object($user)) {
+            throw $this->createNotFoundException();
         }
         //ld($user->getEmail());    
         //return $user;
     }
-    
+
     /**
      * List user videos
      * Retrieve a list of videos created by a specific user
@@ -482,20 +494,23 @@ class UserRestController extends Controller {
      * GET Route annotation.
      * @Get("/users/{id}/videos")
      * 
-     * @param Integer $id The user's identifier
-     * @return Array $user user that you find
+     * @param int $id The user's identifier
+     * 
+     * @throws createNotFoundException
+     * 
+     * @return UserInterface $user user that you find
      */
     public function getVideosAction($id) {
-        
+
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('VideonaDBBundle:User')->find($id);
-        if(!is_object($user)){
-          throw $this->createNotFoundException();
+        if (!is_object($user)) {
+            throw $this->createNotFoundException();
         }
-                
+
         return new Response('ok');
     }
-    
+
     /**
      * Retrieve a list of users
      * 
@@ -503,7 +518,10 @@ class UserRestController extends Controller {
      * @Get("/users/{username}/find")
      * 
      * @param String $username The user's name
-     * @return Array $user user that you find
+     * 
+     * @throws createNotFoundException
+     * 
+     * @return UserInterface $user user that you find
      */
     public function findUserAction($username) {
         /*
@@ -512,38 +530,37 @@ class UserRestController extends Controller {
          */
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('VideonaDBBundle:User')->findOneByUsername($username);
-        if(!is_object($user)){
-          throw $this->createNotFoundException();
+        if (!is_object($user)) {
+            throw $this->createNotFoundException();
         }
         return $user;
         //return new Response($username);
     }
-    
+
     /**
      * List of users
      * 
      * GET Route annotation.
      * @Get("/users")
      * 
-     * @return Array $users list of all users of database
+     * @return UserInterface $users list of all users of database
      */
     public function getUsersAction() {
-        
+
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('VideonaDBBundle:User')->findAll();
         //if(!is_object($user)){
-          //throw $this->createNotFoundException();
+        //throw $this->createNotFoundException();
         //}
-        
         //var_dump($users);
-        
-        foreach($users as $user)
-        {
+
+        foreach ($users as $user) {
             // Retrieve data
             $id = $user->getId();
             $email = $user->getEmail();
-        }        
+        }
         //return new Response('ok');
         return $users;
     }
+
 }

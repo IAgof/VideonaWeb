@@ -45,7 +45,7 @@ security:
         main:
             pattern: ^/
             remember_me:
-                key:      "%rememberMeKey%"
+                key:      "%remember_me_key%"
                 lifetime: 31536000 # 365 days in seconds
                 path:     /
                 domain:   ~ # Defaults to the current domain from $_SERVER

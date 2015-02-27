@@ -1,19 +1,31 @@
 <?php
 
+/*
+ * LICENCIA!!
+ */
+
 namespace Videona\Backend\UserManagementBundle\Security\Core\User;
  
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseClass;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class FOSUBUserProvider extends BaseClass
-{
+/**
+ * FOSUBUserProvider connects the user with the social networks defined in 
+ * main firewall
+ *
+ * @author vlf
+ */
+class FOSUBUserProvider extends BaseClass {
  
     /**
-    * {@inheritDoc}
-    */
-    public function connect(UserInterface $user, UserResponseInterface $response)
-    {
+     * Connects the current user if he is logged with one of the social 
+     * networks defined in main firewall.
+     * 
+     * @param UserInterface $user
+     * @param UserResponseInterface $response
+     */
+    public function connect(UserInterface $user, UserResponseInterface $response) {
         $property = $this->getProperty($response);
         $username = $response->getUsername();
 
@@ -21,11 +33,11 @@ class FOSUBUserProvider extends BaseClass
         $service = $response->getResourceOwner()->getName();
 
         $setter = 'set'.ucfirst($service);
-        $setter_id = $setter.'Id';
+        $setterId = $setter.'Id';
         
         //we "disconnect" previously connected users
         if (null !== $previousUser = $this->userManager->findUserBy(array($property => $username))) {
-            $previousUser->$setter_id(null);
+            $previousUser->$setterId(null);
             $this->userManager->updateUser($previousUser);
         }
         
@@ -40,16 +52,18 @@ class FOSUBUserProvider extends BaseClass
          * Hacerlo también en la de loadUSerBuOathUserResponse
          */
         //we connect current user
-        //$user->$setter_id($username);
+        //$user->$setterId($username);
         
         $this->userManager->updateUser($user);
     }
     
     /**
-    * {@inheritdoc}
-    */
-    public function loadUserByOAuthUserResponse(UserResponseInterface $response)
-    {   
+     * Connects the current user if he is logged with one of the social 
+     * networks defined in main firewall.
+     * 
+     * @param UserResponseInterface $response
+     */
+    public function loadUserByOAuthUserResponse(UserResponseInterface $response) {   
         // Check service login
         $serviceName = $response->getResourceOwner()->getName();
         //ld($response);
@@ -69,8 +83,8 @@ class FOSUBUserProvider extends BaseClass
                 $userupdatedtime = $userdata['updated_time'];
                 $userverified = $userdata['verified'];
                 // Get profile image
-                $user_fb = "https://graph.facebook.com/" .$userid;
-                $profilepicture = $user_fb."/picture?width=260&height=260";
+                $userFb = "https://graph.facebook.com/" .$userid;
+                $profilepicture = $userFb."/picture?width=260&height=260";
                 $usernickname = $response->getNickname();
                 // Get oauth token
                 $oauthToken = $response->getAccessToken();
@@ -175,12 +189,12 @@ class FOSUBUserProvider extends BaseClass
                 $userid = $userdata['id'];
                 $useremail = null;
                 $userrealname = $response->getRealName();
-                $screen_name = $userdata['screen_name'];
-                $followers_count = $userdata['followers_count'];
-                $friends_count = $userdata['friends_count'];
-                $listed_count = $userdata['listed_count'];
-                $created_at = $userdata['created_at'];
-                $favourites_count = $userdata['favourites_count'];
+                $screenName = $userdata['screen_name'];
+                $followersCount = $userdata['followers_count'];
+                $friendsCount = $userdata['friends_count'];
+                $listedCount = $userdata['listed_count'];
+                $createdAt = $userdata['created_at'];
+                $favouritesCount = $userdata['favourites_count'];
                 $userlocale = $userdata['lang'];
                 $profilepicture = $userdata['profile_image_url'];
                 // Get oauth token
@@ -193,12 +207,12 @@ class FOSUBUserProvider extends BaseClass
                     "twitter_access_token_secret"=>$oauthTokenSecret,
                     "twitter_access_token_expires_in"=>$expiresIn,
                     "realname"=>$userrealname,
-                    "screen_name"=>$screen_name,
-                    "followers_count"=>$followers_count,
-                    "friends_count"=>$friends_count,
-                    "listed_count"=>$listed_count,
-                    "created_at"=>$created_at,
-                    "favourites_count"=>$favourites_count,
+                    "screen_name"=>$screenName,
+                    "followers_count"=>$followersCount,
+                    "friends_count"=>$friendsCount,
+                    "listed_count"=>$listedCount,
+                    "created_at"=>$createdAt,
+                    "favourites_count"=>$favouritesCount,
                     "locale"=>$userlocale,
                     "profile_picture"=>$profilepicture
                 ];
@@ -245,7 +259,7 @@ class FOSUBUserProvider extends BaseClass
                 $info['usr'] = $useridDB;
 
                 $setter = 'set'.ucfirst($serviceName);
-                $setter_id = $setter.'Id';
+                $setterId = $setter.'Id';
                 
                 // Update access token
                 //$user->$setter_id($userid);
@@ -256,7 +270,7 @@ class FOSUBUserProvider extends BaseClass
             
             // If email doesn't exist, create new user
             $setter = 'set'.ucfirst($serviceName);
-            $setter_id = $setter.'Id';
+            $setterId = $setter.'Id';
             
             // Create new user here
             $user = $this->userManager->createUser();

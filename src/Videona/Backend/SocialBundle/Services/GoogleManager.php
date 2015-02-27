@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * LICENCIA!!
+ */
+
 namespace Videona\Backend\SocialBundle\Services;
 
 use Doctrine\ORM\EntityManager;
@@ -10,12 +14,12 @@ use Doctrine\ORM\EntityManager;
  * @author vlf
  */
 class GoogleManager {
-    
+
     /**
      * @var ObjectManager
      */
     protected $em;
-    
+
     /**
      * @var ObjectRepository
      */
@@ -30,4 +34,5 @@ class GoogleManager {
         $this->em = $em;
         $this->repository = $this->em->getRepository('VideonaDBBundle:SocialGoogle');
     }
+
 }
