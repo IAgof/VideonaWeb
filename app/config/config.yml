@@ -124,7 +124,17 @@ hwi_oauth:
             client_id: %twitter_id%
             client_secret:  %twitter_key%
             
-# TODO: devolver en formato json los datos (mirar la configuración de RestBundle)
+# FOSOAuthServer Configuration
+fos_oauth_server:
+    db_driver: orm       # Driver availables: orm, mongodb, or propel
+    client_class:        Videona\DBBundle\Entity\Client
+    access_token_class:  Videona\DBBundle\Entity\AccessToken
+    refresh_token_class: Videona\DBBundle\Entity\RefreshToken
+    auth_code_class:     Videona\DBBundle\Entity\AuthCode
+    service:
+        user_provider: fos_user.user_provider.username_email
+            
+# TODO: devolver en formato json los datos
 # FOSRest Configuration
 fos_rest:
     param_fetcher_listener: true

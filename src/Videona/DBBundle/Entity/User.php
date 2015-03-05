@@ -36,7 +36,7 @@ class User extends BaseUser {
      */
     protected $id;
 
-    /** 
+    /**
      * This parameter specifies if the user has selected a valid username
      * 
      * @ORM\Column(name="username_change", type="boolean") 
@@ -83,7 +83,7 @@ class User extends BaseUser {
      */
     protected $profile_picture;
 
-    /** 
+    /**
      * This parameter indicates if the user has been registered by Videona
      * or another social network
      * 
@@ -98,6 +98,9 @@ class User extends BaseUser {
      */
     private $images;
 
+    /**
+     * Constructor
+     */
     public function __construct() {
         parent::__construct();
         // your own logic
@@ -106,6 +109,13 @@ class User extends BaseUser {
         $this->videona_register = '0';
     }
 
+    /**
+     * Set usernameCanonical
+     *
+     * @param string $usernameCanonical
+     *
+     * @return User
+     */
     public function setUsernameCanonical($usernameCanonical) {
         parent::setUsernameCanonical($usernameCanonical);
         $this->usernameCanonical = Utils::removeDots($usernameCanonical);
@@ -142,7 +152,7 @@ class User extends BaseUser {
     /**
      * Set usernameChange
      *
-     * @param boolean $usernameChange
+     * @param bool $usernameChange
      *
      * @return User
      */
@@ -155,7 +165,7 @@ class User extends BaseUser {
     /**
      * Get usernameChange
      *
-     * @return boolean
+     * @return bool
      */
     public function getUsernameChange() {
         return $this->username_change;
@@ -165,6 +175,7 @@ class User extends BaseUser {
      * Set facebook_id
      *
      * @param integer $facebookId
+     * 
      * @return User
      */
     public function setFacebookId($facebookId) {
@@ -186,6 +197,7 @@ class User extends BaseUser {
      * Set google_id
      *
      * @param integer $googleId
+     * 
      * @return User
      */
     public function setGoogleId($googleId) {
@@ -207,6 +219,7 @@ class User extends BaseUser {
      * Set twitter_id
      *
      * @param integer $twitterId
+     * 
      * @return User
      */
     public function setTwitterId($twitterId) {
@@ -249,7 +262,7 @@ class User extends BaseUser {
     /**
      * Set videonaRegister
      *
-     * @param boolean $videonaRegister
+     * @param bool $videonaRegister
      *
      * @return User
      */
@@ -262,7 +275,7 @@ class User extends BaseUser {
     /**
      * Get videonaRegister
      *
-     * @return boolean
+     * @return bool
      */
     public function getVideonaRegister() {
         return $this->videona_register;

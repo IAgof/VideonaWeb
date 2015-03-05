@@ -48,13 +48,13 @@ class FOSUBUserProvider extends BaseClass {
         }
         
         /*
-         * TODO: intentar poner el username con utils::removedots()
+         * TODO: Videona: intentar poner el username con utils::removedots()
          * En el loaduserbyoauthuserresponse también.
          * Así lo puedo quitar del formulario de seleccionar el username
          */
 
         /*
-         * TODO: actualizar el token pero con la id asociada en la tabla, ya no va con el token!!!
+         * TODO: Videona: actualizar el token pero con la id asociada en la tabla, ya no va con el token!!!
          * Hacerlo también en la de loadUSerBuOathUserResponse
          */
         //we connect current user
@@ -123,7 +123,7 @@ class FOSUBUserProvider extends BaseClass {
                 //$prueba2 = $facebookmanager->updateFacebookUserData($prueba, $info);
         
                 /* 
-                 * TODO: guardar los datos en la tabla de facebook, google, twitter 
+                 * TODO: Videona: guardar los datos en la tabla de facebook, google, twitter 
                  * y actualizar los datos aunque ya existan.
                  * Crear objetos de cada una de las redes y manejarlos con un manager.
                  * Pero lo tengo que hacer al final, cuando ya sepa la id del usuario.
@@ -226,7 +226,7 @@ class FOSUBUserProvider extends BaseClass {
         }
         
         /*
-         * TODO: descargar las imágenes de perfil y actualizar el campo
+         * TODO: Videona: descargar las imágenes de perfil y actualizar el campo
          * correspondiente a la imagen de perfil en la base de datos. Pero hacer
          * primero una comprobación para ver si ya tiene una imagen de perfil. Si
          * la tiene no descargar la de la red social.
@@ -235,14 +235,14 @@ class FOSUBUserProvider extends BaseClass {
         
         
         /*
-         * TODO: hacer el deslogueo de las redes sociales justo antes de llamar 
+         * TODO: Videona: hacer el deslogueo de las redes sociales justo antes de llamar 
          * al logout (en plan cuando el usuario clique en el enlace de cerrar
          * sesión), o hacerlo en el twig nada más loguearse?? Si no es en esos
          * instantes, entonces cuándo?
          */
         
         /*
-         * TODO: para que funcionase bien la base de datos con la relación OneToOne,
+         * TODO: Videona: para que funcionase bien la base de datos con la relación OneToOne,
          * he tenido que apuntar a la clave primaria id, en lugar de al token. 
          * Modificar en los datos del usuario el setter del token, porque ahora
          * lo que guardaré será la id del token!!!!

@@ -94,7 +94,7 @@ class PruebaController extends Controller {
         // Imagen de perfil de videona para practicar
         // https://graph.facebook.com/1465342587073990/picture?width=260&height=260
         /*
-         * TODO: crear un objeto imagen que referencie a la entidad imagen
+         * TODO: Videona: crear un objeto imagen que referencie a la entidad imagen
          * Hacer en la base de datos una tabla que recoja los datos de las imágenes:
          * identificador, tamaño, propietario, etc.
          * Actualizar esos datos también en la tabla de usuario.
@@ -137,7 +137,7 @@ class PruebaController extends Controller {
 	//	$oldextension = $saved[1];
 	//}
         
-        // TODO: revisar las extensiones
+        // TODO: Videona: revisar las extensiones
         switch ($type) {
             case 'image/gif':
                 $extension = '.gif';
@@ -187,7 +187,7 @@ class PruebaController extends Controller {
         // Guardamos el archivo en el directorio correspondiente
         // Puedo hacer una carpeta general con el identificador del usuario y ahí
         // dentro meter las carpetas con las imágenes
-        // TODO: definir la estructura de carpetas para guardar imágenes!!
+        // TODO: Videona: definir la estructura de carpetas para guardar imágenes!!
 	$directory = $this->get('kernel')->getRootDir() . '/../web/file/profileicons/originals/' . ($profileiconid % 256) . '/';
         ld($directory);
 		

@@ -55,7 +55,7 @@ class UserRestControllerTest extends WebTestCase {
 //            $this->assertEquals($expected[$i], $response->getContent(), $actual[$i].": ".$expected[$i]);
 //            }
 //    }
-    // TODO: hacer un array para comprobar el registro
+    // TODO: Videona: hacer un array para comprobar el registro
 //    public function testSignupSuccess()
 //    {
 //        $client = static::createClient();
@@ -99,7 +99,7 @@ class UserRestControllerTest extends WebTestCase {
     }
     
     /*
-     * TODO: añadir un test funcional que compruebe que todas las páginas de la
+     * TODO: Videona: añadir un test funcional que compruebe que todas las páginas de la
      * aplicación se cargan correctamente. Mirar en el pdf "Buenas prácticas Symfony"
      * en la página 56!!!
      */

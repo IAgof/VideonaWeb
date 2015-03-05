@@ -24,7 +24,8 @@
         "raulfraile/ladybug-bundle": "~1.0",
         "friendsofsymfony/rest-bundle": "~1.4",
         "jms/serializer-bundle": "dev-master",
-        "phpdocumentor/phpdocumentor": "dev-master"
+        "phpdocumentor/phpdocumentor": "dev-master",
+        "friendsofsymfony/oauth-server-bundle": "~1.4@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
