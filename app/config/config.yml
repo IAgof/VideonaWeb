@@ -124,6 +124,7 @@ hwi_oauth:
             client_id: %twitter_id%
             client_secret:  %twitter_key%
             
+# TODO: devolver en formato json los datos (mirar la configuración de RestBundle)
 # FOSRest Configuration
 fos_rest:
     param_fetcher_listener: true

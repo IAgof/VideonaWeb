@@ -1,7 +1,13 @@
 <?php
 
 /*
- * LICENCIA!!
+ * This file is part of the Videona code project.
+ * 
+ * Copyright (C) 2015 Videona Socialmedia SL
+ * http://www.videona.com
+ * info@videona.com
+ *
+ * All rights reserved
  */
 
 namespace Videona\DBBundle\Entity;
@@ -20,6 +26,8 @@ use Videona\UtilsBundle\Utility\Utils;
 class User extends BaseUser {
 
     /**
+     * The user's identifier
+     * 
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -28,10 +36,16 @@ class User extends BaseUser {
      */
     protected $id;
 
-    /** @ORM\Column(name="username_change", type="boolean") */
+    /** 
+     * This parameter specifies if the user has selected a valid username
+     * 
+     * @ORM\Column(name="username_change", type="boolean") 
+     */
     protected $username_change;
 
     /**
+     * This is the token that Facebook returns for every user
+     * 
      * @var integer
      * 
      * @ORM\OneToOne(targetEntity="SocialFacebook")
@@ -40,6 +54,8 @@ class User extends BaseUser {
     protected $facebook_id;
 
     /**
+     * This is the token that Google+ returns for every user
+     * 
      * @var integer
      * 
      * @ORM\OneToOne(targetEntity="SocialGoogle")
@@ -48,6 +64,8 @@ class User extends BaseUser {
     protected $google_id;
 
     /**
+     * This is the token that Twitter returns for every user
+     * 
      * @var integer
      * 
      * @ORM\OneToOne(targetEntity="SocialTwitter")
@@ -56,6 +74,8 @@ class User extends BaseUser {
     protected $twitter_id;
 
     /**
+     * The user's profile image
+     * 
      * @var integer
      * 
      * @ORM\OneToOne(targetEntity="Image")
@@ -63,12 +83,19 @@ class User extends BaseUser {
      */
     protected $profile_picture;
 
-    /** @ORM\Column(name="videona_register", type="boolean") */
+    /** 
+     * This parameter indicates if the user has been registered by Videona
+     * or another social network
+     * 
+     * @ORM\Column(name="videona_register", type="boolean") 
+     */
     protected $videona_register;
 
     /**
+     * This is an auxiliar parameter between user table and image table
+     * 
      * @ORM\OneToMany(targetEntity="Image", mappedBy="usr")
-     * */
+     */
     private $images;
 
     public function __construct() {

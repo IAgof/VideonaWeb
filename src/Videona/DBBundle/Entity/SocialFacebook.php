@@ -1,7 +1,13 @@
 <?php
 
 /*
- * LICENCIA!!
+ * This file is part of the Videona code project.
+ * 
+ * Copyright (C) 2015 Videona Socialmedia SL
+ * http://www.videona.com
+ * info@videona.com
+ *
+ * All rights reserved
  */
 
 namespace Videona\DBBundle\Entity;
@@ -18,6 +24,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class SocialFacebook {
 
     /**
+     * The identifier of Facebook social network table
+     * 
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -27,6 +35,8 @@ class SocialFacebook {
     protected $id;
 
     /**
+     * The user's identifier
+     * 
      * @var integer
      *
      * @ORM\OneToOne(targetEntity="User")
@@ -35,6 +45,8 @@ class SocialFacebook {
     protected $usr;
 
     /**
+     * The user's unique id on Facebook
+     * 
      * @var string
      * 
      * @Assert\NotBlank()
@@ -43,6 +55,8 @@ class SocialFacebook {
     protected $facebook_id;
 
     /**
+     * The access token associated to the user on Facebook
+     * 
      * @var string
      * 
      * @Assert\NotBlank()
@@ -51,6 +65,8 @@ class SocialFacebook {
     protected $facebook_access_token;
 
     /**
+     * When the access token associated to the user expires
+     * 
      * @var integer
      * 
      * @ORM\Column(name="facebook_access_token_expires_in", type="bigint", nullable=true) 
@@ -58,6 +74,9 @@ class SocialFacebook {
     protected $facebook_access_token_expires_in;
 
     /**
+     * The email address by which the user has registered on Facebook 
+     * social network
+     * 
      * @var string
      * 
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
@@ -65,6 +84,8 @@ class SocialFacebook {
     protected $email;
 
     /**
+     * The user's first name
+     * 
      * @var string
      * 
      * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
@@ -72,6 +93,8 @@ class SocialFacebook {
     protected $firstname;
 
     /**
+     * The user's last name
+     * 
      * @var string
      * 
      * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
@@ -79,11 +102,15 @@ class SocialFacebook {
     protected $lastname;
 
     /**
+     * The gender of the user
+     * 
      * @ORM\Column(name="gender", type="string", length=50, nullable=true)
      */
     protected $gender;
 
     /**
+     * The personal url to access the user's profile on Facebook social network
+     * 
      * @var string
      * 
      * @ORM\Column(name="link", type="string", length=255, nullable=true)
@@ -91,6 +118,8 @@ class SocialFacebook {
     protected $link;
 
     /**
+     * The string description of the Facebook user's location
+     * 
      * @var string
      * 
      * @ORM\Column(name="locale", type="string", length=50, nullable=true)
@@ -98,6 +127,8 @@ class SocialFacebook {
     protected $locale;
 
     /**
+     * The username
+     * 
      * @var string
      * 
      * @ORM\Column(name="realname", type="string", length=255, nullable=true)
@@ -105,6 +136,8 @@ class SocialFacebook {
     protected $realname;
 
     /**
+     * The Facebook user's time zone
+     * 
      * @var integer
      * 
      * @ORM\Column(name="timezone", type="integer", nullable=true) 
@@ -112,6 +145,8 @@ class SocialFacebook {
     protected $timezone;
 
     /**
+     * The time when the user was last updated
+     * 
      * @var string
      * 
      * @ORM\Column(name="updated_time", type="string", length=50, nullable=true)
@@ -119,6 +154,8 @@ class SocialFacebook {
     protected $updated_time;
 
     /**
+     * This parameter indicates if user has verified his account on Facebook
+     * 
      * @var boolean
      * 
      * @ORM\Column(name="verified", type="boolean", nullable=true)
@@ -126,6 +163,8 @@ class SocialFacebook {
     protected $verified;
 
     /**
+     * The user's profile image associated to the user on Twitter
+     * 
      * @var integer
      *
      * @ORM\OneToOne(targetEntity="Image")

@@ -33,7 +33,7 @@ rest:
 select_username:
     pattern: /register/username
     defaults:     { _controller: VideonaBackendUserManagementBundle:Username:getSocialUsername }
- 
+
 # FosUserBundle routes
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"

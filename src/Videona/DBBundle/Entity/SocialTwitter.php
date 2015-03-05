@@ -1,7 +1,13 @@
 <?php
 
 /*
- * LICENCIA!!
+ * This file is part of the Videona code project.
+ * 
+ * Copyright (C) 2015 Videona Socialmedia SL
+ * http://www.videona.com
+ * info@videona.com
+ *
+ * All rights reserved
  */
 
 namespace Videona\DBBundle\Entity;
@@ -18,6 +24,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class SocialTwitter {
 
     /**
+     * The identifier of Twitter social network table
+     * 
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -27,6 +35,8 @@ class SocialTwitter {
     protected $id;
 
     /**
+     * The user's identifier
+     * 
      * @var integer
      *
      * @ORM\OneToOne(targetEntity="User")
@@ -35,6 +45,8 @@ class SocialTwitter {
     protected $usr;
 
     /**
+     * The user's unique id on Twitter
+     * 
      * @var string
      *
      * @Assert\NotBlank()
@@ -43,6 +55,8 @@ class SocialTwitter {
     protected $twitter_id;
 
     /**
+     * The access token associated to the user on Twitter
+     * 
      * @var string
      *
      * @Assert\NotBlank()
@@ -51,6 +65,8 @@ class SocialTwitter {
     protected $twitter_access_token;
 
     /**
+     * The access token key associated to the user on Twitter
+     * 
      * @var string
      *
      * @ORM\Column(name="twitter_access_token_secret", type="string", length=255)
@@ -58,6 +74,8 @@ class SocialTwitter {
     protected $twitter_access_token_secret;
 
     /**
+     * When the access token associated to the user expires
+     * 
      * @var integer
      *
      * @ORM\Column(name="twitter_access_token_expires_in", type="bigint", nullable=true)
@@ -65,6 +83,8 @@ class SocialTwitter {
     protected $twitter_access_token_expires_in;
 
     /**
+     * The user's first name
+     * 
      * @var string
      *
      * @ORM\Column(name="realname", type="string", length=255, nullable=true)
@@ -72,6 +92,8 @@ class SocialTwitter {
     protected $realname;
 
     /**
+     * The username
+     * 
      * @var string
      *
      * @ORM\Column(name="screen_name", type="string", length=255, nullable=true)
@@ -79,6 +101,8 @@ class SocialTwitter {
     protected $screen_name;
 
     /**
+     * The number of users that follow him on Twitter
+     * 
      * @var integer
      * 
      * @ORM\Column(name="followers_count", type="integer", nullable=true) 
@@ -86,6 +110,8 @@ class SocialTwitter {
     protected $followers_count;
 
     /**
+     * The number of people an author follows on Twitter
+     * 
      * @var integer
      * 
      * @ORM\Column(name="friends_count", type="integer", nullable=true) 
@@ -93,6 +119,8 @@ class SocialTwitter {
     protected $friends_count;
 
     /**
+     * The number of Twitter lists on which the user appears like author of a Tweet
+     * 
      * @var integer
      * 
      * @ORM\Column(name="listed_count", type="integer", nullable=true) 
@@ -100,6 +128,8 @@ class SocialTwitter {
     protected $listed_count;
 
     /**
+     * The register date of the user on Twitter
+     * 
      * @var datetime
      * 
      * @ORM\Column(name="created_at", type="datetime", nullable=true) 
@@ -107,6 +137,8 @@ class SocialTwitter {
     protected $created_at;
 
     /**
+     * The number of Tweets the user has favorited
+     * 
      * @var integer
      * 
      * @ORM\Column(name="favourites_count", type="integer", nullable=true) 
@@ -114,6 +146,8 @@ class SocialTwitter {
     protected $favourites_count;
 
     /**
+     * The string description of the Twitter user's location
+     * 
      * @var string
      *
      * @ORM\Column(name="locale", type="string", length=50, nullable=true)
@@ -121,6 +155,8 @@ class SocialTwitter {
     protected $locale;
 
     /**
+     * The user's profile image associated to the user on Twitter
+     * 
      * @var integer
      *
      * @ORM\OneToOne(targetEntity="Image")

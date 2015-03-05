@@ -1,7 +1,13 @@
 <?php
 
 /*
- * LICENCIA!!
+ * This file is part of the Videona code project.
+ * 
+ * Copyright (C) 2015 Videona Socialmedia SL
+ * http://www.videona.com
+ * info@videona.com
+ *
+ * All rights reserved
  */
 
 namespace Videona\DBBundle\Entity;
@@ -17,6 +23,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Image {
 
     /**
+     * The image's identifier
+     * 
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -26,6 +34,8 @@ class Image {
     protected $id;
 
     /**
+     * The user who uploaded the image
+     * 
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="User", inversedBy="images")
@@ -34,6 +44,8 @@ class Image {
     protected $usr;
 
     /**
+     * The image's location
+     * 
      * @var string
      * 
      * @ORM\Column(name="real_uri", type="string", length=255, nullable=true)
@@ -41,6 +53,8 @@ class Image {
     protected $real_uri;
 
     /**
+     * The uploaded date
+     * 
      * @var datetime
      * 
      * @ORM\Column(name="created_at", type="datetime", nullable=true) 
@@ -48,6 +62,8 @@ class Image {
     protected $created_at;
 
     /**
+     * The width of the image
+     * 
      * @var integer
      * 
      * @ORM\Column(name="width", type="bigint", nullable=true) 
@@ -55,6 +71,8 @@ class Image {
     protected $width;
 
     /**
+     * The height of the image
+     * 
      * @var integer
      * 
      * @ORM\Column(name="height", type="bigint", nullable=true) 
@@ -62,6 +80,8 @@ class Image {
     protected $height;
 
     /**
+     * The size in bytes of the image
+     * 
      * @var integer
      * 
      * @ORM\Column(name="size", type="bigint", nullable=true) 
@@ -69,6 +89,8 @@ class Image {
     protected $size;
 
     /**
+     * The type of the image
+     * 
      * @var string
      * 
      * @ORM\Column(name="type", type="string", length=50, nullable=true)
@@ -76,6 +98,8 @@ class Image {
     protected $type;
 
     /**
+     * The extension of the image
+     * 
      * @var string
      * 
      * @ORM\Column(name="extension", type="string", length=50, nullable=true)

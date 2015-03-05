@@ -1,7 +1,13 @@
 <?php
 
 /*
- * LICENCIA!!
+ * This file is part of the Videona code project.
+ * 
+ * Copyright (C) 2015 Videona Socialmedia SL
+ * http://www.videona.com
+ * info@videona.com
+ *
+ * All rights reserved
  */
 
 namespace Videona\DBBundle\Entity;
@@ -18,6 +24,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class SocialGoogle {
 
     /**
+     * The identifier of Google+ social network table
+     * 
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -27,6 +35,8 @@ class SocialGoogle {
     protected $id;
 
     /**
+     * The user's identifier
+     * 
      * @var integer
      *
      * @ORM\OneToOne(targetEntity="User")
@@ -35,6 +45,8 @@ class SocialGoogle {
     protected $usr;
 
     /**
+     * The user's unique id on Google+
+     * 
      * @var string
      *
      * @Assert\NotBlank()
@@ -43,6 +55,8 @@ class SocialGoogle {
     protected $google_id;
 
     /**
+     * The access token associated to the user on Google+
+     * 
      * @var string
      *
      * @Assert\NotBlank()
@@ -51,6 +65,8 @@ class SocialGoogle {
     protected $google_access_token;
 
     /**
+     * When the access token associated to the user expires
+     * 
      * @var integer
      *
      * @ORM\Column(name="google_access_token_expires_in", type="bigint", nullable=true)
@@ -58,6 +74,8 @@ class SocialGoogle {
     protected $google_access_token_expires_in;
 
     /**
+     * The email address by which the user has registered on Google+ social network
+     * 
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
@@ -65,6 +83,8 @@ class SocialGoogle {
     protected $email;
 
     /**
+     * The user's first name
+     * 
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
@@ -72,6 +92,8 @@ class SocialGoogle {
     protected $firstname;
 
     /**
+     * The user's last name
+     * 
      * @var string
      *
      * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
@@ -79,6 +101,8 @@ class SocialGoogle {
     protected $lastname;
 
     /**
+     * The gender of the user
+     * 
      * @var string
      *
      * @ORM\Column(name="gender", type="string", length=50, nullable=true)
@@ -86,6 +110,8 @@ class SocialGoogle {
     protected $gender;
 
     /**
+     * The personal url to access the user's profile on Google+ social network
+     * 
      * @var string
      *
      * @ORM\Column(name="link", type="string", length=255, nullable=true)
@@ -93,6 +119,8 @@ class SocialGoogle {
     protected $link;
 
     /**
+     * The string description of the Google+ user's location
+     * 
      * @var string
      *
      * @ORM\Column(name="locale", type="string", length=50, nullable=true)
@@ -100,6 +128,8 @@ class SocialGoogle {
     protected $locale;
 
     /**
+     * The username
+     * 
      * @var string
      *
      * @ORM\Column(name="realname", type="string", length=255, nullable=true)
@@ -107,6 +137,8 @@ class SocialGoogle {
     protected $realname;
 
     /**
+     * This parameter indicates if user has verified his account on Google+
+     * 
      * @var boolean
      *
      * @ORM\Column(name="verified", type="boolean", nullable=true)
@@ -114,6 +146,8 @@ class SocialGoogle {
     protected $verified;
 
     /**
+     * The user's profile image associated to the user on Google+
+     * 
      * @var integer
      *
      * @ORM\OneToOne(targetEntity="Image")
