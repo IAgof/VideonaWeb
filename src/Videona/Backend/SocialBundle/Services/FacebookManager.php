@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * This file is part of the Videona code project.
+ * 
+ * Copyright (C) 2015 Videona Socialmedia SL
+ * http://www.videona.com
+ * info@videona.com
+ *
+ * All rights reserved
+ */
+
 namespace Videona\Backend\SocialBundle\Services;
 
 use Doctrine\ORM\EntityManager;
@@ -11,12 +21,12 @@ use Videona\DBBundle\Entity\SocialFacebook;
  * @author vlf
  */
 class FacebookManager {
-    
+
     /**
      * @var ObjectManager
      */
     protected $em;
-    
+
     /**
      * @var ObjectRepository
      */
@@ -31,12 +41,15 @@ class FacebookManager {
         $this->em = $em;
         $this->repository = $this->em->getRepository('VideonaDBBundle:SocialFacebook');
     }
-    
+
     /**
-     * {@inheritdoc}
+     * Method
+     * 
+     * @param int $facebookId
+     * 
+     * @return UserInterface or null if user does not exist
      */
-    public function loadUserByFacebookId($facebookId)
-    {
+    public function loadUserByFacebookId($facebookId) {
         $user = $this->repository->findOneBy(array('facebook_id' => $facebookId));
         if (!$user) {
             throw new UsernameNotFoundException(sprintf("User '%s' not found.", $facebookId));
@@ -44,7 +57,7 @@ class FacebookManager {
 
         return $user;
     }
-    
+
     /**
      * Finds a user by username.
      *
@@ -52,10 +65,9 @@ class FacebookManager {
      *
      * @param array $data
      *
-     * @return UserInterface|null
+     * @return UserInterface or null if user does not exist
      */
-    public function updateFacebookUserData(\Videona\DBBundle\Entity\SocialFacebook $socialFacebook, $data)
-    {
+    public function updateFacebookUserData(\Videona\DBBundle\Entity\SocialFacebook $socialFacebook, $data) {
         $socialFacebook->setEmail('pruebaSocial@gmail.com');
 //        if (!$user) {
 //            throw new UsernameNotFoundException(sprintf("User '%s' not found.", $facebookId));
@@ -66,7 +78,7 @@ class FacebookManager {
         //return $data['facebook_id'];
         return $socialFacebook;
     }
-    
+
     /**
      * Create a user.
      *
@@ -74,21 +86,19 @@ class FacebookManager {
      *
      * @param array $data
      *
-     * @return UserInterface|null
+     * @return UserInterface or null if user does not exist
      */
-    public function createFacebookUser($data)
-    {
+    public function createFacebookUser($data) {
         $facebook_user = new SocialFacebook();
         $facebook_user->setEmail($data['email']);
 //        if (!$user) {
 //            throw new UsernameNotFoundException(sprintf("User '%s' not found.", $facebookId));
 //        }
-
         //$this->em->persist($socialFacebook);
         //$this->em->flush();
         return $facebook_user;
     }
-    
+
     /**
      * Finds a user by username.
      *
@@ -96,10 +106,10 @@ class FacebookManager {
      *
      * @param string $username
      *
-     * @return UserInterface|null
+     * @return UserInterface or null if user does not exist
      */
-    protected function findUser($username)
-    {
+    public function findUser($username) {
         //return $this->userManager->findUserByUsername($username);
     }
+
 }

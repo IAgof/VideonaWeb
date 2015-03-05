@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * This file is part of the Videona code project.
+ * 
+ * Copyright (C) 2015 Videona Socialmedia SL
+ * http://www.videona.com
+ * info@videona.com
+ *
+ * All rights reserved
+ */
+
 namespace Videona\DBBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -13,9 +23,11 @@ use Videona\UtilsBundle\Utility\Utils;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Videona\DBBundle\Entity\UserRepository")
  */
-class User extends BaseUser
-{
+class User extends BaseUser {
+
     /**
+     * The user's identifier
+     * 
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -23,27 +35,37 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
-    /** @ORM\Column(name="username_change", type="boolean") */
+
+    /** 
+     * This parameter specifies if the user has selected a valid username
+     * 
+     * @ORM\Column(name="username_change", type="boolean") 
+     */
     protected $username_change;
-    
+
     /**
+     * This is the token that Facebook returns for every user
+     * 
      * @var integer
      * 
      * @ORM\OneToOne(targetEntity="SocialFacebook")
      * @ORM\JoinColumn(name="facebook_id", referencedColumnName="id")
      */
     protected $facebook_id;
-    
+
     /**
+     * This is the token that Google+ returns for every user
+     * 
      * @var integer
      * 
      * @ORM\OneToOne(targetEntity="SocialGoogle")
      * @ORM\JoinColumn(name="google_id", referencedColumnName="id")
      */
     protected $google_id;
-    
+
     /**
+     * This is the token that Twitter returns for every user
+     * 
      * @var integer
      * 
      * @ORM\OneToOne(targetEntity="SocialTwitter")
@@ -52,32 +74,39 @@ class User extends BaseUser
     protected $twitter_id;
 
     /**
+     * The user's profile image
+     * 
      * @var integer
      * 
      * @ORM\OneToOne(targetEntity="Image")
      * @ORM\JoinColumn(name="profile_picture", referencedColumnName="id")
      */
     protected $profile_picture;
-    
-    /** @ORM\Column(name="videona_register", type="boolean") */
+
+    /** 
+     * This parameter indicates if the user has been registered by Videona
+     * or another social network
+     * 
+     * @ORM\Column(name="videona_register", type="boolean") 
+     */
     protected $videona_register;
-        
+
     /**
+     * This is an auxiliar parameter between user table and image table
+     * 
      * @ORM\OneToMany(targetEntity="Image", mappedBy="usr")
-     **/
+     */
     private $images;
-    
-    public function __construct()
-    {
+
+    public function __construct() {
         parent::__construct();
         // your own logic
         $this->images = new ArrayCollection();
         $this->username_change = '0';
         $this->videona_register = '0';
     }
-    
-    public function setUsernameCanonical($usernameCanonical)
-    {
+
+    public function setUsernameCanonical($usernameCanonical) {
         parent::setUsernameCanonical($usernameCanonical);
         $this->usernameCanonical = Utils::removeDots($usernameCanonical);
 
@@ -89,28 +118,27 @@ class User extends BaseUser
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
-    
+
     /**
      * Agrega un rol al usuario.
      * @throws Exception
      * @param Rol $rol 
      */
     /*
-    public function addRole( $rol )
-    {
-	if($rol == 1) {
-	  array_push($this->roles, 'ROLE_ADMIN');
-	}
-	else if($rol == 2) {
-	  array_push($this->roles, 'ROLE_USER');
-	}
-    }
+      public function addRole( $rol )
+      {
+      if($rol == 1) {
+      array_push($this->roles, 'ROLE_ADMIN');
+      }
+      else if($rol == 2) {
+      array_push($this->roles, 'ROLE_USER');
+      }
+      }
      */
-    
+
     /**
      * Set usernameChange
      *
@@ -118,8 +146,7 @@ class User extends BaseUser
      *
      * @return User
      */
-    public function setUsernameChange($usernameChange)
-    {
+    public function setUsernameChange($usernameChange) {
         $this->username_change = $usernameChange;
 
         return $this;
@@ -130,8 +157,7 @@ class User extends BaseUser
      *
      * @return boolean
      */
-    public function getUsernameChange()
-    {
+    public function getUsernameChange() {
         return $this->username_change;
     }
 
@@ -141,8 +167,7 @@ class User extends BaseUser
      * @param integer $facebookId
      * @return User
      */
-    public function setFacebookId($facebookId)
-    {
+    public function setFacebookId($facebookId) {
         $this->facebook_id = $facebookId;
 
         return $this;
@@ -153,8 +178,7 @@ class User extends BaseUser
      *
      * @return integer 
      */
-    public function getFacebookId()
-    {
+    public function getFacebookId() {
         return $this->facebook_id;
     }
 
@@ -164,8 +188,7 @@ class User extends BaseUser
      * @param integer $googleId
      * @return User
      */
-    public function setGoogleId($googleId)
-    {
+    public function setGoogleId($googleId) {
         $this->google_id = $googleId;
 
         return $this;
@@ -176,8 +199,7 @@ class User extends BaseUser
      *
      * @return integer 
      */
-    public function getGoogleId()
-    {
+    public function getGoogleId() {
         return $this->google_id;
     }
 
@@ -187,8 +209,7 @@ class User extends BaseUser
      * @param integer $twitterId
      * @return User
      */
-    public function setTwitterId($twitterId)
-    {
+    public function setTwitterId($twitterId) {
         $this->twitter_id = $twitterId;
 
         return $this;
@@ -199,8 +220,7 @@ class User extends BaseUser
      *
      * @return integer 
      */
-    public function getTwitterId()
-    {
+    public function getTwitterId() {
         return $this->twitter_id;
     }
 
@@ -211,8 +231,7 @@ class User extends BaseUser
      *
      * @return User
      */
-    public function setProfilePicture($profilePicture)
-    {
+    public function setProfilePicture($profilePicture) {
         $this->profile_picture = $profilePicture;
 
         return $this;
@@ -223,8 +242,7 @@ class User extends BaseUser
      *
      * @return integer
      */
-    public function getProfilePicture()
-    {
+    public function getProfilePicture() {
         return $this->profile_picture;
     }
 
@@ -235,8 +253,7 @@ class User extends BaseUser
      *
      * @return User
      */
-    public function setVideonaRegister($videonaRegister)
-    {
+    public function setVideonaRegister($videonaRegister) {
         $this->videona_register = $videonaRegister;
 
         return $this;
@@ -247,8 +264,7 @@ class User extends BaseUser
      *
      * @return boolean
      */
-    public function getVideonaRegister()
-    {
+    public function getVideonaRegister() {
         return $this->videona_register;
     }
 
@@ -259,8 +275,7 @@ class User extends BaseUser
      *
      * @return User
      */
-    public function addImage(\Videona\DBBundle\Entity\Image $image)
-    {
+    public function addImage(\Videona\DBBundle\Entity\Image $image) {
         $this->images[] = $image;
 
         return $this;
@@ -271,8 +286,7 @@ class User extends BaseUser
      *
      * @param \Videona\DBBundle\Entity\Image $image
      */
-    public function removeImage(\Videona\DBBundle\Entity\Image $image)
-    {
+    public function removeImage(\Videona\DBBundle\Entity\Image $image) {
         $this->images->removeElement($image);
     }
 
@@ -281,8 +295,8 @@ class User extends BaseUser
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getImages()
-    {
+    public function getImages() {
         return $this->images;
     }
+
 }

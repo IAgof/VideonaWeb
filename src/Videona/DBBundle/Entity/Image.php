@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * This file is part of the Videona code project.
+ * 
+ * Copyright (C) 2015 Videona Socialmedia SL
+ * http://www.videona.com
+ * info@videona.com
+ *
+ * All rights reserved
+ */
+
 namespace Videona\DBBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -10,9 +20,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Videona\DBBundle\Entity\ImageRepository")
  */
-class Image
-{
+class Image {
+
     /**
+     * The image's identifier
+     * 
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -20,72 +32,86 @@ class Image
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
+     * The user who uploaded the image
+     * 
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="User", inversedBy="images")
      * @ORM\JoinColumn(name="usr", referencedColumnName="id")
      */
     protected $usr;
-    
+
     /**
+     * The image's location
+     * 
      * @var string
      * 
      * @ORM\Column(name="real_uri", type="string", length=255, nullable=true)
      */
     protected $real_uri;
-    
-    /** 
+
+    /**
+     * The uploaded date
+     * 
      * @var datetime
      * 
      * @ORM\Column(name="created_at", type="datetime", nullable=true) 
      */
     protected $created_at;
-    
-    /** 
+
+    /**
+     * The width of the image
+     * 
      * @var integer
      * 
      * @ORM\Column(name="width", type="bigint", nullable=true) 
      */
     protected $width;
-    
-    /** 
+
+    /**
+     * The height of the image
+     * 
      * @var integer
      * 
      * @ORM\Column(name="height", type="bigint", nullable=true) 
      */
     protected $height;
-    
-    /** 
+
+    /**
+     * The size in bytes of the image
+     * 
      * @var integer
      * 
      * @ORM\Column(name="size", type="bigint", nullable=true) 
      */
     protected $size;
-    
+
     /**
+     * The type of the image
+     * 
      * @var string
      * 
      * @ORM\Column(name="type", type="string", length=50, nullable=true)
      */
     protected $type;
-    
+
     /**
+     * The extension of the image
+     * 
      * @var string
      * 
      * @ORM\Column(name="extension", type="string", length=50, nullable=true)
      */
     protected $extension;
-    
-    
+
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -96,8 +122,7 @@ class Image
      *
      * @return Image
      */
-    public function setUsr(\Videona\DBBundle\Entity\User $usr = null)
-    {
+    public function setUsr(\Videona\DBBundle\Entity\User $usr = null) {
         $this->usr = $usr;
 
         return $this;
@@ -108,8 +133,7 @@ class Image
      *
      * @return \Videona\DBBundle\Entity\User
      */
-    public function getUsr()
-    {
+    public function getUsr() {
         return $this->usr;
     }
 
@@ -120,8 +144,7 @@ class Image
      *
      * @return Image
      */
-    public function setRealUri($realUri)
-    {
+    public function setRealUri($realUri) {
         $this->real_uri = $realUri;
 
         return $this;
@@ -132,8 +155,7 @@ class Image
      *
      * @return string
      */
-    public function getRealUri()
-    {
+    public function getRealUri() {
         return $this->real_uri;
     }
 
@@ -144,8 +166,7 @@ class Image
      *
      * @return Image
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->created_at = $createdAt;
 
         return $this;
@@ -156,8 +177,7 @@ class Image
      *
      * @return \DateTime
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->created_at;
     }
 
@@ -168,8 +188,7 @@ class Image
      *
      * @return Image
      */
-    public function setWidth($width)
-    {
+    public function setWidth($width) {
         $this->width = $width;
 
         return $this;
@@ -180,8 +199,7 @@ class Image
      *
      * @return integer
      */
-    public function getWidth()
-    {
+    public function getWidth() {
         return $this->width;
     }
 
@@ -192,8 +210,7 @@ class Image
      *
      * @return Image
      */
-    public function setHeight($height)
-    {
+    public function setHeight($height) {
         $this->height = $height;
 
         return $this;
@@ -204,8 +221,7 @@ class Image
      *
      * @return integer
      */
-    public function getHeight()
-    {
+    public function getHeight() {
         return $this->height;
     }
 
@@ -216,8 +232,7 @@ class Image
      *
      * @return Image
      */
-    public function setSize($size)
-    {
+    public function setSize($size) {
         $this->size = $size;
 
         return $this;
@@ -228,8 +243,7 @@ class Image
      *
      * @return integer
      */
-    public function getSize()
-    {
+    public function getSize() {
         return $this->size;
     }
 
@@ -240,8 +254,7 @@ class Image
      *
      * @return Image
      */
-    public function setType($type)
-    {
+    public function setType($type) {
         $this->type = $type;
 
         return $this;
@@ -252,8 +265,7 @@ class Image
      *
      * @return string
      */
-    public function getType()
-    {
+    public function getType() {
         return $this->type;
     }
 
@@ -264,8 +276,7 @@ class Image
      *
      * @return Image
      */
-    public function setExtension($extension)
-    {
+    public function setExtension($extension) {
         $this->extension = $extension;
 
         return $this;
@@ -276,8 +287,8 @@ class Image
      *
      * @return string
      */
-    public function getExtension()
-    {
+    public function getExtension() {
         return $this->extension;
     }
+
 }

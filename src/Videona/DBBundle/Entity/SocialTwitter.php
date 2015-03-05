@@ -1,10 +1,19 @@
 <?php
 
+/*
+ * This file is part of the Videona code project.
+ * 
+ * Copyright (C) 2015 Videona Socialmedia SL
+ * http://www.videona.com
+ * info@videona.com
+ *
+ * All rights reserved
+ */
+
 namespace Videona\DBBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Videona\Backend\SocialBundle\Model\SocialTwitterManager;
 
 /**
  * SocialTwitter
@@ -12,9 +21,11 @@ use Videona\Backend\SocialBundle\Model\SocialTwitterManager;
  * @ORM\Table(name="social_twitter")
  * @ORM\Entity(repositoryClass="Videona\DBBundle\Entity\SocialTwitterRepository")
  */
-class SocialTwitter
-{
+class SocialTwitter {
+
     /**
+     * The identifier of Twitter social network table
+     * 
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -24,14 +35,18 @@ class SocialTwitter
     protected $id;
 
     /**
+     * The user's identifier
+     * 
      * @var integer
      *
      * @ORM\OneToOne(targetEntity="User")
      * @ORM\JoinColumn(name="usr", referencedColumnName="id")
      */
     protected $usr;
-    
+
     /**
+     * The user's unique id on Twitter
+     * 
      * @var string
      *
      * @Assert\NotBlank()
@@ -40,99 +55,121 @@ class SocialTwitter
     protected $twitter_id;
 
     /**
+     * The access token associated to the user on Twitter
+     * 
      * @var string
      *
      * @Assert\NotBlank()
      * @ORM\Column(name="twitter_access_token", type="string", length=255)
      */
     protected $twitter_access_token;
-    
+
     /**
+     * The access token key associated to the user on Twitter
+     * 
      * @var string
      *
      * @ORM\Column(name="twitter_access_token_secret", type="string", length=255)
      */
     protected $twitter_access_token_secret;
-    
+
     /**
+     * When the access token associated to the user expires
+     * 
      * @var integer
      *
      * @ORM\Column(name="twitter_access_token_expires_in", type="bigint", nullable=true)
      */
     protected $twitter_access_token_expires_in;
-    
+
     /**
+     * The user's first name
+     * 
      * @var string
      *
      * @ORM\Column(name="realname", type="string", length=255, nullable=true)
      */
     protected $realname;
-    
+
     /**
+     * The username
+     * 
      * @var string
      *
      * @ORM\Column(name="screen_name", type="string", length=255, nullable=true)
      */
     protected $screen_name;
-    
-    /** 
+
+    /**
+     * The number of users that follow him on Twitter
+     * 
      * @var integer
      * 
      * @ORM\Column(name="followers_count", type="integer", nullable=true) 
      */
     protected $followers_count;
-    
-    /** 
+
+    /**
+     * The number of people an author follows on Twitter
+     * 
      * @var integer
      * 
      * @ORM\Column(name="friends_count", type="integer", nullable=true) 
      */
     protected $friends_count;
-    
-    /** 
+
+    /**
+     * The number of Twitter lists on which the user appears like author of a Tweet
+     * 
      * @var integer
      * 
      * @ORM\Column(name="listed_count", type="integer", nullable=true) 
      */
     protected $listed_count;
-    
-    /** 
+
+    /**
+     * The register date of the user on Twitter
+     * 
      * @var datetime
      * 
      * @ORM\Column(name="created_at", type="datetime", nullable=true) 
      */
     protected $created_at;
-    
-    /** 
+
+    /**
+     * The number of Tweets the user has favorited
+     * 
      * @var integer
      * 
      * @ORM\Column(name="favourites_count", type="integer", nullable=true) 
      */
     protected $favourites_count;
-    
+
     /**
+     * The string description of the Twitter user's location
+     * 
      * @var string
      *
      * @ORM\Column(name="locale", type="string", length=50, nullable=true)
      */
     protected $locale;
-    
+
     /**
+     * The user's profile image associated to the user on Twitter
+     * 
      * @var integer
      *
      * @ORM\OneToOne(targetEntity="Image")
      * @ORM\JoinColumn(name="profile_picture", referencedColumnName="id")
      */
     protected $profile_picture;
-    
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -142,8 +179,7 @@ class SocialTwitter
      * @param integer $usr
      * @return SocialTwitter
      */
-    public function setUsr($usr)
-    {
+    public function setUsr($usr) {
         $this->usr = $usr;
 
         return $this;
@@ -154,8 +190,7 @@ class SocialTwitter
      *
      * @return integer 
      */
-    public function getUsr()
-    {
+    public function getUsr() {
         return $this->usr;
     }
 
@@ -165,8 +200,7 @@ class SocialTwitter
      * @param string $twitterId
      * @return SocialTwitter
      */
-    public function setTwitterId($twitterId)
-    {
+    public function setTwitterId($twitterId) {
         $this->twitter_id = $twitterId;
 
         return $this;
@@ -177,8 +211,7 @@ class SocialTwitter
      *
      * @return string 
      */
-    public function getTwitterId()
-    {
+    public function getTwitterId() {
         return $this->twitter_id;
     }
 
@@ -188,8 +221,7 @@ class SocialTwitter
      * @param string $twitterAccessToken
      * @return SocialTwitter
      */
-    public function setTwitterAccessToken($twitterAccessToken)
-    {
+    public function setTwitterAccessToken($twitterAccessToken) {
         $this->twitter_access_token = $twitterAccessToken;
 
         return $this;
@@ -200,8 +232,7 @@ class SocialTwitter
      *
      * @return string 
      */
-    public function getTwitterAccessToken()
-    {
+    public function getTwitterAccessToken() {
         return $this->twitter_access_token;
     }
 
@@ -211,8 +242,7 @@ class SocialTwitter
      * @param string $twitterAccessTokenSecret
      * @return SocialTwitter
      */
-    public function setTwitterAccessTokenSecret($twitterAccessTokenSecret)
-    {
+    public function setTwitterAccessTokenSecret($twitterAccessTokenSecret) {
         $this->twitter_access_token_secret = $twitterAccessTokenSecret;
 
         return $this;
@@ -223,8 +253,7 @@ class SocialTwitter
      *
      * @return string 
      */
-    public function getTwitterAccessTokenSecret()
-    {
+    public function getTwitterAccessTokenSecret() {
         return $this->twitter_access_token_secret;
     }
 
@@ -234,8 +263,7 @@ class SocialTwitter
      * @param integer $twitterAccessTokenExpiresIn
      * @return SocialTwitter
      */
-    public function setTwitterAccessTokenExpiresIn($twitterAccessTokenExpiresIn)
-    {
+    public function setTwitterAccessTokenExpiresIn($twitterAccessTokenExpiresIn) {
         $this->twitter_access_token_expires_in = $twitterAccessTokenExpiresIn;
 
         return $this;
@@ -246,8 +274,7 @@ class SocialTwitter
      *
      * @return integer 
      */
-    public function getTwitterAccessTokenExpiresIn()
-    {
+    public function getTwitterAccessTokenExpiresIn() {
         return $this->twitter_access_token_expires_in;
     }
 
@@ -257,8 +284,7 @@ class SocialTwitter
      * @param string $realname
      * @return SocialTwitter
      */
-    public function setRealname($realname)
-    {
+    public function setRealname($realname) {
         $this->realname = $realname;
 
         return $this;
@@ -269,8 +295,7 @@ class SocialTwitter
      *
      * @return string 
      */
-    public function getRealname()
-    {
+    public function getRealname() {
         return $this->realname;
     }
 
@@ -280,8 +305,7 @@ class SocialTwitter
      * @param string $screenName
      * @return SocialTwitter
      */
-    public function setScreenName($screenName)
-    {
+    public function setScreenName($screenName) {
         $this->screen_name = $screenName;
 
         return $this;
@@ -292,8 +316,7 @@ class SocialTwitter
      *
      * @return string 
      */
-    public function getScreenName()
-    {
+    public function getScreenName() {
         return $this->screen_name;
     }
 
@@ -303,8 +326,7 @@ class SocialTwitter
      * @param integer $followersCount
      * @return SocialTwitter
      */
-    public function setFollowersCount($followersCount)
-    {
+    public function setFollowersCount($followersCount) {
         $this->followers_count = $followersCount;
 
         return $this;
@@ -315,8 +337,7 @@ class SocialTwitter
      *
      * @return integer 
      */
-    public function getFollowersCount()
-    {
+    public function getFollowersCount() {
         return $this->followers_count;
     }
 
@@ -326,8 +347,7 @@ class SocialTwitter
      * @param integer $friendsCount
      * @return SocialTwitter
      */
-    public function setFriendsCount($friendsCount)
-    {
+    public function setFriendsCount($friendsCount) {
         $this->friends_count = $friendsCount;
 
         return $this;
@@ -338,8 +358,7 @@ class SocialTwitter
      *
      * @return integer 
      */
-    public function getFriendsCount()
-    {
+    public function getFriendsCount() {
         return $this->friends_count;
     }
 
@@ -349,8 +368,7 @@ class SocialTwitter
      * @param integer $listedCount
      * @return SocialTwitter
      */
-    public function setListedCount($listedCount)
-    {
+    public function setListedCount($listedCount) {
         $this->listed_count = $listedCount;
 
         return $this;
@@ -361,8 +379,7 @@ class SocialTwitter
      *
      * @return integer 
      */
-    public function getListedCount()
-    {
+    public function getListedCount() {
         return $this->listed_count;
     }
 
@@ -372,8 +389,7 @@ class SocialTwitter
      * @param \DateTime $createdAt
      * @return SocialTwitter
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->created_at = $createdAt;
 
         return $this;
@@ -384,8 +400,7 @@ class SocialTwitter
      *
      * @return \DateTime 
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->created_at;
     }
 
@@ -395,8 +410,7 @@ class SocialTwitter
      * @param integer $favouritesCount
      * @return SocialTwitter
      */
-    public function setFavouritesCount($favouritesCount)
-    {
+    public function setFavouritesCount($favouritesCount) {
         $this->favourites_count = $favouritesCount;
 
         return $this;
@@ -407,8 +421,7 @@ class SocialTwitter
      *
      * @return integer 
      */
-    public function getFavouritesCount()
-    {
+    public function getFavouritesCount() {
         return $this->favourites_count;
     }
 
@@ -418,8 +431,7 @@ class SocialTwitter
      * @param string $locale
      * @return SocialTwitter
      */
-    public function setLocale($locale)
-    {
+    public function setLocale($locale) {
         $this->locale = $locale;
 
         return $this;
@@ -430,8 +442,7 @@ class SocialTwitter
      *
      * @return string 
      */
-    public function getLocale()
-    {
+    public function getLocale() {
         return $this->locale;
     }
 
@@ -441,8 +452,7 @@ class SocialTwitter
      * @param integer $profilePicture
      * @return SocialTwitter
      */
-    public function setProfilePicture($profilePicture)
-    {
+    public function setProfilePicture($profilePicture) {
         $this->profile_picture = $profilePicture;
 
         return $this;
@@ -453,8 +463,8 @@ class SocialTwitter
      *
      * @return integer 
      */
-    public function getProfilePicture()
-    {
+    public function getProfilePicture() {
         return $this->profile_picture;
     }
+
 }

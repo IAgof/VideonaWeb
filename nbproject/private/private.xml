@@ -4,6 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/wamp/www/Videona/.gitignore</file>
+            <file>file:/C:/wamp/www/Videona/src/Videona/Backend/UserManagementBundle/Controller/UsernameController.php</file>
+            <file>file:/C:/wamp/www/Videona/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Controller/Controller.php</file>
             <file>file:/C:/wamp/www/Videona/vendor/friendsofsymfony/user-bundle/Security/UserProvider.php</file>
             <file>file:/C:/wamp/www/Videona/src/Videona/Backend/UserManagementBundle/Resources/views/layout.html.twig</file>
             <file>file:/C:/wamp/www/Videona/app/config/config.yml</file>
@@ -16,8 +18,8 @@
             <file>file:/C:/wamp/www/Videona/src/Videona/Backend/UserManagementBundle/Security/Core/User/FOSUBUserProvider.php</file>
             <file>file:/C:/wamp/www/Videona/vendor/friendsofsymfony/user-bundle/Model/UserManager.php</file>
             <file>file:/C:/wamp/www/Videona/vendor/symfony/symfony/src/Symfony/Component/Security/Http/RememberMe/AbstractRememberMeServices.php</file>
+            <file>file:/C:/wamp/www/Videona/app/AppKernel.php</file>
             <file>file:/C:/wamp/www/Videona/app/config/security.yml</file>
-            <file>file:/C:/wamp/www/Videona/app/config/parameters.yml</file>
             <file>file:/C:/wamp/www/Videona/src/Videona/Backend/SocialBundle/Controller/TwitterController.php</file>
             <file>file:/C:/wamp/www/Videona/vendor/hwi/oauth-bundle/HWI/Bundle/OAuthBundle/Security/Core/User/FOSUBUserProvider.php</file>
             <file>file:/C:/wamp/www/Videona/web/app_dev.php</file>

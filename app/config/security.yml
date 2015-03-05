@@ -45,7 +45,7 @@ security:
         main:
             pattern: ^/
             remember_me:
-                key:      "%rememberMeKey%"
+                key:      "%remember_me_key%"
                 lifetime: 31536000 # 365 days in seconds
                 path:     /
                 domain:   ~ # Defaults to the current domain from $_SERVER
@@ -80,6 +80,7 @@ security:
         - { path: ^/api/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/logout-success, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/check-user, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/doc, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/prueba, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/, role: ROLE_USER }
         
