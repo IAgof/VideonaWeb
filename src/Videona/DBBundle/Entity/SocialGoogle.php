@@ -436,5 +436,5 @@ class SocialGoogle {
     public function getProfilePicture() {
         return $this->profile_picture;
     }
-
+    
 }

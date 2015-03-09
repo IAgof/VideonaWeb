@@ -46,30 +46,27 @@ class User extends BaseUser {
     /**
      * This is the token that Facebook returns for every user
      * 
-     * @var integer
+     * @var string
      * 
-     * @ORM\OneToOne(targetEntity="SocialFacebook")
-     * @ORM\JoinColumn(name="facebook_id", referencedColumnName="id")
+     * @ORM\Column(name="facebook_id", type="string", length=255, unique=true, nullable=true)
      */
     protected $facebook_id;
 
     /**
      * This is the token that Google+ returns for every user
      * 
-     * @var integer
+     * @var string
      * 
-     * @ORM\OneToOne(targetEntity="SocialGoogle")
-     * @ORM\JoinColumn(name="google_id", referencedColumnName="id")
+     * @ORM\Column(name="google_id", type="string", length=255, unique=true, nullable=true)
      */
     protected $google_id;
 
     /**
      * This is the token that Twitter returns for every user
      * 
-     * @var integer
+     * @var string
      * 
-     * @ORM\OneToOne(targetEntity="SocialTwitter")
-     * @ORM\JoinColumn(name="twitter_id", referencedColumnName="id")
+     * @ORM\Column(name="twitter_id", type="string", length=255, unique=true, nullable=true)
      */
     protected $twitter_id;
 

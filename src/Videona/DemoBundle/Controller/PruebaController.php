@@ -187,7 +187,6 @@ class PruebaController extends Controller {
         // Guardamos el archivo en el directorio correspondiente
         // Puedo hacer una carpeta general con el identificador del usuario y ahí
         // dentro meter las carpetas con las imágenes
-        // TODO: Videona: definir la estructura de carpetas para guardar imágenes!!
 	$directory = $this->get('kernel')->getRootDir() . '/../web/file/profileicons/originals/' . ($profileiconid % 256) . '/';
         ld($directory);
 		

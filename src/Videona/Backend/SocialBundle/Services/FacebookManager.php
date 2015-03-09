@@ -14,6 +14,7 @@ namespace Videona\Backend\SocialBundle\Services;
 
 use Doctrine\ORM\EntityManager;
 use Videona\DBBundle\Entity\SocialFacebook;
+use Videona\Backend\SocialBundle\Services\ImageManager;
 
 /**
  * Manager for facebook user data
@@ -26,6 +27,11 @@ class FacebookManager {
      * @var ObjectManager
      */
     protected $em;
+    
+    /**
+     * @var ObjectManager
+     */
+    protected $imageManager;
 
     /**
      * @var ObjectRepository
@@ -36,59 +42,68 @@ class FacebookManager {
      * Constructor.
      *
      * @param EntityManager $em
+     * @param ImageManager $imageManager
      */
-    public function __construct(EntityManager $em) {
+    public function __construct(EntityManager $em, ImageManager $imageManager) {
         $this->em = $em;
         $this->repository = $this->em->getRepository('VideonaDBBundle:SocialFacebook');
+        $this->imageManager = $imageManager;
     }
 
     /**
-     * Method
+     * Finds a user by the user's unique id on Facebook on social_facebook table
      * 
-     * @param int $facebookId
+     * @param string $facebookId
      * 
      * @return UserInterface or null if user does not exist
      */
-    public function loadUserByFacebookId($facebookId) {
+    public function loadUserBySocialId($facebookId) {
         $user = $this->repository->findOneBy(array('facebook_id' => $facebookId));
-        if (!$user) {
-            throw new UsernameNotFoundException(sprintf("User '%s' not found.", $facebookId));
-        }
-
+        
         return $user;
     }
 
     /**
-     * Finds a user by username.
+     * Update social user data.
      *
-     * This method is meant to be an extension point for child classes.
-     *
+     * @param SocialFacebook $socialFacebook
      * @param array $data
-     *
-     * @return UserInterface or null if user does not exist
      */
-    public function updateFacebookUserData(\Videona\DBBundle\Entity\SocialFacebook $socialFacebook, $data) {
-        $socialFacebook->setEmail('pruebaSocial@gmail.com');
-//        if (!$user) {
-//            throw new UsernameNotFoundException(sprintf("User '%s' not found.", $facebookId));
-//        }
-
+    public function updateSocialUserData($socialFacebook, $data) {
+        
+        // Save original image
+        //$imageId = $this->imageManager->loadImage($data['usr'], $data['profile_picture']);
+        
+        // Update social user data
+        //$socialFacebook->setUsr($data['usr']);
+        $socialFacebook->setUsr('57');
+        $socialFacebook->setFacebookAccessToken($data['facebook_access_token']);
+        $socialFacebook->setFacebookAccessTokenExpiresIn($data['facebook_access_token_expires_in']);
+        $socialFacebook->setEmail($data['email']);
+        $socialFacebook->setFirstname($data['firstname']);
+        $socialFacebook->setLastname($data['lastname']);
+        $socialFacebook->setGender($data['gender']);
+        $socialFacebook->setLink($data['link']);
+        $socialFacebook->setLocale($data['locale']);
+        $socialFacebook->setRealname($data['realname']);
+        $socialFacebook->setTimezone($data['timezone']);
+        $socialFacebook->setUpdatedTime($data['updated_time']);
+        $socialFacebook->setVerified($data['verified']);
+        $socialFacebook->setNickname($data['nick']);
+        //$socialFacebook->setProfilePicture($imageId);
+        
         $this->em->persist($socialFacebook);
         $this->em->flush();
-        //return $data['facebook_id'];
-        return $socialFacebook;
     }
 
     /**
      * Create a user.
      *
-     * This method is meant to be an extension point for child classes.
-     *
      * @param array $data
      *
      * @return UserInterface or null if user does not exist
      */
-    public function createFacebookUser($data) {
+    public function createSocialUser($data) {
         $facebook_user = new SocialFacebook();
         $facebook_user->setEmail($data['email']);
 //        if (!$user) {

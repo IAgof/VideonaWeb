@@ -251,20 +251,20 @@ class UserRestController extends Controller {
      */
     public function loginAction() {
 
-        // Get current user
-        $user = $this->getUser();
-
-        // Create response
-        $response = new Response();
-
-        // Update last login of this user
-        $user->setLastLogin(new \DateTime());
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($user);
-        $em->flush();
-
-        return $response;
+//        // Get current user
+//        $user = $this->getUser();
+//
+//        // Create response
+//        $response = new Response();
+//
+//        // Update last login of this user
+//        $user->setLastLogin(new \DateTime());
+//
+//        $em = $this->getDoctrine()->getManager();
+//        $em->persist($user);
+//        $em->flush();
+//
+//        return $response;
     }
 
     /**
@@ -277,8 +277,8 @@ class UserRestController extends Controller {
      */
     public function logoutAction() {
 
-        // Throw new exception if the logout is not activate in the security firewall configuration
-        throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
+//        // Throw new exception if the logout is not activate in the security firewall configuration
+//        throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
     }
 
     /**
@@ -291,10 +291,10 @@ class UserRestController extends Controller {
      */
     public function logoutSuccessAction() {
 
-        // Create response
-        $response = new Response();
-
-        return $response;
+//        // Create response
+//        $response = new Response();
+//
+//        return $response;
     }
 
     /**

@@ -25,15 +25,25 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ClientCreateCommand extends ContainerAwareCommand {
 
+    /**
+     * Configure
+     */
     protected function configure() {
         $this
-                ->setName('videona:oauth:client:create')
+                ->setName('videona:oauth-server:client:create')
                 ->setDescription('Creates a new client')
                 ->addOption('redirect-uri', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Sets the redirect uri. Use multiple times to set multiple uris.', null)
                 ->addOption('grant-type', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Set allowed grant type. Use multiple times to set multiple grant types', null)
         ;
     }
 
+    /**
+     * Register an OAuth client on the platform side
+     * 
+     * @param InputInterface $input
+     * 
+     * @return OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output) {
         $clientManager = $this->getContainer()->get('fos_oauth_server.client_manager.default');
         $client = $clientManager->createClient();
