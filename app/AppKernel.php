@@ -26,6 +26,8 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Videona\RestBundle\VideonaRestBundle(),
             new Videona\UtilsBundle\VideonaUtilsBundle(),
+            new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
+            new Videona\Backend\OAuthBundle\VideonaBackendOAuthBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

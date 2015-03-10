@@ -148,10 +148,9 @@ class SocialGoogle {
     /**
      * The user's profile image associated to the user on Google+
      * 
-     * @var integer
+     * @var string
      *
-     * @ORM\OneToOne(targetEntity="Image")
-     * @ORM\JoinColumn(name="profile_picture", referencedColumnName="id")
+     * @ORM\Column(name="profile_picture", type="string", length=100, nullable=true)
      */
     protected $profile_picture;
 
@@ -436,5 +435,5 @@ class SocialGoogle {
     public function getProfilePicture() {
         return $this->profile_picture;
     }
-
+    
 }

@@ -36,7 +36,7 @@ class User extends BaseUser {
      */
     protected $id;
 
-    /** 
+    /**
      * This parameter specifies if the user has selected a valid username
      * 
      * @ORM\Column(name="username_change", type="boolean") 
@@ -46,30 +46,27 @@ class User extends BaseUser {
     /**
      * This is the token that Facebook returns for every user
      * 
-     * @var integer
+     * @var string
      * 
-     * @ORM\OneToOne(targetEntity="SocialFacebook")
-     * @ORM\JoinColumn(name="facebook_id", referencedColumnName="id")
+     * @ORM\Column(name="facebook_id", type="string", length=255, unique=true, nullable=true)
      */
     protected $facebook_id;
 
     /**
      * This is the token that Google+ returns for every user
      * 
-     * @var integer
+     * @var string
      * 
-     * @ORM\OneToOne(targetEntity="SocialGoogle")
-     * @ORM\JoinColumn(name="google_id", referencedColumnName="id")
+     * @ORM\Column(name="google_id", type="string", length=255, unique=true, nullable=true)
      */
     protected $google_id;
 
     /**
      * This is the token that Twitter returns for every user
      * 
-     * @var integer
+     * @var string
      * 
-     * @ORM\OneToOne(targetEntity="SocialTwitter")
-     * @ORM\JoinColumn(name="twitter_id", referencedColumnName="id")
+     * @ORM\Column(name="twitter_id", type="string", length=255, unique=true, nullable=true)
      */
     protected $twitter_id;
 
@@ -83,7 +80,7 @@ class User extends BaseUser {
      */
     protected $profile_picture;
 
-    /** 
+    /**
      * This parameter indicates if the user has been registered by Videona
      * or another social network
      * 
@@ -92,20 +89,23 @@ class User extends BaseUser {
     protected $videona_register;
 
     /**
-     * This is an auxiliar parameter between user table and image table
-     * 
-     * @ORM\OneToMany(targetEntity="Image", mappedBy="usr")
+     * Constructor
      */
-    private $images;
-
     public function __construct() {
         parent::__construct();
         // your own logic
-        $this->images = new ArrayCollection();
+        //$this->images = new ArrayCollection();
         $this->username_change = '0';
         $this->videona_register = '0';
     }
 
+    /**
+     * Set usernameCanonical
+     *
+     * @param string $usernameCanonical
+     *
+     * @return User
+     */
     public function setUsernameCanonical($usernameCanonical) {
         parent::setUsernameCanonical($usernameCanonical);
         $this->usernameCanonical = Utils::removeDots($usernameCanonical);
@@ -142,7 +142,7 @@ class User extends BaseUser {
     /**
      * Set usernameChange
      *
-     * @param boolean $usernameChange
+     * @param bool $usernameChange
      *
      * @return User
      */
@@ -155,7 +155,7 @@ class User extends BaseUser {
     /**
      * Get usernameChange
      *
-     * @return boolean
+     * @return bool
      */
     public function getUsernameChange() {
         return $this->username_change;
@@ -165,6 +165,7 @@ class User extends BaseUser {
      * Set facebook_id
      *
      * @param integer $facebookId
+     * 
      * @return User
      */
     public function setFacebookId($facebookId) {
@@ -186,6 +187,7 @@ class User extends BaseUser {
      * Set google_id
      *
      * @param integer $googleId
+     * 
      * @return User
      */
     public function setGoogleId($googleId) {
@@ -207,6 +209,7 @@ class User extends BaseUser {
      * Set twitter_id
      *
      * @param integer $twitterId
+     * 
      * @return User
      */
     public function setTwitterId($twitterId) {
@@ -249,7 +252,7 @@ class User extends BaseUser {
     /**
      * Set videonaRegister
      *
-     * @param boolean $videonaRegister
+     * @param bool $videonaRegister
      *
      * @return User
      */
@@ -262,41 +265,10 @@ class User extends BaseUser {
     /**
      * Get videonaRegister
      *
-     * @return boolean
+     * @return bool
      */
     public function getVideonaRegister() {
         return $this->videona_register;
-    }
-
-    /**
-     * Add image
-     *
-     * @param \Videona\DBBundle\Entity\Image $image
-     *
-     * @return User
-     */
-    public function addImage(\Videona\DBBundle\Entity\Image $image) {
-        $this->images[] = $image;
-
-        return $this;
-    }
-
-    /**
-     * Remove image
-     *
-     * @param \Videona\DBBundle\Entity\Image $image
-     */
-    public function removeImage(\Videona\DBBundle\Entity\Image $image) {
-        $this->images->removeElement($image);
-    }
-
-    /**
-     * Get images
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getImages() {
-        return $this->images;
     }
 
 }

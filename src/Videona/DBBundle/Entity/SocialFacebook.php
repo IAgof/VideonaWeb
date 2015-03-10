@@ -67,9 +67,9 @@ class SocialFacebook {
     /**
      * When the access token associated to the user expires
      * 
-     * @var integer
+     * @var string
      * 
-     * @ORM\Column(name="facebook_access_token_expires_in", type="bigint", nullable=true) 
+     * @ORM\Column(name="facebook_access_token_expires_in", type="string", length=50, nullable=true) 
      */
     protected $facebook_access_token_expires_in;
 
@@ -163,14 +163,22 @@ class SocialFacebook {
     protected $verified;
 
     /**
-     * The user's profile image associated to the user on Twitter
+     * The user's profile image associated to the user on Facebook
      * 
-     * @var integer
+     * @var string
      *
-     * @ORM\OneToOne(targetEntity="Image")
-     * @ORM\JoinColumn(name="profile_picture", referencedColumnName="id")
+     * @ORM\Column(name="profile_picture", type="string", length=100, nullable=true)
      */
     protected $profile_picture;
+    
+    /**
+     * The nickname
+     * 
+     * @var string
+     * 
+     * @ORM\Column(name="nickname", type="string", length=255, nullable=true)
+     */
+    protected $nickname;
 
     /**
      * Get id
@@ -540,4 +548,28 @@ class SocialFacebook {
         return $this->social;
     }
 
+
+    /**
+     * Set nickname
+     *
+     * @param string $nickname
+     *
+     * @return SocialFacebook
+     */
+    public function setNickname($nickname)
+    {
+        $this->nickname = $nickname;
+    
+        return $this;
+    }
+
+    /**
+     * Get nickname
+     *
+     * @return string
+     */
+    public function getNickname()
+    {
+        return $this->nickname;
+    }
 }

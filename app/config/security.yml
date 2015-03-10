@@ -28,19 +28,22 @@ security:
             logout:
                 path:   _demo_logout
                 target: _demo
+                
+        oauth_token:
+            pattern:    ^/oauth/v2/token
+            security:   false
 
+        oauth_authorize:
+            pattern:    ^/oauth/v2/auth
+            form_login:
+                check_path: oauth_server_auth_login_check
+                login_path: oauth_server_auth_login
+                
         api:
             pattern: ^/api/.* 
-            form_login: false
-            http_basic:  
-                realm: "REST Service Realm" 
-                provider: fos_userbundle
-            logout:
-                path:   /api/logout
-                target: /api/logout-success
-            security:  true  
-            stateless: false
-            anonymous: ~
+            fos_oauth:  true 
+            stateless: true
+            anonymous: true # anonymous access is enabled
                             
         main:
             pattern: ^/
@@ -76,13 +79,9 @@ security:
                     
     access_control:
         #Backend
-        - { path: ^/api/signup, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/logout-success, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/check-user, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/doc, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/prueba, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/, role: ROLE_USER }
+        #- { path: ^/api, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        # The URLs under /api will use OAuth2 to authenticate users.
+        #- { path: ^/api/, role: ROLE_USER }
         
         #Frontend
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

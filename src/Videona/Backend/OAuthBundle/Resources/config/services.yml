@@ -1,0 +1,4 @@
+services:
+#    videona_backend_o_auth.example:
+#        class: Videona\Backend\OAuthBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

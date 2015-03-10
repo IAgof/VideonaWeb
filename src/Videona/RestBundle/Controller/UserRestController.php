@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Videona\UtilsBundle\Utility\Utils;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\GetResponseUserEvent;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * UserRestController controls the access via API
@@ -28,7 +29,7 @@ use FOS\UserBundle\Event\GetResponseUserEvent;
  * @author vlf
  */
 class UserRestController extends Controller {
-    
+
     /**
      * Create new user
      * 
@@ -250,50 +251,20 @@ class UserRestController extends Controller {
      */
     public function loginAction() {
 
-        // Get current user
-        $user = $this->getUser();
-
-        // Create response
-        $response = new Response();
-
-        // Update last login of this user
-        $user->setLastLogin(new \DateTime());
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($user);
-        $em->flush();
-
-        return $response;
-    }
-
-    /**
-     * Sign out user
-     * 
-     * POST Route annotation.
-     * @Post("/logout")
-     * 
-     * @throws RuntimeException
-     */
-    public function logoutAction() {
-
-        // Throw new exception if the logout is not activate in the security firewall configuration
-        throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
-    }
-
-    /**
-     * Redirect the user after logout success
-     * 
-     * GET Route annotation.
-     * @Get("/logout-success")
-     * 
-     * @return Response $response
-     */
-    public function logoutSuccessAction() {
-
-        // Create response
-        $response = new Response();
-
-        return $response;
+//        // Get current user
+//        $user = $this->getUser();
+//
+//        // Create response
+//        $response = new Response();
+//
+//        // Update last login of this user
+//        $user->setLastLogin(new \DateTime());
+//
+//        $em = $this->getDoctrine()->getManager();
+//        $em->persist($user);
+//        $em->flush();
+//
+//        return $response;
     }
 
     /**
@@ -324,10 +295,16 @@ class UserRestController extends Controller {
      * @param int $id The user's identifier
      * 
      * @throws createNotFoundException
+     * @throws AccessDeniedException
      * 
      * @return UserInterface $user user that you find
      */
     public function getProfileAction($id) {
+
+        // Check if user is logged
+        if (false === $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw new AccessDeniedException();
+        }
         //ld($this->getRequest());
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('VideonaDBBundle:User')->find($id);
@@ -343,7 +320,7 @@ class UserRestController extends Controller {
         //var_dump($user->getImages());
 
         /*
-         * TODO: tengo mis dudas sobre la relación entre la imagen de perfil y
+         * TODO: Videona: tengo mis dudas sobre la relación entre la imagen de perfil y
          * el usuario. Realmente lo que es la imagen de perfil es uno a uno.
          * Si se trata de imágenes sí es uno a muchos.
          */
@@ -363,11 +340,17 @@ class UserRestController extends Controller {
      * @param int $id The user's identifier
      * 
      * @throws createNotFoundException
+     * @throws AccessDeniedException
      * 
      * @return UserInterface $user User that you find
      */
     public function putProfileAction($id) {
 
+        // Check if user is logged
+        if (false === $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw new AccessDeniedException();
+        }
+        
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('VideonaDBBundle:User')->find($id);
         if (!is_object($user)) {
@@ -391,11 +374,17 @@ class UserRestController extends Controller {
      * @param int $id The user's identifier
      * 
      * @throws createNotFoundException
+     * @throws AccessDeniedException
      * 
      * @return UserInterface $user user that you find
      */
     public function getProfileImageAction($id) {
 
+        // Check if user is logged
+        if (false === $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw new AccessDeniedException();
+        }
+        
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('VideonaDBBundle:User')->find($id);
         if (!is_object($user)) {
@@ -420,11 +409,17 @@ class UserRestController extends Controller {
      * @param int $id The user's identifier
      * 
      * @throws createNotFoundException
+     * @throws AccessDeniedException
      * 
      * @return UserInterface $user user that you find
      */
     public function putProfileImageAction($id) {
 
+        // Check if user is logged
+        if (false === $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw new AccessDeniedException();
+        }
+        
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('VideonaDBBundle:User')->find($id);
         if (!is_object($user)) {
@@ -448,11 +443,17 @@ class UserRestController extends Controller {
      * @param int $id The user's identifier
      * 
      * @throws createNotFoundException
+     * @throws AccessDeniedException
      * 
      * @return UserInterface $user user that you find
      */
     public function getUsernameAction($id) {
 
+        // Check if user is logged
+        if (false === $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw new AccessDeniedException();
+        }
+        
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('VideonaDBBundle:User')->find($id);
         if (!is_object($user)) {
@@ -472,11 +473,16 @@ class UserRestController extends Controller {
      * @param Request $request
      * 
      * @throws createNotFoundException
+     * @throws AccessDeniedException
      * 
      * @return UserInterface $user user that you find
      */
     public function getUsernameMeAction(Request $request) {
 
+        // Check if user is logged
+        if (false === $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw new AccessDeniedException();
+        }
 
         $username = $request->getUser();
         return $this->getUser();
@@ -502,11 +508,17 @@ class UserRestController extends Controller {
      * @param int $id The user's identifier
      * 
      * @throws createNotFoundException
+     * @throws AccessDeniedException
      * 
      * @return UserInterface $user user that you find
      */
     public function getVideosAction($id) {
 
+        // Check if user is logged
+        if (false === $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw new AccessDeniedException();
+        }
+        
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('VideonaDBBundle:User')->find($id);
         if (!is_object($user)) {
@@ -525,10 +537,17 @@ class UserRestController extends Controller {
      * @param String $username The user's name
      * 
      * @throws createNotFoundException
+     * @throws AccessDeniedException
      * 
      * @return UserInterface $user user that you find
      */
     public function findUserAction($username) {
+        
+        // Check if user is logged
+        if (false === $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw new AccessDeniedException();
+        }
+        
         /*
          * Lo puedo usar para cuando implemente la función buscar usuarios y
          * en lugar de devolver un usuario pues que devuelva una lista
@@ -548,10 +567,17 @@ class UserRestController extends Controller {
      * GET Route annotation.
      * @Get("/users")
      * 
+     * @throws AccessDeniedException
+     * 
      * @return UserInterface $users list of all users of database
      */
     public function getUsersAction() {
 
+        // Check if user is logged
+        if (false === $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw new AccessDeniedException();
+        }
+        
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('VideonaDBBundle:User')->findAll();
         //if(!is_object($user)){

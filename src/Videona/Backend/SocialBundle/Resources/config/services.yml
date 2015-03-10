@@ -3,6 +3,7 @@ parameters:
     my_facebook_manager.class:       Videona\Backend\SocialBundle\Services\FacebookManager
     my_google_manager.class:       Videona\Backend\SocialBundle\Services\GoogleManager
     my_twitter_manager.class:       Videona\Backend\SocialBundle\Services\TwitterManager
+    my_image_manager.class:       Videona\Backend\SocialBundle\Services\ImageManager
 
 services:
 #    videona_backend_social.example:
@@ -12,13 +13,20 @@ services:
         class: %my_facebook_manager.class%
         arguments:
             entityManager: "@doctrine.orm.entity_manager"
+            imageManager: "@my_image_manager"
             
     my_google_manager:
         class: %my_google_manager.class%
         arguments:
             entityManager: "@doctrine.orm.entity_manager"
+            imageManager: "@my_image_manager"
             
     my_twitter_manager:
         class: %my_twitter_manager.class%
         arguments:
             entityManager: "@doctrine.orm.entity_manager"
+            imageManager: "@my_image_manager"
+            
+    my_image_manager:
+        class: %my_image_manager.class%
+        arguments: [@doctrine.orm.entity_manager, %kernel.root_dir%]
