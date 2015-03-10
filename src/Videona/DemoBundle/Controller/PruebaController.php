@@ -93,13 +93,7 @@ class PruebaController extends Controller {
         //ld($this->container->getParameter('locale'));
         // Imagen de perfil de videona para practicar
         // https://graph.facebook.com/1465342587073990/picture?width=260&height=260
-        /*
-         * TODO: Videona: crear un objeto imagen que referencie a la entidad imagen
-         * Hacer en la base de datos una tabla que recoja los datos de las imágenes:
-         * identificador, tamaño, propietario, etc.
-         * Actualizar esos datos también en la tabla de usuario.
-         * http://symfony.com/doc/current/reference/constraints/Image.html
-         */
+        
         $imageurl = 'https://graph.facebook.com/1465342587073990/picture?width=260&height=260';
         $tempname = $imageurl;
         
@@ -165,7 +159,7 @@ class PruebaController extends Controller {
         return new Response('ok');
 	
 	// Comprobamos si ha habido error al subir el archivo	
-	$allowedExts = array("gif", "jpeg", "jpg", "png");
+	$allowedExts = array(".gif", ".jpeg", ".jpg", ".png");
 	if ((($type != "image/gif")
 	&& ($type != "image/jpeg")
 	&& ($type != "image/jpg")
