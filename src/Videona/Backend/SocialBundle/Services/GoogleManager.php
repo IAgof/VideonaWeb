@@ -13,6 +13,8 @@
 namespace Videona\Backend\SocialBundle\Services;
 
 use Doctrine\ORM\EntityManager;
+use Videona\DBBundle\Entity\User;
+use Videona\DBBundle\Entity\SocialGoogle;
 use Videona\Backend\SocialBundle\Services\ImageManager;
 
 /**
@@ -60,6 +62,63 @@ class GoogleManager {
         $user = $this->repository->findOneBy(array('google_id' => $googleId));
 
         return $user;
+    }
+    
+    /**
+     * Update social user data.
+     *
+     * @param SocialGoogle $socialUser
+     * @param array $data the social user data
+     * @param User $user
+     */
+    public function updateSocialUserData($socialUser, $data, $user) {
+        
+        // Update social user data
+        $socialUser->setUsr($user);
+        $socialUser->setGoogleId($data['google_id']);
+        $socialUser->setGoogleAccessToken($data['google_access_token']);
+        $socialUser->setGoogleAccessTokenExpiresIn($data['google_access_token_expires_in']);
+        $socialUser->setEmail($data['email']);
+        $socialUser->setFirstname($data['firstname']);
+        $socialUser->setLastname($data['lastname']);
+        $socialUser->setGender($data['gender']);
+        $socialUser->setLink($data['link']);
+        $socialUser->setLocale($data['locale']);
+        $socialUser->setRealname($data['realname']);
+        $socialUser->setVerified($data['verified']);
+        $socialUser->setProfilePicture($data['profile_picture']);
+        
+        $this->em->persist($socialUser);
+        $this->em->flush();
+    }
+    
+    /**
+     * Create a new social user.
+     *
+     * @param array $data the social user data
+     * @param User $user
+     */
+    public function createSocialUser($data, $user) {
+        
+        // Create new user of Google+
+        $socialUser = new SocialGoogle();
+        
+        $socialUser->setUsr($user);
+        $socialUser->setGoogleId($data['google_id']);
+        $socialUser->setGoogleAccessToken($data['google_access_token']);
+        $socialUser->setGoogleAccessTokenExpiresIn($data['google_access_token_expires_in']);
+        $socialUser->setEmail($data['email']);
+        $socialUser->setFirstname($data['firstname']);
+        $socialUser->setLastname($data['lastname']);
+        $socialUser->setGender($data['gender']);
+        $socialUser->setLink($data['link']);
+        $socialUser->setLocale($data['locale']);
+        $socialUser->setRealname($data['realname']);
+        $socialUser->setVerified($data['verified']);
+        $socialUser->setProfilePicture($data['profile_picture']);
+        
+        $this->em->persist($socialUser);
+        $this->em->flush();
     }
 
 }

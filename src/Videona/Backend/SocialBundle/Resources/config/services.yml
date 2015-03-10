@@ -29,5 +29,4 @@ services:
             
     my_image_manager:
         class: %my_image_manager.class%
-        arguments:
-            entityManager: "@doctrine.orm.entity_manager"
+        arguments: [@doctrine.orm.entity_manager, %kernel.root_dir%]

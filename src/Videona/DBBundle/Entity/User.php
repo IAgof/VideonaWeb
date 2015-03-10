@@ -89,19 +89,12 @@ class User extends BaseUser {
     protected $videona_register;
 
     /**
-     * This is an auxiliar parameter between user table and image table
-     * 
-     * @ORM\OneToMany(targetEntity="Image", mappedBy="usr")
-     */
-    private $images;
-
-    /**
      * Constructor
      */
     public function __construct() {
         parent::__construct();
         // your own logic
-        $this->images = new ArrayCollection();
+        //$this->images = new ArrayCollection();
         $this->username_change = '0';
         $this->videona_register = '0';
     }
@@ -276,37 +269,6 @@ class User extends BaseUser {
      */
     public function getVideonaRegister() {
         return $this->videona_register;
-    }
-
-    /**
-     * Add image
-     *
-     * @param \Videona\DBBundle\Entity\Image $image
-     *
-     * @return User
-     */
-    public function addImage(\Videona\DBBundle\Entity\Image $image) {
-        $this->images[] = $image;
-
-        return $this;
-    }
-
-    /**
-     * Remove image
-     *
-     * @param \Videona\DBBundle\Entity\Image $image
-     */
-    public function removeImage(\Videona\DBBundle\Entity\Image $image) {
-        $this->images->removeElement($image);
-    }
-
-    /**
-     * Get images
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getImages() {
-        return $this->images;
     }
 
 }

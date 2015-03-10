@@ -67,9 +67,9 @@ class SocialFacebook {
     /**
      * When the access token associated to the user expires
      * 
-     * @var integer
+     * @var string
      * 
-     * @ORM\Column(name="facebook_access_token_expires_in", type="bigint", nullable=true) 
+     * @ORM\Column(name="facebook_access_token_expires_in", type="string", length=50, nullable=true) 
      */
     protected $facebook_access_token_expires_in;
 
@@ -165,10 +165,9 @@ class SocialFacebook {
     /**
      * The user's profile image associated to the user on Facebook
      * 
-     * @var integer
+     * @var string
      *
-     * @ORM\OneToOne(targetEntity="Image")
-     * @ORM\JoinColumn(name="profile_picture", referencedColumnName="id")
+     * @ORM\Column(name="profile_picture", type="string", length=100, nullable=true)
      */
     protected $profile_picture;
     

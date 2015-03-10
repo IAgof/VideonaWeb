@@ -131,7 +131,7 @@ class PruebaController extends Controller {
 	//	$oldextension = $saved[1];
 	//}
         
-        // TODO: Videona: revisar las extensiones
+        
         switch ($type) {
             case 'image/gif':
                 $extension = '.gif';

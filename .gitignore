@@ -27,6 +27,7 @@
 /web/uploads/
 /web/css/
 /web/js/
+/web/file/
 
 # PHPUnit
 /app/phpunit.xml

@@ -13,6 +13,7 @@
 namespace Videona\Backend\SocialBundle\Services;
 
 use Doctrine\ORM\EntityManager;
+use Videona\DBBundle\Entity\User;
 use Videona\DBBundle\Entity\SocialFacebook;
 use Videona\Backend\SocialBundle\Services\ImageManager;
 
@@ -66,65 +67,64 @@ class FacebookManager {
     /**
      * Update social user data.
      *
-     * @param SocialFacebook $socialFacebook
-     * @param array $data
+     * @param SocialFacebook $socialUser
+     * @param array $data the social user data
+     * @param User $user
      */
-    public function updateSocialUserData($socialFacebook, $data) {
-        
-        // Save original image
-        //$imageId = $this->imageManager->loadImage($data['usr'], $data['profile_picture']);
+    public function updateSocialUserData($socialUser, $data, $user) {
         
         // Update social user data
-        //$socialFacebook->setUsr($data['usr']);
-        $socialFacebook->setUsr('57');
-        $socialFacebook->setFacebookAccessToken($data['facebook_access_token']);
-        $socialFacebook->setFacebookAccessTokenExpiresIn($data['facebook_access_token_expires_in']);
-        $socialFacebook->setEmail($data['email']);
-        $socialFacebook->setFirstname($data['firstname']);
-        $socialFacebook->setLastname($data['lastname']);
-        $socialFacebook->setGender($data['gender']);
-        $socialFacebook->setLink($data['link']);
-        $socialFacebook->setLocale($data['locale']);
-        $socialFacebook->setRealname($data['realname']);
-        $socialFacebook->setTimezone($data['timezone']);
-        $socialFacebook->setUpdatedTime($data['updated_time']);
-        $socialFacebook->setVerified($data['verified']);
-        $socialFacebook->setNickname($data['nick']);
-        //$socialFacebook->setProfilePicture($imageId);
+        $socialUser->setUsr($user);
+        $socialUser->setFacebookId($data['facebook_id']);
+        $socialUser->setFacebookAccessToken($data['facebook_access_token']);
+        $socialUser->setFacebookAccessTokenExpiresIn($data['facebook_access_token_expires_in']);
+        $socialUser->setEmail($data['email']);
+        $socialUser->setFirstname($data['firstname']);
+        $socialUser->setLastname($data['lastname']);
+        $socialUser->setGender($data['gender']);
+        $socialUser->setLink($data['link']);
+        $socialUser->setLocale($data['locale']);
+        $socialUser->setRealname($data['realname']);
+        $socialUser->setTimezone($data['timezone']);
+        $socialUser->setUpdatedTime($data['updated_time']);
+        $socialUser->setVerified($data['verified']);
+        $socialUser->setNickname($data['nick']);
+        $socialUser->setProfilePicture($data['profile_picture']);
         
-        $this->em->persist($socialFacebook);
+        $this->em->persist($socialUser);
         $this->em->flush();
     }
 
     /**
-     * Create a user.
+     * Create a new social user.
      *
-     * @param array $data
-     *
-     * @return UserInterface or null if user does not exist
+     * @param array $data the social user data
+     * @param User $user
      */
-    public function createSocialUser($data) {
-        $facebook_user = new SocialFacebook();
-        $facebook_user->setEmail($data['email']);
-//        if (!$user) {
-//            throw new UsernameNotFoundException(sprintf("User '%s' not found.", $facebookId));
-//        }
-        //$this->em->persist($socialFacebook);
-        //$this->em->flush();
-        return $facebook_user;
-    }
-
-    /**
-     * Finds a user by username.
-     *
-     * This method is meant to be an extension point for child classes.
-     *
-     * @param string $username
-     *
-     * @return UserInterface or null if user does not exist
-     */
-    public function findUser($username) {
-        //return $this->userManager->findUserByUsername($username);
+    public function createSocialUser($data, $user) {
+                
+        // Create new user of Facebook
+        $socialUser = new SocialFacebook();
+        
+        $socialUser->setUsr($user);
+        $socialUser->setFacebookId($data['facebook_id']);
+        $socialUser->setFacebookAccessToken($data['facebook_access_token']);
+        $socialUser->setFacebookAccessTokenExpiresIn($data['facebook_access_token_expires_in']);
+        $socialUser->setEmail($data['email']);
+        $socialUser->setFirstname($data['firstname']);
+        $socialUser->setLastname($data['lastname']);
+        $socialUser->setGender($data['gender']);
+        $socialUser->setLink($data['link']);
+        $socialUser->setLocale($data['locale']);
+        $socialUser->setRealname($data['realname']);
+        $socialUser->setTimezone($data['timezone']);
+        $socialUser->setUpdatedTime($data['updated_time']);
+        $socialUser->setVerified($data['verified']);
+        $socialUser->setNickname($data['nick']);
+        $socialUser->setProfilePicture($data['profile_picture']);
+        
+        $this->em->persist($socialUser);
+        $this->em->flush();
     }
 
 }

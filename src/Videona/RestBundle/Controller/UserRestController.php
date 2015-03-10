@@ -268,36 +268,6 @@ class UserRestController extends Controller {
     }
 
     /**
-     * Sign out user
-     * 
-     * POST Route annotation.
-     * @Post("/logout")
-     * 
-     * @throws RuntimeException
-     */
-    public function logoutAction() {
-
-//        // Throw new exception if the logout is not activate in the security firewall configuration
-//        throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
-    }
-
-    /**
-     * Redirect the user after logout success
-     * 
-     * GET Route annotation.
-     * @Get("/logout-success")
-     * 
-     * @return Response $response
-     */
-    public function logoutSuccessAction() {
-
-//        // Create response
-//        $response = new Response();
-//
-//        return $response;
-    }
-
-    /**
      * Función mía para probar
      * 
      * GET Route annotation.

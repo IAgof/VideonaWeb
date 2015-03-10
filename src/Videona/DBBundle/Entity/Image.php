@@ -38,7 +38,7 @@ class Image {
      * 
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="images")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="usr", referencedColumnName="id")
      */
     protected $usr;

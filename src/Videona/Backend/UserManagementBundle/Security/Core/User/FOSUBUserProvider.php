@@ -47,12 +47,6 @@ class FOSUBUserProvider extends BaseClass {
             $this->userManager->updateUser($previousUser);
         }
 
-        /*
-         * TODO: Videona: intentar poner el username con utils::removedots()
-         * En el loaduserbyoauthuserresponse también.
-         * Así lo puedo quitar del formulario de seleccionar el username
-         */
-
         //we connect current user
         $user->$setterId($username);
 
@@ -68,7 +62,7 @@ class FOSUBUserProvider extends BaseClass {
     public function loadUserByOAuthUserResponse(UserResponseInterface $response) {
         // Check service login
         $serviceName = $response->getResourceOwner()->getName();
-        //ld($response);
+
         switch ($serviceName) {
             case 'facebook':
                 // Get user data from Facebook 
@@ -118,10 +112,10 @@ class FOSUBUserProvider extends BaseClass {
                 // Get user data from Google 
                 $userData = $response->getResponse();
                 $userid = $userData['id'];
-                $userEmail = $response->getEmail();
+                $socialEmail = $response->getEmail();
                 $firstname = $userData['given_name'];
-                $gender = $userData['gender'];
                 $lastname = $userData['family_name'];
+                $gender = $userData['gender'];
                 $link = $userData['link'];
                 $locale = $userData['locale'];
                 $realName = $response->getRealName();
@@ -134,9 +128,10 @@ class FOSUBUserProvider extends BaseClass {
                     "google_id" => $userid,
                     "google_access_token" => $oauthToken,
                     "google_access_token_expires_in" => $expiresIn,
-                    "email" => $userEmail,
+                    "email" => $socialEmail,
                     "firstname" => $firstname,
                     "lastname" => $lastname,
+                    "gender" => $gender,
                     "link" => $link,
                     "locale" => $locale,
                     "realname" => $realName,
@@ -153,7 +148,7 @@ class FOSUBUserProvider extends BaseClass {
                 // Get user data from Twitter
                 $userData = $response->getResponse();
                 $userid = $userData['id'];
-                $userEmail = null;
+                $socialEmail = null;
                 $realName = $response->getRealName();
                 $screenName = $userData['screen_name'];
                 $followersCount = $userData['followers_count'];
@@ -189,72 +184,52 @@ class FOSUBUserProvider extends BaseClass {
 
                 break;
         }
-
-        //ld($userid);
-        $socialManager->updateSocialUserData($socialUser, $data);
-        return;
-        /*
-         * TODO: Videona: descargar las imágenes de perfil y actualizar el campo
-         * correspondiente a la imagen de perfil en la base de datos. Pero hacer
-         * primero una comprobación para ver si ya tiene una imagen de perfil. Si
-         * la tiene no descargar la de la red social.
-         */
-
-        /*
-         * TODO: Videona: guardar los datos en la tabla de facebook, google, twitter 
-         * y actualizar los datos aunque ya existan.
-         * Crear objetos de cada una de las redes y manejarlos con un manager.
-         * Pero lo tengo que hacer al final, cuando ya sepa la id del usuario.
-         * El servicio lo suyo sería crearlo dentro del bundle social que 
-         * hay dentro de videonaWeb. Crear un manager por cada red o uno 
-         * global que las maneje todas.
-         */
-
-        if (null === $socialUser) {
-            // Create new social user if not exists
-        } else {
-            // Update social user data
-            //$prueba2 = $socialManager->updateSocialUserData($socialUser, $data);
-        }
-
-//        if ($profilePicture) {
-//            // Guardar la imagen de perfil
-//        }
-
-        /*
-         * TODO: Videona: hacer el deslogueo de las redes sociales justo antes de llamar 
-         * al logout (en plan cuando el usuario clique en el enlace de cerrar
-         * sesión), o hacerlo en el twig nada más loguearse?? Si no es en esos
-         * instantes, entonces cuándo?
-         */
-
+                
         // Check if this id exists in the DB
         $user = $this->userManager->findUserBy(array($this->getProperty($response) => $userid));
-
+                
         // When the user is registrating
         if (null === $user) {
-            // We check for the username existence - if so, update user.
-            if ($existentUser = $this->userManager->findUserByEmail($response->getEmail())) {
-                //throw new \Symfony\Component\Security\Core\Exception\AuthenticationException($message);
+            
+            // Check if email is null
+            if ($socialEmail == null) {
+                $socialEmail = $userid . '@' . $userid . '.com';
+            }
+            
+            // We check for the email existence - if so, update user.
+            if ($existentUser = $this->userManager->findUserByEmail($socialEmail)) {
                 // If user exists - go with the HWIOAuth way
-                $user = $existentUser;
-
-                // Get user id
-                $useridDB = $user->getId();
-                // Add user id to array which contains the user data
-                $data['usr'] = $useridDB;
-
+                
                 $setter = 'set' . ucfirst($serviceName);
                 $setterId = $setter . 'Id';
 
                 // Update access token
-                $user->$setterId($userid);
+                $existentUser->$setterId($userid);
+                
+                // Download the social profile picture if user hasn't a profile picture with us
+                if (null === $existentUser->getProfilePicture()) {
+                    $imageManager = $GLOBALS['kernel']->getContainer()->get('my_image_manager');
+                    $profilePictureId = $imageManager->saveOriginalImage($user, $profilePicture);
+                    
+                    // Update the profile picture
+                    $existentUser->setProfilePicture($profilePictureId);
+                }                
 
-                $this->userManager->updateUser($user);
-                return $user;
+                $this->userManager->updateUser($existentUser);
+                
+                // Check if social user exists
+                if (null === $socialUser) {
+                    // Create new social user
+                    $socialManager->createSocialUser($data, $existentUser);
+                } else {
+                    // Update social user data
+                    $socialManager->updateSocialUserData($socialUser, $data, $existentUser);
+                }
+
+                return $existentUser;
             }
 
-            // If email doesn't exist, create new user
+            // If user doesn't exist, create new user
             $setter = 'set' . ucfirst($serviceName);
             $setterId = $setter . 'Id';
 
@@ -263,28 +238,34 @@ class FOSUBUserProvider extends BaseClass {
             $user->$setterId($userid);
             // I have set all requested data with the user's username
             // Modify here with relevant data
-            $user->setUsername($userrealname);
+            $user->setUsername('########');
             $user->setUsernameChange('0');
             $user->setVideonaRegister('0');
-            // Check if email is null
-            if ($useremail == null) {
-                $user->setEmail($userid . '@' . $userid . '.com');
-            } else {
-                $user->setEmail($useremail);
-            }
+            $user->setEmail($socialEmail);
             // Insert user id like a password until user creates a password with us
-            //$user->setPlainPassword($userid);
-            // TODO: Videona: definir cómo guardar la contraseña
-            $user->setPlainPassword('pRueba123!');
+            $user->setPlainPassword($userid);
             $user->setEnabled(true);
+            
+            // Download the social profile picture if user has a profile picture
+            if ($profilePicture) {
+                $imageManager = $GLOBALS['kernel']->getContainer()->get('my_image_manager');
+                $profilePictureId = $imageManager->saveOriginalImage($user, $profilePicture);
+
+                // Update the profile picture
+                $user->setProfilePicture($profilePictureId);
+            } 
 
             // Update user
             $this->userManager->updateUser($user);
-
-            // Get user id
-            $useridDB = $user->getId();
-            // Add user id to array which contains the user data
-            $data['usr'] = $useridDB;
+            
+            // Check if social user exists
+            if (null === $socialUser) {
+                // Create new social user
+                $socialManager->createSocialUser($data, $user);
+            } else {
+                // Update social user data
+                $socialManager->updateSocialUserData($socialUser, $data, $user);
+            }
 
             return $user;
         }
@@ -292,10 +273,26 @@ class FOSUBUserProvider extends BaseClass {
         // If user exists - go with the HWIOAuth way
         $user = parent::loadUserByOAuthUserResponse($response);
 
-        // Get user id
-        $useridDB = $user->getId();
-        // Add user id to array which contains the user data
-        $data['usr'] = $useridDB;
+        // Download the social profile picture if user hasn't a profile picture with us
+        if (null === $user->getProfilePicture()) {
+            $imageManager = $GLOBALS['kernel']->getContainer()->get('my_image_manager');
+            $profilePictureId = $imageManager->saveOriginalImage($user, $profilePicture);
+            
+            // Update the profile picture
+            $user->setProfilePicture($profilePictureId);
+            
+            // Update user
+            $this->userManager->updateUser($user);
+        }
+                
+        // Check if social user exists
+        if (null === $socialUser) {
+            // Create new social user
+            $socialManager->createSocialUser($data, $user);
+        } else {
+            // Update social user data
+            $socialManager->updateSocialUserData($socialUser, $data, $user);
+        }
 
         return $user;
     }
