@@ -101,8 +101,8 @@ hwi_oauth:
     resource_owners:
         facebook:
             type: facebook
-            client_id: %facebookId%
-            client_secret: %facebookKey%
+            client_id: %facebook_id%
+            client_secret: %facebook_key%
             scope: "email"
             #infos_url:     "https://graph.facebook.com/me?fields=username,name,email,picture.type(square)"
             #paths:
@@ -110,8 +110,8 @@ hwi_oauth:
                 #profilepicture: picture.data.url
         google:
             type: google
-            client_id: %googleId%
-            client_secret: %googleKey%
+            client_id: %google_id%
+            client_secret: %google_key%
             scope: "https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"
             #options:
                 #access_type:     offline
@@ -121,9 +121,20 @@ hwi_oauth:
                 #profilepicture:  picture
         twitter:
             type: twitter
-            client_id: %twitterId%
-            client_secret:  %twitterKey%
+            client_id: %twitter_id%
+            client_secret:  %twitter_key%
             
+# FOSOAuthServer Configuration
+fos_oauth_server:
+    db_driver: orm       # Driver availables: orm, mongodb, or propel
+    client_class:        Videona\DBBundle\Entity\Client
+    access_token_class:  Videona\DBBundle\Entity\AccessToken
+    refresh_token_class: Videona\DBBundle\Entity\RefreshToken
+    auth_code_class:     Videona\DBBundle\Entity\AuthCode
+    service:
+        user_provider: fos_user.user_provider.username_email
+            
+# TODO: devolver en formato json los datos
 # FOSRest Configuration
 fos_rest:
     param_fetcher_listener: true

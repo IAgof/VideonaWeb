@@ -1,10 +1,19 @@
 <?php
 
+/*
+ * This file is part of the Videona code project.
+ * 
+ * Copyright (C) 2015 Videona Socialmedia SL
+ * http://www.videona.com
+ * info@videona.com
+ *
+ * All rights reserved
+ */
+
 namespace Videona\DBBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Videona\Backend\SocialBundle\Model\SocialGoogleManager;
 
 /**
  * SocialGoogle
@@ -12,9 +21,11 @@ use Videona\Backend\SocialBundle\Model\SocialGoogleManager;
  * @ORM\Table(name="social_google")
  * @ORM\Entity(repositoryClass="Videona\DBBundle\Entity\SocialGoogleRepository")
  */
-class SocialGoogle
-{
+class SocialGoogle {
+
     /**
+     * The identifier of Google+ social network table
+     * 
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -24,6 +35,8 @@ class SocialGoogle
     protected $id;
 
     /**
+     * The user's identifier
+     * 
      * @var integer
      *
      * @ORM\OneToOne(targetEntity="User")
@@ -32,6 +45,8 @@ class SocialGoogle
     protected $usr;
 
     /**
+     * The user's unique id on Google+
+     * 
      * @var string
      *
      * @Assert\NotBlank()
@@ -40,6 +55,8 @@ class SocialGoogle
     protected $google_id;
 
     /**
+     * The access token associated to the user on Google+
+     * 
      * @var string
      *
      * @Assert\NotBlank()
@@ -48,6 +65,8 @@ class SocialGoogle
     protected $google_access_token;
 
     /**
+     * When the access token associated to the user expires
+     * 
      * @var integer
      *
      * @ORM\Column(name="google_access_token_expires_in", type="bigint", nullable=true)
@@ -55,6 +74,8 @@ class SocialGoogle
     protected $google_access_token_expires_in;
 
     /**
+     * The email address by which the user has registered on Google+ social network
+     * 
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
@@ -62,6 +83,8 @@ class SocialGoogle
     protected $email;
 
     /**
+     * The user's first name
+     * 
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
@@ -69,6 +92,8 @@ class SocialGoogle
     protected $firstname;
 
     /**
+     * The user's last name
+     * 
      * @var string
      *
      * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
@@ -76,6 +101,8 @@ class SocialGoogle
     protected $lastname;
 
     /**
+     * The gender of the user
+     * 
      * @var string
      *
      * @ORM\Column(name="gender", type="string", length=50, nullable=true)
@@ -83,6 +110,8 @@ class SocialGoogle
     protected $gender;
 
     /**
+     * The personal url to access the user's profile on Google+ social network
+     * 
      * @var string
      *
      * @ORM\Column(name="link", type="string", length=255, nullable=true)
@@ -90,6 +119,8 @@ class SocialGoogle
     protected $link;
 
     /**
+     * The string description of the Google+ user's location
+     * 
      * @var string
      *
      * @ORM\Column(name="locale", type="string", length=50, nullable=true)
@@ -97,6 +128,8 @@ class SocialGoogle
     protected $locale;
 
     /**
+     * The username
+     * 
      * @var string
      *
      * @ORM\Column(name="realname", type="string", length=255, nullable=true)
@@ -104,6 +137,8 @@ class SocialGoogle
     protected $realname;
 
     /**
+     * This parameter indicates if user has verified his account on Google+
+     * 
      * @var boolean
      *
      * @ORM\Column(name="verified", type="boolean", nullable=true)
@@ -111,21 +146,20 @@ class SocialGoogle
     protected $verified;
 
     /**
-     * @var integer
+     * The user's profile image associated to the user on Google+
+     * 
+     * @var string
      *
-     * @ORM\OneToOne(targetEntity="Image")
-     * @ORM\JoinColumn(name="profile_picture", referencedColumnName="id")
+     * @ORM\Column(name="profile_picture", type="string", length=100, nullable=true)
      */
     protected $profile_picture;
-
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -135,8 +169,7 @@ class SocialGoogle
      * @param integer $usr
      * @return SocialGoogle
      */
-    public function setUsr($usr)
-    {
+    public function setUsr($usr) {
         $this->usr = $usr;
 
         return $this;
@@ -147,8 +180,7 @@ class SocialGoogle
      *
      * @return integer 
      */
-    public function getUsr()
-    {
+    public function getUsr() {
         return $this->usr;
     }
 
@@ -158,8 +190,7 @@ class SocialGoogle
      * @param string $googleId
      * @return SocialGoogle
      */
-    public function setGoogleId($googleId)
-    {
+    public function setGoogleId($googleId) {
         $this->google_id = $googleId;
 
         return $this;
@@ -170,8 +201,7 @@ class SocialGoogle
      *
      * @return string 
      */
-    public function getGoogleId()
-    {
+    public function getGoogleId() {
         return $this->google_id;
     }
 
@@ -181,8 +211,7 @@ class SocialGoogle
      * @param string $googleAccessToken
      * @return SocialGoogle
      */
-    public function setGoogleAccessToken($googleAccessToken)
-    {
+    public function setGoogleAccessToken($googleAccessToken) {
         $this->google_access_token = $googleAccessToken;
 
         return $this;
@@ -193,8 +222,7 @@ class SocialGoogle
      *
      * @return string 
      */
-    public function getGoogleAccessToken()
-    {
+    public function getGoogleAccessToken() {
         return $this->google_access_token;
     }
 
@@ -204,8 +232,7 @@ class SocialGoogle
      * @param integer $googleAccessTokenExpiresIn
      * @return SocialGoogle
      */
-    public function setGoogleAccessTokenExpiresIn($googleAccessTokenExpiresIn)
-    {
+    public function setGoogleAccessTokenExpiresIn($googleAccessTokenExpiresIn) {
         $this->google_access_token_expires_in = $googleAccessTokenExpiresIn;
 
         return $this;
@@ -216,8 +243,7 @@ class SocialGoogle
      *
      * @return integer 
      */
-    public function getGoogleAccessTokenExpiresIn()
-    {
+    public function getGoogleAccessTokenExpiresIn() {
         return $this->google_access_token_expires_in;
     }
 
@@ -227,8 +253,7 @@ class SocialGoogle
      * @param string $email
      * @return SocialGoogle
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
 
         return $this;
@@ -239,8 +264,7 @@ class SocialGoogle
      *
      * @return string 
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -250,8 +274,7 @@ class SocialGoogle
      * @param string $firstname
      * @return SocialGoogle
      */
-    public function setFirstname($firstname)
-    {
+    public function setFirstname($firstname) {
         $this->firstname = $firstname;
 
         return $this;
@@ -262,8 +285,7 @@ class SocialGoogle
      *
      * @return string 
      */
-    public function getFirstname()
-    {
+    public function getFirstname() {
         return $this->firstname;
     }
 
@@ -273,8 +295,7 @@ class SocialGoogle
      * @param string $lastname
      * @return SocialGoogle
      */
-    public function setLastname($lastname)
-    {
+    public function setLastname($lastname) {
         $this->lastname = $lastname;
 
         return $this;
@@ -285,8 +306,7 @@ class SocialGoogle
      *
      * @return string 
      */
-    public function getLastname()
-    {
+    public function getLastname() {
         return $this->lastname;
     }
 
@@ -296,8 +316,7 @@ class SocialGoogle
      * @param string $gender
      * @return SocialGoogle
      */
-    public function setGender($gender)
-    {
+    public function setGender($gender) {
         $this->gender = $gender;
 
         return $this;
@@ -308,8 +327,7 @@ class SocialGoogle
      *
      * @return string 
      */
-    public function getGender()
-    {
+    public function getGender() {
         return $this->gender;
     }
 
@@ -319,8 +337,7 @@ class SocialGoogle
      * @param string $link
      * @return SocialGoogle
      */
-    public function setLink($link)
-    {
+    public function setLink($link) {
         $this->link = $link;
 
         return $this;
@@ -331,8 +348,7 @@ class SocialGoogle
      *
      * @return string 
      */
-    public function getLink()
-    {
+    public function getLink() {
         return $this->link;
     }
 
@@ -342,8 +358,7 @@ class SocialGoogle
      * @param string $locale
      * @return SocialGoogle
      */
-    public function setLocale($locale)
-    {
+    public function setLocale($locale) {
         $this->locale = $locale;
 
         return $this;
@@ -354,8 +369,7 @@ class SocialGoogle
      *
      * @return string 
      */
-    public function getLocale()
-    {
+    public function getLocale() {
         return $this->locale;
     }
 
@@ -365,8 +379,7 @@ class SocialGoogle
      * @param string $realname
      * @return SocialGoogle
      */
-    public function setRealname($realname)
-    {
+    public function setRealname($realname) {
         $this->realname = $realname;
 
         return $this;
@@ -377,8 +390,7 @@ class SocialGoogle
      *
      * @return string 
      */
-    public function getRealname()
-    {
+    public function getRealname() {
         return $this->realname;
     }
 
@@ -388,8 +400,7 @@ class SocialGoogle
      * @param boolean $verified
      * @return SocialGoogle
      */
-    public function setVerified($verified)
-    {
+    public function setVerified($verified) {
         $this->verified = $verified;
 
         return $this;
@@ -400,8 +411,7 @@ class SocialGoogle
      *
      * @return boolean 
      */
-    public function getVerified()
-    {
+    public function getVerified() {
         return $this->verified;
     }
 
@@ -411,8 +421,7 @@ class SocialGoogle
      * @param integer $profilePicture
      * @return SocialGoogle
      */
-    public function setProfilePicture($profilePicture)
-    {
+    public function setProfilePicture($profilePicture) {
         $this->profile_picture = $profilePicture;
 
         return $this;
@@ -423,8 +432,8 @@ class SocialGoogle
      *
      * @return integer 
      */
-    public function getProfilePicture()
-    {
+    public function getProfilePicture() {
         return $this->profile_picture;
     }
+    
 }

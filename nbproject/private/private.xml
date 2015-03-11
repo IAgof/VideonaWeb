@@ -3,28 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/Videona/.gitignore</file>
-            <file>file:/C:/wamp/www/Videona/vendor/friendsofsymfony/user-bundle/Security/UserProvider.php</file>
-            <file>file:/C:/wamp/www/Videona/src/Videona/Backend/UserManagementBundle/Resources/views/layout.html.twig</file>
-            <file>file:/C:/wamp/www/Videona/app/config/config.yml</file>
-            <file>file:/C:/wamp/www/Videona/src/Videona/RestBundle/Controller/UserRestController.php</file>
-            <file>file:/C:/wamp/www/Videona/app/config/routing.yml</file>
-            <file>file:/C:/wamp/www/Videona/vendor/symfony/symfony/src/Symfony/Component/Security/Http/RememberMe/RememberMeServicesInterface.php</file>
-            <file>file:/C:/wamp/www/Videona/src/Videona/Backend/UserManagementBundle/Resources/views/Security/login.html.twig</file>
             <file>file:/C:/wamp/www/Videona/src/Videona/Backend/UserManagementBundle/Controller/SecurityController.php</file>
             <file>file:/C:/wamp/www/Videona/src/Videona/Backend/UserManagementBundle/Resources/config/services.yml</file>
             <file>file:/C:/wamp/www/Videona/src/Videona/Backend/UserManagementBundle/Security/Core/User/FOSUBUserProvider.php</file>
-            <file>file:/C:/wamp/www/Videona/vendor/friendsofsymfony/user-bundle/Model/UserManager.php</file>
-            <file>file:/C:/wamp/www/Videona/vendor/symfony/symfony/src/Symfony/Component/Security/Http/RememberMe/AbstractRememberMeServices.php</file>
+            <file>file:/C:/wamp/www/Videona/src/Videona/Backend/SocialBundle/Services/ImageManager.php</file>
             <file>file:/C:/wamp/www/Videona/app/config/security.yml</file>
-            <file>file:/C:/wamp/www/Videona/app/config/parameters.yml</file>
-            <file>file:/C:/wamp/www/Videona/src/Videona/Backend/SocialBundle/Controller/TwitterController.php</file>
-            <file>file:/C:/wamp/www/Videona/vendor/hwi/oauth-bundle/HWI/Bundle/OAuthBundle/Security/Core/User/FOSUBUserProvider.php</file>
+            <file>file:/C:/wamp/www/Videona/app/config/config.yml</file>
+            <file>file:/C:/wamp/www/Videona/src/Videona/DBBundle/Entity/User.php</file>
+            <file>file:/C:/wamp/www/Videona/src/Videona/RestBundle/Controller/UserRestController.php</file>
             <file>file:/C:/wamp/www/Videona/web/app_dev.php</file>
-            <file>file:/C:/wamp/www/Videona/src/Videona/DemoBundle/Controller/SecuredController.php</file>
-            <file>file:/C:/wamp/www/Videona/vendor/symfony/symfony/src/Symfony/Component/Security/Http/RememberMe/TokenBasedRememberMeServices.php</file>
-            <file>file:/C:/wamp/www/Videona/vendor/friendsofsymfony/user-bundle/Model/User.php</file>
-            <file>file:/C:/wamp/www/Videona/src/Videona/UtilsBundle/Utility/Utils.php</file>
+            <file>file:/C:/wamp/www/Videona/src/Videona/Backend/OAuthBundle/Controller/SecurityController.php</file>
+            <file>file:/C:/wamp/www/Videona/app/config/routing.yml</file>
         </group>
     </open-files>
 </project-private>

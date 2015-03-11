@@ -1,3 +1,7 @@
+videona_backend_o_auth:
+    resource: "@VideonaBackendOAuthBundle/Resources/config/routing.yml"
+    prefix:   /
+
 # My bundles routes
 videona_utils:
     resource: "@VideonaUtilsBundle/Resources/config/routing.yml"
@@ -33,7 +37,22 @@ rest:
 select_username:
     pattern: /register/username
     defaults:     { _controller: VideonaBackendUserManagementBundle:Username:getSocialUsername }
- 
+   
+# FosOAuthServerBundle routes
+fos_oauth_server_token:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
+
+fos_oauth_server_authorize:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
+    
+oauth_server_auth_login:
+        pattern:  /oauth/v2/auth_login
+        defaults: { _controller: VideonaBackendOAuthBundle:Security:login }
+
+oauth_server_auth_login_check:
+    pattern:  /oauth/v2/auth_login_check
+    defaults: { _controller: VideonaBackendOAuthBundle:Security:loginCheck }
+
 # FosUserBundle routes
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
