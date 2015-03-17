@@ -29,6 +29,10 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        facebook_id: "%facebook_id%"
+        google_id: "%google_id%"
+        twitter_id: "%twitter_id%"
 
 # Assetic Configuration
 assetic:

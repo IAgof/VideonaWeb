@@ -1,3 +1,11 @@
 videona_backend_social_homepage:
     path:     /hello/{name}
     defaults: { _controller: VideonaBackendSocialBundle:Default:index }
+    
+twitter_oauth_token:
+    pattern: /login/twitter/getOauthToken
+    defaults:     { _controller: VideonaBackendSocialBundle:Twitter:getOauthToken }
+    
+twitter_oauth_access_token:
+    pattern: /login/twitter/getOauthAccessToken
+    defaults:     { _controller: VideonaBackendSocialBundle:Twitter:getOauthAccessToken }
