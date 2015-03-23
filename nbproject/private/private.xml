@@ -3,23 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/Videona/.gitignore</file>
-            <file>file:/C:/wamp/www/Videona/src/Videona/DBBundle/Entity/SocialTwitter.php</file>
-            <file>file:/C:/wamp/www/Videona/src/Videona/DBBundle/Entity/Image.php</file>
+            <file>file:/C:/wamp/www/Videona/src/Videona/Backend/UserManagementBundle/Controller/LogoutSocialNetworksController.php</file>
+            <file>file:/C:/wamp/www/Videona/src/Videona/Backend/UserManagementBundle/Resources/config/services.yml</file>
+            <file>file:/C:/wamp/www/Videona/app/config/security.yml</file>
+            <file>file:/C:/wamp/www/Videona/app/config/parameters.yml</file>
             <file>file:/C:/wamp/www/Videona/app/config/config.yml</file>
             <file>file:/C:/wamp/www/Videona/src/Videona/RestBundle/Controller/UserRestController.php</file>
-            <file>file:/C:/wamp/www/Videona/app/config/routing.yml</file>
-            <file>file:/C:/wamp/www/Videona/src/Videona/DBBundle/Entity/SocialGoogle.php</file>
-            <file>file:/C:/wamp/www/Videona/src/Videona/Backend/UserManagementBundle/Resources/config/services.yml</file>
-            <file>file:/C:/wamp/www/Videona/src/Videona/DBBundle/Entity/AccessToken.php</file>
-            <file>file:/C:/wamp/www/Videona/src/Videona/Backend/UserManagementBundle/Security/Core/User/FOSUBUserProvider.php</file>
-            <file>file:/C:/wamp/www/Videona/src/Videona/Backend/SocialBundle/Services/FacebookManager.php</file>
-            <file>file:/C:/wamp/www/Videona/src/Videona/Backend/SocialBundle/Services/GoogleManager.php</file>
-            <file>file:/C:/wamp/www/Videona/src/Videona/DBBundle/Entity/SocialFacebook.php</file>
-            <file>file:/C:/wamp/www/Videona/app/config/security.yml</file>
-            <file>file:/C:/wamp/www/Videona/src/Videona/Backend/SocialBundle/Services/TwitterManager.php</file>
             <file>file:/C:/wamp/www/Videona/web/app_dev.php</file>
-            <file>file:/C:/wamp/www/Videona/src/Videona/DBBundle/Entity/User.php</file>
+            <file>file:/C:/wamp/www/Videona/app/config/routing.yml</file>
         </group>
     </open-files>
 </project-private>
