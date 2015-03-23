@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * LogoutSocialNetworksController is a class that allows users to logout from
- * Videona and other social networks if user has logged with them
+ * Videona
  *
  * @author vlf
  */
