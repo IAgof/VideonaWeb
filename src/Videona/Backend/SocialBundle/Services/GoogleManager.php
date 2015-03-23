@@ -120,5 +120,19 @@ class GoogleManager {
         $this->em->persist($socialUser);
         $this->em->flush();
     }
+    
+    /**
+     * Get access token of the user by the user's unique id on Google 
+     * on social_google table
+     * 
+     * @param string $googleId
+     * 
+     * @return string access token of the user
+     */
+    public function getAccessToken($googleId) {
+        $user = $this->repository->findOneBy(array('google_id' => $googleId));
+
+        return $user->getGoogleAccessToken();
+    }
 
 }

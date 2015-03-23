@@ -14,8 +14,6 @@ namespace Videona\DBBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
-use Doctrine\Common\Collections\ArrayCollection;
-use Videona\UtilsBundle\Utility\Utils;
 
 /**
  * User
@@ -106,12 +104,12 @@ class User extends BaseUser {
      *
      * @return User
      */
-    public function setUsernameCanonical($usernameCanonical) {
-        parent::setUsernameCanonical($usernameCanonical);
-        $this->usernameCanonical = Utils::removeDots($usernameCanonical);
-
-        return $this;
-    }
+//    public function setUsernameCanonical($usernameCanonical) {
+//        parent::setUsernameCanonical($usernameCanonical);
+//        $this->usernameCanonical = Utils::removeDots($usernameCanonical);
+//
+//        return $this;
+//    }
 
     /**
      * Get id

@@ -134,7 +134,7 @@
         window.fbAsyncInit = function() {
             // init the FB JS SDK
             FB.init({
-                appId      : '1530256123873085',   // App ID from the app dashboard
+                appId      : '{{facebook_id}}',   // App ID from the app dashboard
                 cookie     : true,                 // enable cookies to allow the server to access the session
                 //channelUrl : '//yourdomain.com/channel.html',      // Channel file for x-domain comms
                 status     : true,                 // Check Facebook Login status
@@ -254,7 +254,7 @@
         function render() {
           gapi.signin.render('customBtnGPlus', {
             'callback': 'signinCallback',
-            'clientid': '107134464495-ruserbd6t4lb47u8qvqto8n3ov3fla2v.apps.googleusercontent.com',
+            'clientid': '{{google_id}}',
             'cookiepolicy': 'single_host_origin',
             //'requestvisibleactions': 'http://schemas.google.com/AddActivity',
             //'response_type':'token',

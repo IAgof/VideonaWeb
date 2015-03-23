@@ -28,6 +28,7 @@ class PruebaController extends Controller {
     public function pruebaAction()
     {
         
+        
 //        $em = $this->getDoctrine()->getManager();
         //$users = $em->getRepository('VideonaDBBundle:User')->findOneByUsername('prueba');
         //$users = $em->getRepository('VideonaDBBundle:User')->findAll();
