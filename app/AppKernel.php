@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
             new Videona\Backend\OAuthBundle\VideonaBackendOAuthBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            new Videona\Frontend\HomeBundle\VideonaFrontendHomeBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

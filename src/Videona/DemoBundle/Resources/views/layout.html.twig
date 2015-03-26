@@ -3,6 +3,25 @@
 {% block head %}
     <link rel="icon" sizes="16x16" href="{{ asset('favicon.ico') }}" />
     <link rel="stylesheet" href="{{ asset('bundles/videonademo/css/demo.css') }}" />
+    <script type="text/javascript">
+        if (window.location.hash && window.location.hash == '#_=_') {
+            if (window.history && history.pushState) {
+                // for older browsers, leaves a # behind if you use window.location.hash
+                window.history.pushState("", document.title, window.location.pathname);
+            } else {
+                // Prevent scrolling by storing the page's current scroll offset
+                //var scroll = {
+                    //top: document.body.scrollTop,
+                    //left: document.body.scrollLeft
+                //};
+                window.location.hash = '';
+                // Restore the scroll offset, should be flicker free
+                //document.body.scrollTop = scroll.top;
+                //document.body.scrollLeft = scroll.left;
+                //event.preventDefault(); // no page reload
+            }
+        }
+    </script>
 {% endblock %}
 
 {% block title 'Demo Bundle' %}

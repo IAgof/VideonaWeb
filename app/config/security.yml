@@ -56,8 +56,8 @@ security:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
                 remember_me: true
-                #login_path: /login
-                #check_path: /login_check
+                login_path: /login
+                check_path: /login_check
                 #default_target_path: /donde yo quiera
             oauth:
                 resource_owners:

@@ -1,0 +1,3 @@
+videona_frontend_home_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: VideonaFrontendHomeBundle:Default:index }

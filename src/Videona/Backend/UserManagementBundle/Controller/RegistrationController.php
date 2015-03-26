@@ -30,9 +30,13 @@ class RegistrationController extends BaseController {
 
     /**
      * Creates a new user based in the register controller of FOSUserBundle.
+     * 
+     * @param Request $request
+     * 
+     * @return Response|view could be a response, could be a view of registration form
      */
     public function registerAction(Request $request) {
-        
+
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->get('fos_user.registration.form.factory');
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
@@ -58,12 +62,15 @@ class RegistrationController extends BaseController {
         if ($form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
-            
+
             // Update username_change to 1
             $user->setUsernameChange('1');
-                        
+
+            // Indicates that the user has been logged with Videona account
+            $user->setVideonaRegister('1');
+
             $userManager->updateUser($user);
-            
+
             if (null === $response = $event->getResponse()) {
                 $url = $this->generateUrl('fos_user_registration_confirmed');
                 $response = new RedirectResponse($url);
@@ -73,10 +80,10 @@ class RegistrationController extends BaseController {
 
             return $response;
         }
-        
-        
+
+
         return $this->render('FOSUserBundle:Registration:register.html.twig', array(
-            'form' => $form->createView(),
+                    'form' => $form->createView(),
         ));
     }
 

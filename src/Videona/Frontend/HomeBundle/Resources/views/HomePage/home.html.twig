@@ -1,0 +1,38 @@
+{% extends "VideonaFrontendHomeBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+    <!-- Customize social buttons -->
+    <style type="text/css">
+        .logoHome {
+          width: 400px;
+          height: auto;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <div>
+        {% block content %}
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {% block fos_user_content %}
+                    <h1>Hello {{ app.user.username }}!</h1>
+                    <div>
+                        <script>
+                            function logout() {
+                                // Call to /logout route
+                                document.location = "{{ path("fos_user_security_logout") }}";
+                            }
+                        </script>
+                    </div>
+                    <button type="button" onclick="logout();">Logout</button> 
+                {% endblock fos_user_content %}
+            {% else %}
+                <a href="{{path('fos_user_security_login')}}">
+                    <img src="{{ asset('bundles/videonafrontendhome/images/logoVideona.png') }}" class="logoHome" alt="Login!" />
+                </a>
+            {% endif %}
+        {% endblock %}
+    </div>
+    
+{% endblock body %}

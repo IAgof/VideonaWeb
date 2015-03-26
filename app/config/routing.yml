@@ -1,3 +1,7 @@
+videona_frontend_home:
+    resource: "@VideonaFrontendHomeBundle/Resources/config/routing.yml"
+    prefix:   /
+
 # My bundles routes
 videona_backend_o_auth:
     resource: "@VideonaBackendOAuthBundle/Resources/config/routing.yml"
@@ -26,7 +30,7 @@ videona_utils:
 # Home Page route
 _home:
     path:     /
-    defaults: { _controller: VideonaDemoBundle:Welcome:index }
+    defaults: { _controller: VideonaFrontendHomeBundle:HomePage:showHomePage }
 
 # REST routes
 rest: 
