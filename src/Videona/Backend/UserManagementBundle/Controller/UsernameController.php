@@ -14,7 +14,7 @@ namespace Videona\Backend\UserManagementBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Videona\Backend\UserManagementBundle\Form\SelectUsernameFormType;
+use Videona\Backend\UserManagementBundle\Form\Type\SelectUsernameFormType;
 
 /**
  * UsernameController is a class that allows users to select his username in the

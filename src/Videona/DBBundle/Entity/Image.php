@@ -38,7 +38,7 @@ class Image {
      * 
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User",cascade={"persist"})
      * @ORM\JoinColumn(name="usr", referencedColumnName="id")
      */
     protected $usr;

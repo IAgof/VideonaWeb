@@ -10,7 +10,7 @@
  * All rights reserved
  */
 
-namespace Videona\Backend\UserManagementBundle\Form;
+namespace Videona\Backend\UserManagementBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
