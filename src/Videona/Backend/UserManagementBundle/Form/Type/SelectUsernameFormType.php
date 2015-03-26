@@ -10,7 +10,7 @@
  * All rights reserved
  */
 
-namespace Videona\Backend\UserManagementBundle\Form;
+namespace Videona\Backend\UserManagementBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
