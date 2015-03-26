@@ -1,0 +1,23 @@
+{% extends "::base.html.twig" %}
+
+{% block head %}
+    {% block stylesheets %}
+        
+    {% endblock %}
+{% endblock %}
+
+{% block title 'Home Bundle' %}
+
+{% block body %}
+    
+    {% block content %}{% endblock %}
+    
+    {% for type, messages in app.session.flashbag.all() %}
+        {% for message in messages %}
+            <div class="flash-{{ type }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+            
+{% endblock %}

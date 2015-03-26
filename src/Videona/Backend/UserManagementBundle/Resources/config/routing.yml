@@ -5,7 +5,3 @@ videona_backend_user_management_homepage:
 select_username:
     pattern: /register/username
     defaults:     { _controller: VideonaBackendUserManagementBundle:Username:getSocialUsername }
-    
-logout_social_networks:
-    pattern: /social/logout
-    defaults:     { _controller: VideonaBackendUserManagementBundle:LogoutSocialNetworks:logoutSocial }

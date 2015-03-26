@@ -238,7 +238,7 @@ class FOSUBUserProvider extends BaseClass {
             $user->$setterId($userid);
             // I have set all requested data with the user's username
             // Modify here with relevant data
-            $user->setUsername('########');
+            $user->setUsername(' ');
             $user->setUsernameChange('0');
             $user->setVideonaRegister('0');
             $user->setEmail($socialEmail);

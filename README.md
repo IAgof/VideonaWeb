@@ -153,6 +153,19 @@ It comes pre-configured with the following bundles:
 All libraries and bundles included in the Symfony Standard Edition are
 released under the MIT or BSD license.
 
+5) Modifications in Symfony
+-------------------------------
+
+For right authentication of users, we have modified the authentication provider
+of security module in Symfony. In the DaoAuthenticationProvider class add the 
+following lines:
+
+    // Check if the user has registered with Videona or not
+    if(!$user->getVideonaRegister()) {
+        // If this user has not registered with Videona, throws exception
+        throw new BadCredentialsException('The presented password is invalid.');
+    }
+
 Enjoy!
 
 [1]:  http://symfony.com/doc/2.4/book/installation.html
