@@ -1,3 +1,4 @@
+# Registration
 registration:
     check_email: Se ha enviado un email a %email%. Contiene un enlace de activación que debes presionar para activar tu cuenta.
     confirmed: Felicidades %username%, tu cuenta está ahora confirmada.
@@ -14,6 +15,11 @@ registration:
 
             Atentamente,
             el Equipo.
+            
+# Account
+account:
+    delete: 
+        submit: Eliminar cuenta
 
 # Security
 security:
@@ -24,6 +30,8 @@ security:
         password: "Contraseña:"
         remember_me: Recordar
         submit: Entrar
+    logout: 
+        submit: "Cerrar sesión"
     
 # Form
 form:

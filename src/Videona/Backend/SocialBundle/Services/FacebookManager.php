@@ -28,7 +28,7 @@ class FacebookManager {
      * @var ObjectManager
      */
     protected $em;
-    
+
     /**
      * @var ObjectManager
      */
@@ -60,7 +60,7 @@ class FacebookManager {
      */
     public function loadUserBySocialId($facebookId) {
         $user = $this->repository->findOneBy(array('facebook_id' => $facebookId));
-        
+
         return $user;
     }
 
@@ -72,7 +72,7 @@ class FacebookManager {
      * @param User $user
      */
     public function updateSocialUserData($socialUser, $data, $user) {
-        
+
         // Update social user data
         $socialUser->setUsr($user);
         $socialUser->setFacebookId($data['facebook_id']);
@@ -90,7 +90,7 @@ class FacebookManager {
         $socialUser->setVerified($data['verified']);
         $socialUser->setNickname($data['nick']);
         $socialUser->setProfilePicture($data['profile_picture']);
-        
+
         $this->em->persist($socialUser);
         $this->em->flush();
     }
@@ -102,10 +102,10 @@ class FacebookManager {
      * @param User $user
      */
     public function createSocialUser($data, $user) {
-                
+
         // Create new user of Facebook
         $socialUser = new SocialFacebook();
-        
+
         $socialUser->setUsr($user);
         $socialUser->setFacebookId($data['facebook_id']);
         $socialUser->setFacebookAccessToken($data['facebook_access_token']);
@@ -122,8 +122,21 @@ class FacebookManager {
         $socialUser->setVerified($data['verified']);
         $socialUser->setNickname($data['nick']);
         $socialUser->setProfilePicture($data['profile_picture']);
-        
+
         $this->em->persist($socialUser);
+        $this->em->flush();
+    }
+
+    /**
+     * Delete social user data.
+     *
+     * @param String $socialId
+     */
+    public function deleteSocialData($socialId) {
+        // Delete social user data
+        $socialUser = self::loadUserBySocialId($socialId);
+
+        $this->em->remove($socialUser);
         $this->em->flush();
     }
 

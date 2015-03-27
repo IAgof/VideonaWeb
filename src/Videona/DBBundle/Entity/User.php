@@ -85,6 +85,20 @@ class User extends BaseUser {
      * @ORM\Column(name="videona_register", type="boolean") 
      */
     protected $videona_register;
+    
+    /**
+     * This parameter indicates when the user deleted his account
+     * 
+     * @ORM\Column(name="deleted_account", type="datetime", nullable=true) 
+     */
+    protected $deleted_account;
+    
+    /**
+     * This parameter indicates if the user has deleted his account
+     * 
+     * @ORM\Column(name="temp_disable_account", type="boolean") 
+     */
+    protected $temp_disable_account;
 
     /**
      * Constructor
@@ -95,6 +109,7 @@ class User extends BaseUser {
         //$this->images = new ArrayCollection();
         $this->username_change = '0';
         $this->videona_register = '0';
+        $this->temp_disable_account = '0';
     }
 
     /**
@@ -269,4 +284,52 @@ class User extends BaseUser {
         return $this->videona_register;
     }
 
+
+    /**
+     * Set deletedAccount
+     *
+     * @param \DateTime $deletedAccount
+     *
+     * @return User
+     */
+    public function setDeletedAccount($deletedAccount)
+    {
+        $this->deleted_account = $deletedAccount;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAccount
+     *
+     * @return \DateTime
+     */
+    public function getDeletedAccount()
+    {
+        return $this->deleted_account;
+    }
+
+    /**
+     * Set tempDisableAccount
+     *
+     * @param boolean $tempDisableAccount
+     *
+     * @return User
+     */
+    public function setTempDisableAccount($tempDisableAccount)
+    {
+        $this->temp_disable_account = $tempDisableAccount;
+
+        return $this;
+    }
+
+    /**
+     * Get tempDisableAccount
+     *
+     * @return boolean
+     */
+    public function getTempDisableAccount()
+    {
+        return $this->temp_disable_account;
+    }
 }

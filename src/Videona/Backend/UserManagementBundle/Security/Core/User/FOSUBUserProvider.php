@@ -272,6 +272,16 @@ class FOSUBUserProvider extends BaseClass {
 
         // If user exists - go with the HWIOAuth way
         $user = parent::loadUserByOAuthUserResponse($response);
+        
+        $changeControl = 0;
+        
+        // Check if the user has been deleted his account previously
+        if ($user->getTempDisableAccount()) {
+            $user->setTempDisableAccount('0');
+            
+            // Update control variable
+            $changeControl = 1;
+        }
 
         // Download the social profile picture if user hasn't a profile picture with us
         if (null === $user->getProfilePicture()) {
@@ -281,6 +291,11 @@ class FOSUBUserProvider extends BaseClass {
             // Update the profile picture
             $user->setProfilePicture($profilePictureId);
             
+            // Update control variable
+            $changeControl = 1;
+        }
+        
+        if($changeControl) {
             // Update user
             $this->userManager->updateUser($user);
         }

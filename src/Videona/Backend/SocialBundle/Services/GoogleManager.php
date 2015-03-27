@@ -134,5 +134,18 @@ class GoogleManager {
 
         return $user->getGoogleAccessToken();
     }
+    
+    /**
+     * Delete social user data.
+     *
+     * @param String $socialId
+     */
+    public function deleteSocialData($socialId) {
+        // Delete social user data
+        $socialUser = self::loadUserBySocialId($socialId);
+
+        $this->em->remove($socialUser);
+        $this->em->flush();
+    }
 
 }

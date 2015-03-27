@@ -16,6 +16,11 @@ registration:
             Regards,
             the Team.
             
+# Account
+account:
+    delete: 
+        submit: Delete account
+
 # Security
 security:
     login:
@@ -23,6 +28,8 @@ security:
         password: "Password:"
         remember_me: Remember me
         submit: Login
+    logout: 
+        submit: "Logout"
     
 # Form
 form:
