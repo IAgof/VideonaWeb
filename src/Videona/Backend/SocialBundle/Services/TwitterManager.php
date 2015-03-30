@@ -122,5 +122,18 @@ class TwitterManager {
         $this->em->persist($socialUser);
         $this->em->flush();
     }
+    
+    /**
+     * Delete social user data.
+     *
+     * @param String $socialId
+     */
+    public function deleteSocialData($socialId) {
+        // Delete social user data
+        $socialUser = self::loadUserBySocialId($socialId);
+
+        $this->em->remove($socialUser);
+        $this->em->flush();
+    }
 
 }

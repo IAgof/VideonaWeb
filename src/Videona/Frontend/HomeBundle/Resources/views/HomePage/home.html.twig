@@ -1,15 +1,5 @@
 {% extends "VideonaFrontendHomeBundle::layout.html.twig" %}
 
-{% block stylesheets %}
-    <!-- Customize social buttons -->
-    <style type="text/css">
-        .logoHome {
-          width: 400px;
-          height: auto;
-        }
-    </style>
-{% endblock %}
-
 {% block body %}
 
     <div>
@@ -23,9 +13,14 @@
                                 // Call to /logout route
                                 document.location = "{{ path("fos_user_security_logout") }}";
                             }
+                            function deleteAccount() {
+                                // Call to /account/delete route
+                                document.location = "{{ path("delete_account") }}";
+                            }
                         </script>
                     </div>
-                    <button type="button" onclick="logout();">Logout</button> 
+                    <button type="button" onclick="logout();">{{ 'security.logout.submit'|trans({}, 'messages') }}</button> 
+                    <button type="button" onclick="deleteAccount();">{{ 'account.delete.submit'|trans({}, 'messages') }}</button> 
                 {% endblock fos_user_content %}
             {% else %}
                 <a href="{{path('fos_user_security_login')}}">
@@ -34,5 +29,5 @@
             {% endif %}
         {% endblock %}
     </div>
-    
+
 {% endblock body %}

@@ -5,3 +5,7 @@ videona_backend_user_management_homepage:
 select_username:
     pattern: /register/username
     defaults:     { _controller: VideonaBackendUserManagementBundle:Username:getSocialUsername }
+    
+delete_account:
+    pattern: /account/delete
+    defaults:     { _controller: VideonaBackendUserManagementBundle:Account:delete }

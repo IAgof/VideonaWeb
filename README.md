@@ -153,7 +153,7 @@ It comes pre-configured with the following bundles:
 All libraries and bundles included in the Symfony Standard Edition are
 released under the MIT or BSD license.
 
-5) Modifications in Symfony
+5) Code Modification
 -------------------------------
 
 For right authentication of users, we have modified the authentication provider
@@ -164,6 +164,12 @@ following lines:
     if(!$user->getVideonaRegister()) {
         // If this user has not registered with Videona, throws exception
         throw new BadCredentialsException('The presented password is invalid.');
+    }
+
+    // Check if the user has deleted his account previously
+    if ($user->getTempDisableAccount()) {
+        // Enable the user account again
+        $user->setTempDisableAccount('0');
     }
 
 Enjoy!

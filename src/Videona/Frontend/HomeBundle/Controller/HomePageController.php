@@ -13,7 +13,6 @@
 namespace Videona\Frontend\HomeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * HomePageController is a class that manages the home page.
@@ -21,17 +20,15 @@ use Symfony\Component\HttpFoundation\Request;
  * @author vlf
  */
 class HomePageController extends Controller {
-    
+
     /**
      * Method for showing the landing page. It depends if the user is logged or
      * not logged.
-     * 
-     * @param Request $request
      */
     public function showHomePageAction() {
-        
+
         // Show landing page
         return $this->render('VideonaFrontendHomeBundle:HomePage:home.html.twig');
     }
-    
+
 }
