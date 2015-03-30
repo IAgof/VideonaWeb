@@ -7,15 +7,21 @@
             <file>file:/C:/wamp/www/Videona/app/config/config.yml</file>
             <file>file:/C:/wamp/www/Videona/vendor/friendsofsymfony/user-bundle/Controller/RegistrationController.php</file>
             <file>file:/C:/wamp/www/Videona/src/Videona/Backend/UserManagementBundle/Form/Type/RegistrationFormType.php</file>
+            <file>file:/C:/wamp/www/Videona/src/Videona/Backend/SocialBundle/Services/FacebookManager.php</file>
             <file>file:/C:/wamp/www/Videona/src/Videona/Frontend/HomeBundle/Resources/views/HomePage/home.html.twig</file>
+            <file>file:/C:/wamp/www/Videona/src/Videona/Backend/UserManagementBundle/Controller/AccountController.php</file>
             <file>file:/C:/wamp/www/Videona/app/config/routing.yml</file>
+            <file>file:/C:/wamp/www/Videona/src/Videona/Frontend/HomeBundle/Resources/public/css/home.css</file>
+            <file>file:/C:/wamp/www/Videona/src/Videona/Backend/SocialBundle/Services/TwitterManager.php</file>
             <file>file:/C:/wamp/www/Videona/src/Videona/DBBundle/Entity/User.php</file>
-            <file>file:/C:/wamp/www/Videona/src/Videona/Backend/UserManagementBundle/Resources/views/layout.html.twig</file>
             <file>file:/C:/wamp/www/Videona/src/Videona/Frontend/HomeBundle/Resources/views/layout.html.twig</file>
             <file>file:/C:/wamp/www/Videona/src/Videona/DBBundle/Entity/Image.php</file>
             <file>file:/C:/wamp/www/Videona/src/Videona/Backend/UserManagementBundle/Controller/SecurityController.php</file>
+            <file>file:/C:/wamp/www/Videona/app/Resources/translations/messages.es.yml</file>
             <file>file:/C:/wamp/www/Videona/src/Videona/Backend/UserManagementBundle/Resources/views/Security/login.html.twig</file>
+            <file>file:/C:/wamp/www/Videona/src/Videona/Backend/SocialBundle/Services/GoogleManager.php</file>
             <file>file:/C:/wamp/www/Videona/app/AppKernel.php</file>
+            <file>file:/C:/wamp/www/Videona/app/Resources/translations/messages.en.yml</file>
             <file>file:/C:/wamp/www/Videona/src/Videona/Backend/UserManagementBundle/Form/Type/SelectUsernameFormType.php</file>
             <file>file:/C:/wamp/www/Videona/src/Videona/Backend/UserManagementBundle/Security/Core/User/FOSUBUserProvider.php</file>
         </group>
