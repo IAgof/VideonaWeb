@@ -39,7 +39,7 @@
 # Composer PHAR
 /composer.phar
 
-# netbeans
+# Netbeans
 nbproject/private/
 build/
 nbbuild/
