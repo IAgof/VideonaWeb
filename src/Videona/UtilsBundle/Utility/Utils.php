@@ -27,7 +27,7 @@ class Utils {
     }
 
     /**
-     * Remove dots from an input string.
+     * Removes dots from an input string.
      * 
      * @param string $data
      * 
@@ -40,7 +40,7 @@ class Utils {
     }
 
     /**
-     * Check if the username selected is valid.
+     * Checks if the username selected is valid.
      * 
      * @param string $usernameSelected
      * 
@@ -53,7 +53,7 @@ class Utils {
     }
 
     /**
-     * Check if the email selected is valid.
+     * Checks if the email selected is valid.
      * 
      * @param string $emailSelected
      * 
@@ -64,7 +64,7 @@ class Utils {
     }
 
     /**
-     * Check if the password selected is valid.
+     * Checks if the password selected is valid.
      * 
      * @param string $passwordSelected
      * 
@@ -72,6 +72,58 @@ class Utils {
      * */
     public static function validatePassword($passwordSelected) {
         return mb_ereg_match('(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d])(?=.*[@#$%&.,¿?¡!])[a-zA-Z0-9Ç@#$%&.,¿?¡!]{8,16}$', $passwordSelected);
+    }
+
+    /**
+     * Generates a strong password of N length containing at least one lower case
+     * letter, one uppercase letter, one digit, and one special character. The
+     * remaining characters in the password are chosen at random from those
+     * four sets.
+     * 
+     * @param int $length the length of the random password
+     * @param bool $addDashes
+     * @param string $availableSets the options to generate the password
+     * 
+     * @return string a random password
+     * */
+    public static function generateStrongPassword($length = 9, $addDashes = false, $availableSets = 'luds') {
+
+        $sets = array();
+        if (strpos($availableSets, 'l') !== false) {
+            $sets[] = 'abcdefghijklmnopqrstuvwxyz';
+        }
+        if (strpos($availableSets, 'u') !== false) {
+            $sets[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        }
+        if (strpos($availableSets, 'd') !== false) {
+            $sets[] = '0123456789';
+        }
+        if (strpos($availableSets, 's') !== false) {
+            $sets[] = '!@#$%&*?[]{}';
+        }
+        $all = '';
+        $password = '';
+        foreach ($sets as $set) {
+            $password .= $set[array_rand(str_split($set))];
+            $all .= $set;
+        }
+        $all = str_split($all);
+        for ($i = 0; $i < $length - count($sets); $i++) {
+            $password .= $all[array_rand($all)];
+        }
+        $password = str_shuffle($password);
+        if (!$addDashes) {
+            return $password;
+        }
+        $dashLen = floor(sqrt($length));
+        $dashStr = '';
+        while (strlen($password) > $dashLen) {
+            $dashStr .= substr($password, 0, $dashLen) . '-';
+            $password = substr($password, $dashLen);
+        }
+        $dashStr .= $password;
+
+        return $dashStr;
     }
 
 }

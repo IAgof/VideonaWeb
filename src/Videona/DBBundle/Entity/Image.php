@@ -38,7 +38,7 @@ class Image {
      * 
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="User",cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="images")
      * @ORM\JoinColumn(name="usr", referencedColumnName="id")
      */
     protected $usr;
@@ -50,7 +50,7 @@ class Image {
      * 
      * @ORM\Column(name="real_uri", type="string", length=255, nullable=true)
      */
-    protected $real_uri;
+    protected $realUri;
 
     /**
      * The uploaded date
@@ -59,7 +59,7 @@ class Image {
      * 
      * @ORM\Column(name="created_at", type="datetime", nullable=true) 
      */
-    protected $created_at;
+    protected $createdAt;
 
     /**
      * The width of the image
@@ -145,7 +145,7 @@ class Image {
      * @return Image
      */
     public function setRealUri($realUri) {
-        $this->real_uri = $realUri;
+        $this->realUri = $realUri;
 
         return $this;
     }
@@ -156,7 +156,7 @@ class Image {
      * @return string
      */
     public function getRealUri() {
-        return $this->real_uri;
+        return $this->realUri;
     }
 
     /**
@@ -167,7 +167,7 @@ class Image {
      * @return Image
      */
     public function setCreatedAt($createdAt) {
-        $this->created_at = $createdAt;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -178,7 +178,7 @@ class Image {
      * @return \DateTime
      */
     public function getCreatedAt() {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**

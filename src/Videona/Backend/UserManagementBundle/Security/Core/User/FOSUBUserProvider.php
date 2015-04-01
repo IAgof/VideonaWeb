@@ -15,6 +15,7 @@ namespace Videona\Backend\UserManagementBundle\Security\Core\User;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseClass;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Videona\UtilsBundle\Utility\Utils;
 
 /**
  * FOSUBUserProvider connects the user with the social networks defined in 
@@ -243,7 +244,7 @@ class FOSUBUserProvider extends BaseClass {
             $user->setVideonaRegister('0');
             $user->setEmail($socialEmail);
             // Insert user id like a password until user creates a password with us
-            $user->setPlainPassword($userid);
+            $user->setPlainPassword(Utils::generateStrongPassword(16));
             $user->setEnabled(true);
             
             // Download the social profile picture if user has a profile picture
