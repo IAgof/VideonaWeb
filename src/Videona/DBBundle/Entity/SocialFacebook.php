@@ -52,7 +52,7 @@ class SocialFacebook {
      * @Assert\NotBlank()
      * @ORM\Column(name="facebook_id", type="string", length=255, unique=true)
      */
-    protected $facebook_id;
+    protected $facebookId;
 
     /**
      * The access token associated to the user on Facebook
@@ -62,7 +62,7 @@ class SocialFacebook {
      * @Assert\NotBlank()
      * @ORM\Column(name="facebook_access_token", type="string", length=255) 
      */
-    protected $facebook_access_token;
+    protected $facebookAccessToken;
 
     /**
      * When the access token associated to the user expires
@@ -71,7 +71,7 @@ class SocialFacebook {
      * 
      * @ORM\Column(name="facebook_access_token_expires_in", type="string", length=50, nullable=true) 
      */
-    protected $facebook_access_token_expires_in;
+    protected $facebookAccessTokenExpiresIn;
 
     /**
      * The email address by which the user has registered on Facebook 
@@ -151,7 +151,7 @@ class SocialFacebook {
      * 
      * @ORM\Column(name="updated_time", type="string", length=50, nullable=true)
      */
-    protected $updated_time;
+    protected $updatedTime;
 
     /**
      * This parameter indicates if user has verified his account on Facebook
@@ -169,7 +169,7 @@ class SocialFacebook {
      *
      * @ORM\Column(name="profile_picture", type="string", length=100, nullable=true)
      */
-    protected $profile_picture;
+    protected $profilePicture;
     
     /**
      * The nickname
@@ -217,7 +217,7 @@ class SocialFacebook {
      * @return SocialFacebook
      */
     public function setFacebookId($facebookId) {
-        $this->facebook_id = $facebookId;
+        $this->facebookId = $facebookId;
 
         return $this;
     }
@@ -228,7 +228,7 @@ class SocialFacebook {
      * @return string 
      */
     public function getFacebookId() {
-        return $this->facebook_id;
+        return $this->facebookId;
     }
 
     /**
@@ -238,7 +238,7 @@ class SocialFacebook {
      * @return SocialFacebook
      */
     public function setFacebookAccessToken($facebookAccessToken) {
-        $this->facebook_access_token = $facebookAccessToken;
+        $this->facebookAccessToken = $facebookAccessToken;
 
         return $this;
     }
@@ -249,7 +249,7 @@ class SocialFacebook {
      * @return string 
      */
     public function getFacebookAccessToken() {
-        return $this->facebook_access_token;
+        return $this->facebookAccessToken;
     }
 
     /**
@@ -259,7 +259,7 @@ class SocialFacebook {
      * @return SocialFacebook
      */
     public function setFacebookAccessTokenExpiresIn($facebookAccessTokenExpiresIn) {
-        $this->facebook_access_token_expires_in = $facebookAccessTokenExpiresIn;
+        $this->facebookAccessTokenExpiresIn = $facebookAccessTokenExpiresIn;
 
         return $this;
     }
@@ -270,7 +270,7 @@ class SocialFacebook {
      * @return integer 
      */
     public function getFacebookAccessTokenExpiresIn() {
-        return $this->facebook_access_token_expires_in;
+        return $this->facebookAccessTokenExpiresIn;
     }
 
     /**
@@ -448,7 +448,7 @@ class SocialFacebook {
      * @return SocialFacebook
      */
     public function setUpdatedTime($updatedTime) {
-        $this->updated_time = $updatedTime;
+        $this->updatedTime = $updatedTime;
 
         return $this;
     }
@@ -459,7 +459,7 @@ class SocialFacebook {
      * @return string 
      */
     public function getUpdatedTime() {
-        return $this->updated_time;
+        return $this->updatedTime;
     }
 
     /**
@@ -490,7 +490,7 @@ class SocialFacebook {
      * @return SocialFacebook
      */
     public function setProfilePicture($profilePicture) {
-        $this->profile_picture = $profilePicture;
+        $this->profilePicture = $profilePicture;
 
         return $this;
     }
@@ -501,7 +501,7 @@ class SocialFacebook {
      * @return integer 
      */
     public function getProfilePicture() {
-        return $this->profile_picture;
+        return $this->profilePicture;
     }
 
     /**

@@ -14,6 +14,7 @@ namespace Videona\DBBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * User
@@ -99,6 +100,58 @@ class User extends BaseUser {
      * @ORM\Column(name="temp_disable_account", type="boolean") 
      */
     protected $temp_disable_account;
+    
+    /**
+     * This parameter indicates the birth date of the user
+     * 
+     * @ORM\Column(name="birthdate", type="datetime", nullable=true) 
+     */
+    protected $birthdate;
+    
+    /**
+     * The user's first name
+     * 
+     * @var string
+     * 
+     * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
+     */
+    protected $firstname;
+
+    /**
+     * The user's last name
+     * 
+     * @var string
+     * 
+     * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
+     */
+    protected $lastname;
+    
+    /**
+     * The gender of the user
+     * 
+     * @ORM\Column(name="gender", type="string", length=50, nullable=true)
+     */
+    protected $gender;
+
+    /**
+     * The string description of the Facebook user's location
+     * 
+     * @var string
+     * 
+     * @ORM\Column(name="locale", type="string", length=50, nullable=true)
+     */
+    protected $locale;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Video", inversedBy="users")
+     * @ORM\JoinTable(name="users_videos")
+     **/
+    protected $videos;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="usr")
+     **/
+    protected $images;
 
     /**
      * Constructor
@@ -106,7 +159,8 @@ class User extends BaseUser {
     public function __construct() {
         parent::__construct();
         // your own logic
-        //$this->images = new ArrayCollection();
+        $this->images = new ArrayCollection();
+        $this->videos = new ArrayCollection();
         $this->username_change = '0';
         $this->videona_register = '0';
         $this->temp_disable_account = '0';
@@ -331,5 +385,193 @@ class User extends BaseUser {
     public function getTempDisableAccount()
     {
         return $this->temp_disable_account;
+    }
+
+    /**
+     * Set birthdate
+     *
+     * @param \DateTime $birthdate
+     *
+     * @return User
+     */
+    public function setBirthdate($birthdate)
+    {
+        $this->birthdate = $birthdate;
+
+        return $this;
+    }
+
+    /**
+     * Get birthdate
+     *
+     * @return \DateTime
+     */
+    public function getBirthdate()
+    {
+        return $this->birthdate;
+    }
+
+    /**
+     * Set firstname
+     *
+     * @param string $firstname
+     *
+     * @return User
+     */
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * Get firstname
+     *
+     * @return string
+     */
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * Set lastname
+     *
+     * @param string $lastname
+     *
+     * @return User
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * Get lastname
+     *
+     * @return string
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * Set gender
+     *
+     * @param string $gender
+     *
+     * @return User
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * Get gender
+     *
+     * @return string
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * Set locale
+     *
+     * @param string $locale
+     *
+     * @return User
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    /**
+     * Get locale
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * Add video
+     *
+     * @param \Videona\DBBundle\Entity\Video $video
+     *
+     * @return User
+     */
+    public function addVideo(\Videona\DBBundle\Entity\Video $video)
+    {
+        $this->videos[] = $video;
+
+        return $this;
+    }
+
+    /**
+     * Remove video
+     *
+     * @param \Videona\DBBundle\Entity\Video $video
+     */
+    public function removeVideo(\Videona\DBBundle\Entity\Video $video)
+    {
+        $this->videos->removeElement($video);
+    }
+
+    /**
+     * Get videos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVideos()
+    {
+        return $this->videos;
+    }
+
+    /**
+     * Add image
+     *
+     * @param \Videona\DBBundle\Entity\Image $image
+     *
+     * @return User
+     */
+    public function addImage(\Videona\DBBundle\Entity\Image $image)
+    {
+        $this->images[] = $image;
+
+        return $this;
+    }
+
+    /**
+     * Remove image
+     *
+     * @param \Videona\DBBundle\Entity\Image $image
+     */
+    public function removeImage(\Videona\DBBundle\Entity\Image $image)
+    {
+        $this->images->removeElement($image);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getImages()
+    {
+        return $this->images;
     }
 }

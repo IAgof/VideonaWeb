@@ -52,7 +52,7 @@ class SocialGoogle {
      * @Assert\NotBlank()
      * @ORM\Column(name="google_id", type="string", length=255, unique=true)
      */
-    protected $google_id;
+    protected $googleId;
 
     /**
      * The access token associated to the user on Google+
@@ -62,7 +62,7 @@ class SocialGoogle {
      * @Assert\NotBlank()
      * @ORM\Column(name="google_access_token", type="string", length=255)
      */
-    protected $google_access_token;
+    protected $googleAccessToken;
 
     /**
      * When the access token associated to the user expires
@@ -71,7 +71,7 @@ class SocialGoogle {
      *
      * @ORM\Column(name="google_access_token_expires_in", type="bigint", nullable=true)
      */
-    protected $google_access_token_expires_in;
+    protected $googleAccessTokenExpiresIn;
 
     /**
      * The email address by which the user has registered on Google+ social network
@@ -152,7 +152,7 @@ class SocialGoogle {
      *
      * @ORM\Column(name="profile_picture", type="string", length=100, nullable=true)
      */
-    protected $profile_picture;
+    protected $profilePicture;
 
     /**
      * Get id
@@ -191,7 +191,7 @@ class SocialGoogle {
      * @return SocialGoogle
      */
     public function setGoogleId($googleId) {
-        $this->google_id = $googleId;
+        $this->googleId = $googleId;
 
         return $this;
     }
@@ -202,7 +202,7 @@ class SocialGoogle {
      * @return string 
      */
     public function getGoogleId() {
-        return $this->google_id;
+        return $this->googleId;
     }
 
     /**
@@ -212,7 +212,7 @@ class SocialGoogle {
      * @return SocialGoogle
      */
     public function setGoogleAccessToken($googleAccessToken) {
-        $this->google_access_token = $googleAccessToken;
+        $this->googleAccessToken = $googleAccessToken;
 
         return $this;
     }
@@ -223,7 +223,7 @@ class SocialGoogle {
      * @return string 
      */
     public function getGoogleAccessToken() {
-        return $this->google_access_token;
+        return $this->googleAccessToken;
     }
 
     /**
@@ -233,7 +233,7 @@ class SocialGoogle {
      * @return SocialGoogle
      */
     public function setGoogleAccessTokenExpiresIn($googleAccessTokenExpiresIn) {
-        $this->google_access_token_expires_in = $googleAccessTokenExpiresIn;
+        $this->googleAccessTokenExpiresIn = $googleAccessTokenExpiresIn;
 
         return $this;
     }
@@ -244,7 +244,7 @@ class SocialGoogle {
      * @return integer 
      */
     public function getGoogleAccessTokenExpiresIn() {
-        return $this->google_access_token_expires_in;
+        return $this->googleAccessTokenExpiresIn;
     }
 
     /**
@@ -422,7 +422,7 @@ class SocialGoogle {
      * @return SocialGoogle
      */
     public function setProfilePicture($profilePicture) {
-        $this->profile_picture = $profilePicture;
+        $this->profilePicture = $profilePicture;
 
         return $this;
     }
@@ -433,7 +433,7 @@ class SocialGoogle {
      * @return integer 
      */
     public function getProfilePicture() {
-        return $this->profile_picture;
+        return $this->profilePicture;
     }
     
 }
