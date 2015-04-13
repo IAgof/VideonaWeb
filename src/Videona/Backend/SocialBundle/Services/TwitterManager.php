@@ -59,7 +59,7 @@ class TwitterManager {
      * @return UserInterface or null if user does not exist
      */
     public function loadUserBySocialId($twitterId) {
-        $user = $this->repository->findOneBy(array('twitter_id' => $twitterId));
+        $user = $this->repository->findOneBy(array('twitterId' => $twitterId));
 
         return $user;
     }

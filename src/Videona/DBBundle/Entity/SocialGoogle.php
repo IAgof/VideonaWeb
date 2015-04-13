@@ -185,7 +185,7 @@ class SocialGoogle {
     }
 
     /**
-     * Set google_id
+     * Set googleId
      *
      * @param string $googleId
      * @return SocialGoogle
@@ -197,7 +197,7 @@ class SocialGoogle {
     }
 
     /**
-     * Get google_id
+     * Get googleId
      *
      * @return string 
      */
@@ -206,7 +206,7 @@ class SocialGoogle {
     }
 
     /**
-     * Set google_access_token
+     * Set googleAccessToken
      *
      * @param string $googleAccessToken
      * @return SocialGoogle
@@ -218,7 +218,7 @@ class SocialGoogle {
     }
 
     /**
-     * Get google_access_token
+     * Get googleAccessToken
      *
      * @return string 
      */
@@ -227,7 +227,7 @@ class SocialGoogle {
     }
 
     /**
-     * Set google_access_token_expires_in
+     * Set googleAccessTokenExpiresIn
      *
      * @param integer $googleAccessTokenExpiresIn
      * @return SocialGoogle
@@ -239,7 +239,7 @@ class SocialGoogle {
     }
 
     /**
-     * Get google_access_token_expires_in
+     * Get googleAccessTokenExpiresIn
      *
      * @return integer 
      */
@@ -416,7 +416,7 @@ class SocialGoogle {
     }
 
     /**
-     * Set profile_picture
+     * Set profilePicture
      *
      * @param integer $profilePicture
      * @return SocialGoogle
@@ -428,7 +428,7 @@ class SocialGoogle {
     }
 
     /**
-     * Get profile_picture
+     * Get profilePicture
      *
      * @return integer 
      */

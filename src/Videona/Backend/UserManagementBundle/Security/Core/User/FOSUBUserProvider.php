@@ -185,39 +185,38 @@ class FOSUBUserProvider extends BaseClass {
 
                 break;
         }
-                
+
         // Check if this id exists in the DB
         $user = $this->userManager->findUserBy(array($this->getProperty($response) => $userid));
-                
+
         // When the user is registrating
         if (null === $user) {
-            
             // Check if email is null
             if ($socialEmail == null) {
                 $socialEmail = $userid . '@' . $userid . '.com';
             }
-            
+
             // We check for the email existence - if so, update user.
             if ($existentUser = $this->userManager->findUserByEmail($socialEmail)) {
                 // If user exists - go with the HWIOAuth way
-                
+
                 $setter = 'set' . ucfirst($serviceName);
                 $setterId = $setter . 'Id';
 
                 // Update access token
                 $existentUser->$setterId($userid);
-                
+
                 // Download the social profile picture if user hasn't a profile picture with us
                 if (null === $existentUser->getProfilePicture()) {
                     $imageManager = $GLOBALS['kernel']->getContainer()->get('my_image_manager');
                     $profilePictureId = $imageManager->saveOriginalImage($user, $profilePicture);
-                    
+
                     // Update the profile picture
                     $existentUser->setProfilePicture($profilePictureId);
-                }                
+                }
 
                 $this->userManager->updateUser($existentUser);
-                
+
                 // Check if social user exists
                 if (null === $socialUser) {
                     // Create new social user
@@ -246,7 +245,7 @@ class FOSUBUserProvider extends BaseClass {
             // Insert user id like a password until user creates a password with us
             $user->setPlainPassword(Utils::generateStrongPassword(16));
             $user->setEnabled(true);
-            
+
             // Download the social profile picture if user has a profile picture
             if ($profilePicture) {
                 $imageManager = $GLOBALS['kernel']->getContainer()->get('my_image_manager');
@@ -254,11 +253,11 @@ class FOSUBUserProvider extends BaseClass {
 
                 // Update the profile picture
                 $user->setProfilePicture($profilePictureId);
-            } 
+            }
 
             // Update user
             $this->userManager->updateUser($user);
-            
+
             // Check if social user exists
             if (null === $socialUser) {
                 // Create new social user
@@ -273,13 +272,13 @@ class FOSUBUserProvider extends BaseClass {
 
         // If user exists - go with the HWIOAuth way
         $user = parent::loadUserByOAuthUserResponse($response);
-        
+
         $changeControl = 0;
-        
+
         // Check if the user has been deleted his account previously
         if ($user->getTempDisableAccount()) {
             $user->setTempDisableAccount('0');
-            
+
             // Update control variable
             $changeControl = 1;
         }
@@ -288,19 +287,19 @@ class FOSUBUserProvider extends BaseClass {
         if (null === $user->getProfilePicture()) {
             $imageManager = $GLOBALS['kernel']->getContainer()->get('my_image_manager');
             $profilePictureId = $imageManager->saveOriginalImage($user, $profilePicture);
-            
+
             // Update the profile picture
             $user->setProfilePicture($profilePictureId);
-            
+
             // Update control variable
             $changeControl = 1;
         }
-        
-        if($changeControl) {
+
+        if ($changeControl) {
             // Update user
             $this->userManager->updateUser($user);
         }
-                
+
         // Check if social user exists
         if (null === $socialUser) {
             // Create new social user

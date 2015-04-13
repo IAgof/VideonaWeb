@@ -59,7 +59,7 @@ class FacebookManager {
      * @return UserInterface or null if user does not exist
      */
     public function loadUserBySocialId($facebookId) {
-        $user = $this->repository->findOneBy(array('facebook_id' => $facebookId));
+        $user = $this->repository->findOneBy(array('facebookId' => $facebookId));
 
         return $user;
     }

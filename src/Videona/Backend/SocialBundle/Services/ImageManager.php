@@ -76,7 +76,7 @@ class ImageManager {
 
         // Get image info
         $imageInfo = getimagesize($url);
-        
+
         // If there is not image return null
         if (!$imageInfo) {
             return;
@@ -87,16 +87,15 @@ class ImageManager {
         // Get the type of the uploaded file
         $type = $imageInfo['mime'];
 
-        // If the image size is not allowed, return null
-        if ($width > self::PROFILE_PICTURE_MAX_WIDTH || $height > self::PROFILE_PICTURE_MAX_HEIGHT) {
-            // Image too big 
-            return;
-        }
-        if ($width < self::PROFILE_PICTURE_MIN_WIDTH || $height < self::PROFILE_PICTURE_MIN_HEIGHT) {
-            // Image to small
-            return;
-        }
-
+//        // If the image size is not allowed, return null
+//        if ($width > self::PROFILE_PICTURE_MAX_WIDTH || $height > self::PROFILE_PICTURE_MAX_HEIGHT) {
+//            // Image too big 
+//            return;
+//        }
+//        if ($width < self::PROFILE_PICTURE_MIN_WIDTH || $height < self::PROFILE_PICTURE_MIN_HEIGHT) {
+//            // Image to small
+//            return;
+//        }
         // Get image file extension
         switch ($type) {
             case self::GIF_FORMAT:
@@ -185,10 +184,10 @@ class ImageManager {
             // Save te real uri of the image
             $profilePicture->setSize(filesize($image));
             $profilePicture->setRealUri($image);
-            
+
             $this->em->persist($profilePicture);
             $this->em->flush();
-            
+
             return $profilePicture;
         } else {
             return;

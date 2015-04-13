@@ -194,7 +194,7 @@ class SocialTwitter {
     }
 
     /**
-     * Set twitter_id
+     * Set twitterId
      *
      * @param string $twitterId
      * @return SocialTwitter
@@ -206,7 +206,7 @@ class SocialTwitter {
     }
 
     /**
-     * Get twitter_id
+     * Get twitterId
      *
      * @return string 
      */
@@ -215,7 +215,7 @@ class SocialTwitter {
     }
 
     /**
-     * Set twitter_access_token
+     * Set twitterAccessToken
      *
      * @param string $twitterAccessToken
      * @return SocialTwitter
@@ -227,7 +227,7 @@ class SocialTwitter {
     }
 
     /**
-     * Get twitter_access_token
+     * Get twitterAccessToken
      *
      * @return string 
      */
@@ -236,7 +236,7 @@ class SocialTwitter {
     }
 
     /**
-     * Set twitter_access_token_secret
+     * Set twitterAccessTokenSecret
      *
      * @param string $twitterAccessTokenSecret
      * @return SocialTwitter
@@ -248,7 +248,7 @@ class SocialTwitter {
     }
 
     /**
-     * Get twitter_access_token_secret
+     * Get twitterAccessTokenSecret
      *
      * @return string 
      */
@@ -257,7 +257,7 @@ class SocialTwitter {
     }
 
     /**
-     * Set twitter_access_token_expires_in
+     * Set twitterAccessTokenExpiresIn
      *
      * @param integer $twitterAccessTokenExpiresIn
      * @return SocialTwitter
@@ -269,7 +269,7 @@ class SocialTwitter {
     }
 
     /**
-     * Get twitter_access_token_expires_in
+     * Get twitterAccessTokenExpiresIn
      *
      * @return integer 
      */
@@ -299,7 +299,7 @@ class SocialTwitter {
     }
 
     /**
-     * Set screen_name
+     * Set screenName
      *
      * @param string $screenName
      * @return SocialTwitter
@@ -311,7 +311,7 @@ class SocialTwitter {
     }
 
     /**
-     * Get screen_name
+     * Get screenName
      *
      * @return string 
      */
@@ -320,7 +320,7 @@ class SocialTwitter {
     }
 
     /**
-     * Set followers_count
+     * Set followersCount
      *
      * @param integer $followersCount
      * @return SocialTwitter
@@ -332,7 +332,7 @@ class SocialTwitter {
     }
 
     /**
-     * Get followers_count
+     * Get followersCount
      *
      * @return integer 
      */
@@ -341,7 +341,7 @@ class SocialTwitter {
     }
 
     /**
-     * Set friends_count
+     * Set friendsCount
      *
      * @param integer $friendsCount
      * @return SocialTwitter
@@ -353,7 +353,7 @@ class SocialTwitter {
     }
 
     /**
-     * Get friends_count
+     * Get friendsCount
      *
      * @return integer 
      */
@@ -362,7 +362,7 @@ class SocialTwitter {
     }
 
     /**
-     * Set listed_count
+     * Set listedCount
      *
      * @param integer $listedCount
      * @return SocialTwitter
@@ -374,7 +374,7 @@ class SocialTwitter {
     }
 
     /**
-     * Get listed_count
+     * Get listedCount
      *
      * @return integer 
      */
@@ -383,7 +383,7 @@ class SocialTwitter {
     }
 
     /**
-     * Set created_at
+     * Set createdAt
      *
      * @param \DateTime $createdAt
      * @return SocialTwitter
@@ -395,7 +395,7 @@ class SocialTwitter {
     }
 
     /**
-     * Get created_at
+     * Get createdAt
      *
      * @return \DateTime 
      */
@@ -404,7 +404,7 @@ class SocialTwitter {
     }
 
     /**
-     * Set favourites_count
+     * Set favouritesCount
      *
      * @param integer $favouritesCount
      * @return SocialTwitter
@@ -416,7 +416,7 @@ class SocialTwitter {
     }
 
     /**
-     * Get favourites_count
+     * Get favouritesCount
      *
      * @return integer 
      */
@@ -446,7 +446,7 @@ class SocialTwitter {
     }
 
     /**
-     * Set profile_picture
+     * Set profilePicture
      *
      * @param integer $profilePicture
      * @return SocialTwitter
@@ -458,7 +458,7 @@ class SocialTwitter {
     }
 
     /**
-     * Get profile_picture
+     * Get profilePicture
      *
      * @return integer 
      */

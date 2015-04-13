@@ -59,7 +59,7 @@ class GoogleManager {
      * @return UserInterface or null if user does not exist
      */
     public function loadUserBySocialId($googleId) {
-        $user = $this->repository->findOneBy(array('google_id' => $googleId));
+        $user = $this->repository->findOneBy(array('googleId' => $googleId));
 
         return $user;
     }
@@ -130,7 +130,7 @@ class GoogleManager {
      * @return string access token of the user
      */
     public function getAccessToken($googleId) {
-        $user = $this->repository->findOneBy(array('google_id' => $googleId));
+        $user = $this->repository->findOneBy(array('googleId' => $googleId));
 
         return $user->getGoogleAccessToken();
     }

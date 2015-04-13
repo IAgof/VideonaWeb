@@ -14,6 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Videona\UtilsBundle\Utility\Utils;
 use Videona\DBBundle\Entity\User;
+use Videona\DBBundle\Entity\SocialFacebook;
+use Videona\Backend\SocialBundle\Services\ImageManager;
+use Videona\DBBundle\Entity\Image;
 
 /**
  * Description of PruebaController
@@ -27,6 +30,46 @@ class PruebaController extends Controller {
      */
     public function pruebaAction()
     {
+        //$imageManager = $this->get('my_image_manager');
+        
+        //$em = $this->getDoctrine()->getManager();
+        //$repository = $em->getRepository('VideonaDBBundle:Image');
+        
+        $user = $this->getUser();
+        //var_dump($user);
+        //ld($user);
+        $width = 5;
+        $height = 5;
+        $type = 'jpg';
+        $extension = '.jpg';
+//        
+        $profilePicture = new Image();
+        
+        $profilePicture->setUsr($user);
+        $profilePicture->setCreatedAt(new \DateTime());
+        $profilePicture->setWidth($width);
+        $profilePicture->setHeight($height);
+        $profilePicture->setType($type);
+        $profilePicture->setExtension($extension);
+        
+        $em = $this->getDoctrine()->getManager();
+
+        $em->persist($profilePicture);
+        $em->flush();
+//        
+//
+//        $profilePicture->setUsr($user);
+//        $profilePicture->setCreatedAt(new \DateTime());
+//        $profilePicture->setWidth($width);
+//        $profilePicture->setHeight($height);
+//        $profilePicture->setType($type);
+//        $profilePicture->setExtension($extension);
+//
+//        $this->em->persist($profilePicture);
+//        $this->em->flush();
+        
+        
+        return new Response('ok');
         
         
 //        $em = $this->getDoctrine()->getManager();
@@ -57,7 +100,7 @@ class PruebaController extends Controller {
         //$helper = $this->get('videona.utils');
         //$hora = $helper->prueba_servicio();
         //return new Response($hora);
-        return new Response('ok');
+        //return new Response('ok');
     }
     
     public function loginAction(){

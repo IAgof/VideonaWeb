@@ -211,7 +211,7 @@ class SocialFacebook {
     }
 
     /**
-     * Set facebook_id
+     * Set facebookId
      *
      * @param string $facebookId
      * @return SocialFacebook
@@ -223,7 +223,7 @@ class SocialFacebook {
     }
 
     /**
-     * Get facebook_id
+     * Get facebookId
      *
      * @return string 
      */
@@ -232,7 +232,7 @@ class SocialFacebook {
     }
 
     /**
-     * Set facebook_access_token
+     * Set facebookAccessToken
      *
      * @param string $facebookAccessToken
      * @return SocialFacebook
@@ -244,7 +244,7 @@ class SocialFacebook {
     }
 
     /**
-     * Get facebook_access_token
+     * Get facebookAccessToken
      *
      * @return string 
      */
@@ -253,7 +253,7 @@ class SocialFacebook {
     }
 
     /**
-     * Set facebook_access_token_expires_in
+     * Set facebookAccessTokenExpiresIn
      *
      * @param integer $facebookAccessTokenExpiresIn
      * @return SocialFacebook
@@ -265,7 +265,7 @@ class SocialFacebook {
     }
 
     /**
-     * Get facebook_access_token_expires_in
+     * Get facebookAccessTokenExpiresIn
      *
      * @return integer 
      */
@@ -442,7 +442,7 @@ class SocialFacebook {
     }
 
     /**
-     * Set updated_time
+     * Set updatedTime
      *
      * @param string $updatedTime
      * @return SocialFacebook
@@ -454,7 +454,7 @@ class SocialFacebook {
     }
 
     /**
-     * Get updated_time
+     * Get updatedTime
      *
      * @return string 
      */
@@ -484,7 +484,7 @@ class SocialFacebook {
     }
 
     /**
-     * Set profile_picture
+     * Set profilePicture
      *
      * @param integer $profilePicture
      * @return SocialFacebook
@@ -496,7 +496,7 @@ class SocialFacebook {
     }
 
     /**
-     * Get profile_picture
+     * Get profilePicture
      *
      * @return integer 
      */

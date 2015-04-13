@@ -40,7 +40,7 @@ class User extends BaseUser {
      * 
      * @ORM\Column(name="username_change", type="boolean") 
      */
-    protected $username_change;
+    protected $usernameChange;
 
     /**
      * This is the token that Facebook returns for every user
@@ -75,9 +75,9 @@ class User extends BaseUser {
      * @var integer
      * 
      * @ORM\OneToOne(targetEntity="Image")
-     * @ORM\JoinColumn(name="profile_picture", referencedColumnName="id")
+     * @ORM\JoinColumn(name="profile_picture", referencedColumnName="id", nullable=true)
      */
-    protected $profile_picture;
+    protected $profilePicture;
 
     /**
      * This parameter indicates if the user has been registered by Videona
@@ -85,21 +85,21 @@ class User extends BaseUser {
      * 
      * @ORM\Column(name="videona_register", type="boolean") 
      */
-    protected $videona_register;
+    protected $videonaRegister;
     
     /**
      * This parameter indicates when the user deleted his account
      * 
      * @ORM\Column(name="deleted_account", type="datetime", nullable=true) 
      */
-    protected $deleted_account;
+    protected $deletedAccount;
     
     /**
      * This parameter indicates if the user has deleted his account
      * 
      * @ORM\Column(name="temp_disable_account", type="boolean") 
      */
-    protected $temp_disable_account;
+    protected $tempDisableAccount;
     
     /**
      * This parameter indicates the birth date of the user
@@ -161,9 +161,9 @@ class User extends BaseUser {
         // your own logic
         $this->images = new ArrayCollection();
         $this->videos = new ArrayCollection();
-        $this->username_change = '0';
-        $this->videona_register = '0';
-        $this->temp_disable_account = '0';
+        $this->usernameChange = '0';
+        $this->videonaRegister = '0';
+        $this->tempDisableAccount = '0';
     }
 
     /**
@@ -214,7 +214,7 @@ class User extends BaseUser {
      * @return User
      */
     public function setUsernameChange($usernameChange) {
-        $this->username_change = $usernameChange;
+        $this->usernameChange = $usernameChange;
 
         return $this;
     }
@@ -225,7 +225,7 @@ class User extends BaseUser {
      * @return bool
      */
     public function getUsernameChange() {
-        return $this->username_change;
+        return $this->usernameChange;
     }
 
     /**
@@ -302,7 +302,7 @@ class User extends BaseUser {
      * @return User
      */
     public function setProfilePicture($profilePicture) {
-        $this->profile_picture = $profilePicture;
+        $this->profilePicture = $profilePicture;
 
         return $this;
     }
@@ -313,7 +313,7 @@ class User extends BaseUser {
      * @return integer
      */
     public function getProfilePicture() {
-        return $this->profile_picture;
+        return $this->profilePicture;
     }
 
     /**
@@ -324,7 +324,7 @@ class User extends BaseUser {
      * @return User
      */
     public function setVideonaRegister($videonaRegister) {
-        $this->videona_register = $videonaRegister;
+        $this->videonaRegister = $videonaRegister;
 
         return $this;
     }
@@ -335,7 +335,7 @@ class User extends BaseUser {
      * @return bool
      */
     public function getVideonaRegister() {
-        return $this->videona_register;
+        return $this->videonaRegister;
     }
 
 
@@ -348,7 +348,7 @@ class User extends BaseUser {
      */
     public function setDeletedAccount($deletedAccount)
     {
-        $this->deleted_account = $deletedAccount;
+        $this->deletedAccount = $deletedAccount;
 
         return $this;
     }
@@ -360,7 +360,7 @@ class User extends BaseUser {
      */
     public function getDeletedAccount()
     {
-        return $this->deleted_account;
+        return $this->deletedAccount;
     }
 
     /**
@@ -372,7 +372,7 @@ class User extends BaseUser {
      */
     public function setTempDisableAccount($tempDisableAccount)
     {
-        $this->temp_disable_account = $tempDisableAccount;
+        $this->tempDisableAccount = $tempDisableAccount;
 
         return $this;
     }
@@ -384,7 +384,7 @@ class User extends BaseUser {
      */
     public function getTempDisableAccount()
     {
-        return $this->temp_disable_account;
+        return $this->tempDisableAccount;
     }
 
     /**
