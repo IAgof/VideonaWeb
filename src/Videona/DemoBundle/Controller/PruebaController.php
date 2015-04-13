@@ -30,32 +30,36 @@ class PruebaController extends Controller {
      */
     public function pruebaAction()
     {
+        /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
+        $userManager = $this->get('fos_user.user_manager');
+        $checkUser = $userManager->prueba('visionadev');
+        var_dump($checkUser);
         //$imageManager = $this->get('my_image_manager');
         
         //$em = $this->getDoctrine()->getManager();
         //$repository = $em->getRepository('VideonaDBBundle:Image');
         
-        $user = $this->getUser();
-        //var_dump($user);
-        //ld($user);
-        $width = 5;
-        $height = 5;
-        $type = 'jpg';
-        $extension = '.jpg';
+//        $user = $this->getUser();
+//        //var_dump($user);
+//        //ld($user);
+//        $width = 5;
+//        $height = 5;
+//        $type = 'jpg';
+//        $extension = '.jpg';
+////        
+//        $profilePicture = new Image();
 //        
-        $profilePicture = new Image();
-        
-        $profilePicture->setUsr($user);
-        $profilePicture->setCreatedAt(new \DateTime());
-        $profilePicture->setWidth($width);
-        $profilePicture->setHeight($height);
-        $profilePicture->setType($type);
-        $profilePicture->setExtension($extension);
-        
-        $em = $this->getDoctrine()->getManager();
-
-        $em->persist($profilePicture);
-        $em->flush();
+//        $profilePicture->setUsr($user);
+//        $profilePicture->setCreatedAt(new \DateTime());
+//        $profilePicture->setWidth($width);
+//        $profilePicture->setHeight($height);
+//        $profilePicture->setType($type);
+//        $profilePicture->setExtension($extension);
+//        
+//        $em = $this->getDoctrine()->getManager();
+//
+//        $em->persist($profilePicture);
+//        $em->flush();
 //        
 //
 //        $profilePicture->setUsr($user);

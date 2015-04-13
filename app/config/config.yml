@@ -85,6 +85,8 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Videona\DBBundle\Entity\User
+    service:
+        user_manager: videona_user_manager
     registration:
         form:
            type: my_user_registration

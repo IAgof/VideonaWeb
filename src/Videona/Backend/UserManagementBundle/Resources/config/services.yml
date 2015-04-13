@@ -1,6 +1,7 @@
 parameters:
 #    videona_backend_user_management.example.class: Videona\Backend\UserManagementBundle\Example
     my_user_provider.class: Videona\Backend\UserManagementBundle\Security\Core\User\FOSUBUserProvider
+    videona_user_manager.class: Videona\DBBundle\Entity\UserManager
 
 services:
 #    videona_backend_user_management.example:
@@ -16,3 +17,7 @@ services:
         class: "%my_user_provider.class%"
         #this is the place where the properties are passed to the UserProvider - see config.yml
         arguments: [@fos_user.user_manager,{facebook: facebook_id, google: google_id, twitter: twitter_id}]
+        
+    videona_user_manager:
+        class: "%videona_user_manager.class%"
+        arguments: [@security.encoder_factory, @fos_user.util.username_canonicalizer, @fos_user.util.email_canonicalizer, @fos_user.entity_manager, %fos_user.model.user.class%]
