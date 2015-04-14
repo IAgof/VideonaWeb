@@ -52,6 +52,49 @@ class TwitterManager {
     }
     
     /**
+     * Gets the social user data from his Twitter account.
+     * 
+     * @param UserResponseInterface $response
+     * 
+     * @return array the user social data
+     */
+    public function loadSocialData($response) {
+        
+        $userData = $response->getResponse();
+        $userid = $userData['id'];
+        $realName = $response->getRealName();
+        $screenName = $userData['screen_name'];
+        $followersCount = $userData['followers_count'];
+        $friendsCount = $userData['friends_count'];
+        $listedCount = $userData['listed_count'];
+        $createdAt = $userData['created_at'];
+        $favouritesCount = $userData['favourites_count'];
+        $locale = $userData['lang'];
+        $profilePicture = $userData['profile_image_url'];
+        // Get oauth token
+        $oauthToken = $response->getAccessToken();
+        $oauthTokenSecret = $response->getTokenSecret();
+        $expiresIn = $response->getExpiresIn();
+        $data = [
+            "twitter_id" => $userid,
+            "twitter_access_token" => $oauthToken,
+            "twitter_access_token_secret" => $oauthTokenSecret,
+            "twitter_access_token_expires_in" => $expiresIn,
+            "realname" => $realName,
+            "screen_name" => $screenName,
+            "followers_count" => $followersCount,
+            "friends_count" => $friendsCount,
+            "listed_count" => $listedCount,
+            "created_at" => $createdAt,
+            "favourites_count" => $favouritesCount,
+            "locale" => $locale,
+            "profile_picture" => $profilePicture,
+        ];
+
+        return $data;
+    }
+    
+    /**
      * Finds a user by the user's unique id on Twitter on social_twitter table
      * 
      * @param string $twitterId

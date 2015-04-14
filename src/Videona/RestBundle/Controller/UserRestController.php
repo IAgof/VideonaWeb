@@ -277,9 +277,9 @@ class UserRestController extends Controller {
      */
     public function pruebaAction(Request $request) {
 
-        $facebookmanager = $this->get('my_facebook_manager');
+        $facebookmanager = $this->get('facebook_manager');
 
-        //$facebookmanager = $GLOBALS['kernel']->getContainer()->get('my_facebook_manager');
+        //$facebookmanager = $GLOBALS['kernel']->getContainer()->get('facebook_manager');
 
         $user = $facebookmanager->loadUserByUserIdFacebook('10');
         ld($user);

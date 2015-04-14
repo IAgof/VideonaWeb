@@ -63,132 +63,28 @@ class FOSUBUserProvider extends BaseClass {
     public function loadUserByOAuthUserResponse(UserResponseInterface $response) {
         // Check service login
         $serviceName = $response->getResourceOwner()->getName();
-
-        switch ($serviceName) {
-            case 'facebook':
-                // Get user data from Facebook 
-                $userData = $response->getResponse();
-                $userid = $userData['id'];
-                $socialEmail = $response->getEmail();
-                $firstname = $userData['first_name'];
-                $gender = $userData['gender'];
-                $lastname = $userData['last_name'];
-                $link = $userData['link'];
-                $locale = $userData['locale'];
-                $realName = $response->getRealName();
-                $timezone = $userData['timezone'];
-                $updatedTime = $userData['updated_time'];
-                $verified = $userData['verified'];
-                // Get profile image
-                $userFb = "https://graph.facebook.com/" . $userid;
-                $profilePicture = $userFb . "/picture?width=260&height=260";
-                $nickname = $response->getNickname();
-                // Get oauth token
-                $oauthToken = $response->getAccessToken();
-                $expiresIn = $response->getExpiresIn();
-                $data = [
-                    "facebook_id" => $userid,
-                    "facebook_access_token" => $oauthToken,
-                    "facebook_access_token_expires_in" => $expiresIn,
-                    "email" => $socialEmail,
-                    "firstname" => $firstname,
-                    "lastname" => $lastname,
-                    "gender" => $gender,
-                    "link" => $link,
-                    "locale" => $locale,
-                    "realname" => $realName,
-                    "timezone" => $timezone,
-                    "updated_time" => $updatedTime,
-                    "verified" => $verified,
-                    "profile_picture" => $profilePicture,
-                    "nick" => $nickname
-                ];
-
-                // Check if this user exists in the database
-                $socialManager = $GLOBALS['kernel']->getContainer()->get('my_facebook_manager');
-                $socialUser = $socialManager->loadUserBySocialId($userid);
-
-                break;
-            case 'google':
-                // Get user data from Google 
-                $userData = $response->getResponse();
-                $userid = $userData['id'];
-                $socialEmail = $response->getEmail();
-                $firstname = $userData['given_name'];
-                $lastname = $userData['family_name'];
-                $gender = $userData['gender'];
-                $link = $userData['link'];
-                $locale = $userData['locale'];
-                $realName = $response->getRealName();
-                $verified = $userData['verified_email'];
-                $profilePicture = $response->getProfilePicture();
-                // Get oauth token
-                $oauthToken = $response->getAccessToken();
-                $expiresIn = $response->getExpiresIn();
-                $data = [
-                    "google_id" => $userid,
-                    "google_access_token" => $oauthToken,
-                    "google_access_token_expires_in" => $expiresIn,
-                    "email" => $socialEmail,
-                    "firstname" => $firstname,
-                    "lastname" => $lastname,
-                    "gender" => $gender,
-                    "link" => $link,
-                    "locale" => $locale,
-                    "realname" => $realName,
-                    "verified" => $verified,
-                    "profile_picture" => $profilePicture
-                ];
-
-                // Check if this user exists in the database
-                $socialManager = $GLOBALS['kernel']->getContainer()->get('my_google_manager');
-                $socialUser = $socialManager->loadUserBySocialId($userid);
-
-                break;
-            case 'twitter':
-                // Get user data from Twitter
-                $userData = $response->getResponse();
-                $userid = $userData['id'];
-                $socialEmail = null;
-                $realName = $response->getRealName();
-                $screenName = $userData['screen_name'];
-                $followersCount = $userData['followers_count'];
-                $friendsCount = $userData['friends_count'];
-                $listedCount = $userData['listed_count'];
-                $createdAt = $userData['created_at'];
-                $favouritesCount = $userData['favourites_count'];
-                $locale = $userData['lang'];
-                $profilePicture = $userData['profile_image_url'];
-                // Get oauth token
-                $oauthToken = $response->getAccessToken();
-                $oauthTokenSecret = $response->getTokenSecret();
-                $expiresIn = $response->getExpiresIn();
-                $data = [
-                    "twitter_id" => $userid,
-                    "twitter_access_token" => $oauthToken,
-                    "twitter_access_token_secret" => $oauthTokenSecret,
-                    "twitter_access_token_expires_in" => $expiresIn,
-                    "realname" => $realName,
-                    "screen_name" => $screenName,
-                    "followers_count" => $followersCount,
-                    "friends_count" => $friendsCount,
-                    "listed_count" => $listedCount,
-                    "created_at" => $createdAt,
-                    "favourites_count" => $favouritesCount,
-                    "locale" => $locale,
-                    "profile_picture" => $profilePicture,
-                ];
-
-                // Check if this user exists in the database
-                $socialManager = $GLOBALS['kernel']->getContainer()->get('my_twitter_manager');
-                $socialUser = $socialManager->loadUserBySocialId($userid);
-
-                break;
+        
+        // Load service manager
+        $socialManager = $this->userManager->getServiceManager($serviceName);
+                        
+        // Get the social user data
+        $data = $socialManager->loadSocialData($response);
+        
+        // Get id, email and profile picture of the user in his social account
+        $userid = $data[$serviceName.'_id'];
+        $profilePicture = $data['profile_picture'];
+        if($data['email']) {
+            $socialEmail = $data['email'];
+        } else {
+            $socialEmail = null;
         }
+        
+        // Check if this user exists in the database
+        $socialUser = $socialManager->loadUserBySocialId($userid);
 
         // Check if this id exists in the DB
         $user = $this->userManager->findUserBy(array($this->getProperty($response) => $userid));
-
+        
         // When the user is registrating
         if (null === $user) {
             // Check if email is null
@@ -208,8 +104,7 @@ class FOSUBUserProvider extends BaseClass {
 
                 // Download the social profile picture if user hasn't a profile picture with us
                 if (null === $existentUser->getProfilePicture()) {
-                    $imageManager = $GLOBALS['kernel']->getContainer()->get('my_image_manager');
-                    $profilePictureId = $imageManager->saveOriginalImage($user, $profilePicture);
+                    $profilePictureId = $this->userManager->saveOriginalImage($user, $profilePicture);
 
                     // Update the profile picture
                     $existentUser->setProfilePicture($profilePictureId);
@@ -248,8 +143,7 @@ class FOSUBUserProvider extends BaseClass {
 
             // Download the social profile picture if user has a profile picture
             if ($profilePicture) {
-                $imageManager = $GLOBALS['kernel']->getContainer()->get('my_image_manager');
-                $profilePictureId = $imageManager->saveOriginalImage($user, $profilePicture);
+                $profilePictureId = $this->userManager->saveOriginalImage($user, $profilePicture);
 
                 // Update the profile picture
                 $user->setProfilePicture($profilePictureId);
@@ -285,8 +179,7 @@ class FOSUBUserProvider extends BaseClass {
 
         // Download the social profile picture if user hasn't a profile picture with us
         if (null === $user->getProfilePicture()) {
-            $imageManager = $GLOBALS['kernel']->getContainer()->get('my_image_manager');
-            $profilePictureId = $imageManager->saveOriginalImage($user, $profilePicture);
+            $profilePictureId = $this->userManager->saveOriginalImage($user, $profilePicture);
 
             // Update the profile picture
             $user->setProfilePicture($profilePictureId);

@@ -1,32 +1,37 @@
 parameters:
 #    videona_backend_social.example.class: Videona\Backend\SocialBundle\Example
-    my_facebook_manager.class:       Videona\Backend\SocialBundle\Services\FacebookManager
-    my_google_manager.class:       Videona\Backend\SocialBundle\Services\GoogleManager
-    my_twitter_manager.class:       Videona\Backend\SocialBundle\Services\TwitterManager
-    my_image_manager.class:       Videona\Backend\SocialBundle\Services\ImageManager
+    social_manager.class:      Videona\Backend\SocialBundle\Services\SocialManager
+    facebook_manager.class:    Videona\Backend\SocialBundle\Services\FacebookManager
+    google_manager.class:      Videona\Backend\SocialBundle\Services\GoogleManager
+    twitter_manager.class:     Videona\Backend\SocialBundle\Services\TwitterManager
+    image_manager.class:       Videona\Backend\SocialBundle\Services\ImageManager
 
 services:
 #    videona_backend_social.example:
 #        class: %videona_backend_social.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
-    my_facebook_manager:
-        class: %my_facebook_manager.class%
+    social_manager:
+        class: %social_manager.class%
+        arguments: [@facebook_manager, @google_manager, @twitter_manager]
+            
+    facebook_manager:
+        class: %facebook_manager.class%
         arguments:
             entityManager: "@doctrine.orm.entity_manager"
-            imageManager: "@my_image_manager"
+            imageManager:  "@image_manager"
             
-    my_google_manager:
-        class: %my_google_manager.class%
+    google_manager:
+        class: %google_manager.class%
         arguments:
             entityManager: "@doctrine.orm.entity_manager"
-            imageManager: "@my_image_manager"
+            imageManager:  "@image_manager"
             
-    my_twitter_manager:
-        class: %my_twitter_manager.class%
+    twitter_manager:
+        class: %twitter_manager.class%
         arguments:
             entityManager: "@doctrine.orm.entity_manager"
-            imageManager: "@my_image_manager"
+            imageManager:  "@image_manager"
             
-    my_image_manager:
-        class: %my_image_manager.class%
+    image_manager:
+        class: %image_manager.class%
         arguments: [@doctrine.orm.entity_manager, %kernel.root_dir%]
