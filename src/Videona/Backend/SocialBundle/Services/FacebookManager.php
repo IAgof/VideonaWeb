@@ -16,6 +16,7 @@ use Doctrine\ORM\EntityManager;
 use Videona\DBBundle\Entity\User;
 use Videona\DBBundle\Entity\SocialFacebook;
 use Videona\Backend\SocialBundle\Services\ImageManager;
+use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 
 /**
  * Manager for facebook user data
@@ -50,9 +51,58 @@ class FacebookManager {
         $this->repository = $this->em->getRepository('VideonaDBBundle:SocialFacebook');
         $this->imageManager = $imageManager;
     }
+    
+    /**
+     * Gets the social user data from his Facebook account.
+     * 
+     * @param UserResponseInterface $response
+     * 
+     * @return array the user social data
+     */
+    public function loadSocialData($response) {
+        
+        $userData = $response->getResponse();
+        $userid = $userData['id'];
+        $socialEmail = $response->getEmail();
+        $firstname = $userData['first_name'];
+        $gender = $userData['gender'];
+        $lastname = $userData['last_name'];
+        $link = $userData['link'];
+        $locale = $userData['locale'];
+        $realName = $response->getRealName();
+        $timezone = $userData['timezone'];
+        $updatedTime = $userData['updated_time'];
+        $verified = $userData['verified'];
+        // Get profile image
+        $userFb = "https://graph.facebook.com/" . $userid;
+        $profilePicture = $userFb . "/picture?width=260&height=260";
+        $nickname = $response->getNickname();
+        // Get oauth token
+        $oauthToken = $response->getAccessToken();
+        $expiresIn = $response->getExpiresIn();
+        $data = [
+            "facebook_id" => $userid,
+            "facebook_access_token" => $oauthToken,
+            "facebook_access_token_expires_in" => $expiresIn,
+            "email" => $socialEmail,
+            "firstname" => $firstname,
+            "lastname" => $lastname,
+            "gender" => $gender,
+            "link" => $link,
+            "locale" => $locale,
+            "realname" => $realName,
+            "timezone" => $timezone,
+            "updated_time" => $updatedTime,
+            "verified" => $verified,
+            "profile_picture" => $profilePicture,
+            "nick" => $nickname
+        ];
+
+        return $data;
+    }
 
     /**
-     * Finds a user by the user's unique id on Facebook on social_facebook table
+     * Finds a user by the user's unique id on Facebook on social_facebook table.
      * 
      * @param string $facebookId
      * 
@@ -139,5 +189,5 @@ class FacebookManager {
         $this->em->remove($socialUser);
         $this->em->flush();
     }
-
+    
 }

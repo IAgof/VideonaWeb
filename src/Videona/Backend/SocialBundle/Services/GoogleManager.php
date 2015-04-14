@@ -28,7 +28,7 @@ class GoogleManager {
      * @var ObjectManager
      */
     protected $em;
-    
+
     /**
      * @var ObjectManager
      */
@@ -50,7 +50,48 @@ class GoogleManager {
         $this->repository = $this->em->getRepository('VideonaDBBundle:SocialGoogle');
         $this->imageManager = $imageManager;
     }
-    
+
+    /**
+     * Gets the social user data from his Google account.
+     * 
+     * @param UserResponseInterface $response
+     * 
+     * @return array the user social data
+     */
+    public function loadSocialData($response) {
+
+        $userData = $response->getResponse();
+        $userid = $userData['id'];
+        $socialEmail = $response->getEmail();
+        $firstname = $userData['given_name'];
+        $lastname = $userData['family_name'];
+        $gender = $userData['gender'];
+        $link = $userData['link'];
+        $locale = $userData['locale'];
+        $realName = $response->getRealName();
+        $verified = $userData['verified_email'];
+        $profilePicture = $response->getProfilePicture();
+        // Get oauth token
+        $oauthToken = $response->getAccessToken();
+        $expiresIn = $response->getExpiresIn();
+        $data = [
+            "google_id" => $userid,
+            "google_access_token" => $oauthToken,
+            "google_access_token_expires_in" => $expiresIn,
+            "email" => $socialEmail,
+            "firstname" => $firstname,
+            "lastname" => $lastname,
+            "gender" => $gender,
+            "link" => $link,
+            "locale" => $locale,
+            "realname" => $realName,
+            "verified" => $verified,
+            "profile_picture" => $profilePicture
+        ];
+
+        return $data;
+    }
+
     /**
      * Finds a user by the user's unique id on Google on social_google table
      * 
@@ -63,7 +104,7 @@ class GoogleManager {
 
         return $user;
     }
-    
+
     /**
      * Update social user data.
      *
@@ -72,7 +113,7 @@ class GoogleManager {
      * @param User $user
      */
     public function updateSocialUserData($socialUser, $data, $user) {
-        
+
         // Update social user data
         $socialUser->setUsr($user);
         $socialUser->setGoogleId($data['google_id']);
@@ -87,11 +128,11 @@ class GoogleManager {
         $socialUser->setRealname($data['realname']);
         $socialUser->setVerified($data['verified']);
         $socialUser->setProfilePicture($data['profile_picture']);
-        
+
         $this->em->persist($socialUser);
         $this->em->flush();
     }
-    
+
     /**
      * Create a new social user.
      *
@@ -99,10 +140,10 @@ class GoogleManager {
      * @param User $user
      */
     public function createSocialUser($data, $user) {
-        
+
         // Create new user of Google+
         $socialUser = new SocialGoogle();
-        
+
         $socialUser->setUsr($user);
         $socialUser->setGoogleId($data['google_id']);
         $socialUser->setGoogleAccessToken($data['google_access_token']);
@@ -116,11 +157,11 @@ class GoogleManager {
         $socialUser->setRealname($data['realname']);
         $socialUser->setVerified($data['verified']);
         $socialUser->setProfilePicture($data['profile_picture']);
-        
+
         $this->em->persist($socialUser);
         $this->em->flush();
     }
-    
+
     /**
      * Get access token of the user by the user's unique id on Google 
      * on social_google table
@@ -134,7 +175,7 @@ class GoogleManager {
 
         return $user->getGoogleAccessToken();
     }
-    
+
     /**
      * Delete social user data.
      *

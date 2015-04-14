@@ -24,21 +24,20 @@ use Videona\DBBundle\Entity\Image;
  * @author vlf
  */
 class PruebaController extends Controller {
-    
+
     /**
      * Función para probar
      */
-    public function pruebaAction()
-    {
+    public function pruebaAction() {
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
         $userManager = $this->get('fos_user.user_manager');
-        $checkUser = $userManager->prueba('visionadev');
+        $serviceName = 'twitter';
+        $user = $this->getUser();
+        $checkUser = $userManager->saveOriginalImage($user, 'https://graph.facebook.com/1465342587073990/picture?width=260&height=260');
         var_dump($checkUser);
-        //$imageManager = $this->get('my_image_manager');
-        
+        //$imageManager = $this->get('image_manager');
         //$em = $this->getDoctrine()->getManager();
         //$repository = $em->getRepository('VideonaDBBundle:Image');
-        
 //        $user = $this->getUser();
 //        //var_dump($user);
 //        //ld($user);
@@ -71,16 +70,16 @@ class PruebaController extends Controller {
 //
 //        $this->em->persist($profilePicture);
 //        $this->em->flush();
-        
-        
+
+
         return new Response('ok');
-        
-        
+
+
 //        $em = $this->getDoctrine()->getManager();
         //$users = $em->getRepository('VideonaDBBundle:User')->findOneByUsername('prueba');
         //$users = $em->getRepository('VideonaDBBundle:User')->findAll();
         //if(!is_object($user)){
-          //throw $this->createNotFoundException();
+        //throw $this->createNotFoundException();
         //}
 //        $query = $em->createQuery('SELECT u FROM Videona\DBBundle\Entity\User u');
 //        $users = $query->getResult();
@@ -89,10 +88,8 @@ class PruebaController extends Controller {
 //        $response->headers->set('Content-Type', 'application/json');
 //
 //        return $response;
-        
         //return new Response($user);
         //$hora = new Utils();
-        
 //        $hora = Utils::prueba_servicio();
 //        $user = new User();
 //        
@@ -106,80 +103,79 @@ class PruebaController extends Controller {
         //return new Response($hora);
         //return new Response('ok');
     }
-    
-    public function loginAction(){
+
+    public function loginAction() {
         //$class = $this->getClass();
         //$user = new $class;
-        
+
         return new Response('ok');
-        
-        
+
+
         /*
          * 
          * // Create json response
-            $response = array();
+          $response = array();
 
-            $response[] = array("name" => $params['username'], "email" => $params['password']);
+          $response[] = array("name" => $params['username'], "email" => $params['password']);
 
 
-            // JSon response format is :
-            // [{"name":"eeee","email":"eee@zzzzz.com"},
-            // {"name":"aaaa","email":"aaaaa@zzzzz.com"},{"name":"cccc","email":"bbb@zzzzz.com"}]
+          // JSon response format is :
+          // [{"name":"eeee","email":"eee@zzzzz.com"},
+          // {"name":"aaaa","email":"aaaaa@zzzzz.com"},{"name":"cccc","email":"bbb@zzzzz.com"}]
 
-            // Set header as json
-            //header("Content-type: application/json");
+          // Set header as json
+          //header("Content-type: application/json");
 
-            // send response
+          // send response
 
-            return new Response(json_encode($response));
+          return new Response(json_encode($response));
          */
     }
-    
-    public function newimageAction(Request $request)
-    {
+
+    public function newimageAction(Request $request) {
         // Para obtener parámetros del archivo parameters.yml
         //ld($this->container->getParameter('locale'));
         // Imagen de perfil de videona para practicar
         // https://graph.facebook.com/1465342587073990/picture?width=260&height=260
-        
+
         $imageurl = 'https://graph.facebook.com/1465342587073990/picture?width=260&height=260';
         $tempname = $imageurl;
-        
+
         $imageinfo = getimagesize($tempname);
         ld($imageinfo);
-                
+
         // Comprobamos si la imagen se encuentra entre el tamaño mínimo y máximo
-	$imageminwidth = 16;
-	$imageminheight = 16;
-	$imagemaxwidth = 1024;
-	$imagemaxheight = 1024;
-	
-	$imageinfo = getimagesize($tempname);
-	if (!$imageinfo) {
-		echo 'El archivo no contiene una imagen';
-		exit;
-	}
-	$width = $imageinfo[0];
-	$height = $imageinfo[1];
-	// the type of the uploaded file
-	$type = $imageinfo['mime'];
-                
+        $imageminwidth = 16;
+        $imageminheight = 16;
+        $imagemaxwidth = 1024;
+        $imagemaxheight = 1024;
+
+        $imageinfo = getimagesize($tempname);
+        if (!$imageinfo) {
+            echo 'El archivo no contiene una imagen';
+            exit;
+        }
+        $width = $imageinfo[0];
+        $height = $imageinfo[1];
+        // the type of the uploaded file
+        $type = $imageinfo['mime'];
+
         // Si no cumple estas dimensiones, enviamos un mensaje al usuario
-	if ($width > $imagemaxwidth || $height > $imagemaxheight){
-		echo 'Imagen de perfil demasiado grande';
-		exit;
-	} 
-	if ($width < $imageminwidth || $height < $imageminheight){
-		echo 'Imagen de perfil demasiado pequeña';
-		exit;
-	} 	
-	
-	// Calculamos la extensión del archivo
-	//if (preg_match("/\.([^\.]+)$/", $name, $saved)){
-	//	$oldextension = $saved[1];
-	//}
-        
-        
+        if ($width > $imagemaxwidth || $height > $imagemaxheight) {
+            echo 'Imagen de perfil demasiado grande';
+            exit;
+        }
+        if ($width < $imageminwidth || $height < $imageminheight) {
+            echo 'Imagen de perfil demasiado pequeña';
+            exit;
+        }
+
+        // Calculamos la extensión del archivo
+        //if (preg_match("/\.([^\.]+)$/", $name, $saved)){
+        //	$oldextension = $saved[1];
+        //}
+
+
         switch ($type) {
             case 'image/gif':
                 $extension = '.gif';
@@ -205,69 +201,65 @@ class PruebaController extends Controller {
         }
         ld($extension);
         return new Response('ok');
-	
-	// Comprobamos si ha habido error al subir el archivo	
-	$allowedExts = array(".gif", ".jpeg", ".jpg", ".png");
-	if ((($type != "image/gif")
-	&& ($type != "image/jpeg")
-	&& ($type != "image/jpg")
-	&& ($type != "image/pjpeg")
-	&& ($type != "image/x-png")
-	&& ($type != "image/png"))
-	//|| !in_array($oldextension, $allowedExts))
-	){
-		echo "Invalid file";
-		exit;
-	}
-        
+
+        // Comprobamos si ha habido error al subir el archivo	
+        $allowedExts = array(".gif", ".jpeg", ".jpg", ".png");
+        if ((($type != "image/gif") && ($type != "image/jpeg") && ($type != "image/jpg") && ($type != "image/pjpeg") && ($type != "image/x-png") && ($type != "image/png"))
+        //|| !in_array($oldextension, $allowedExts))
+        ) {
+            echo "Invalid file";
+            exit;
+        }
+
         // Si es correcto insertamos la imagen en la base de datos
         // Crear un nuevo objeto imagen aquí!!
         // Identificador obtenido de la base de datos cuando insertamos los datos
         // Para eso, esta variable debe ir después de obtener la información de la imagen
         $profileiconid = '1';
-        
+
         // Guardamos el archivo en el directorio correspondiente
         // Puedo hacer una carpeta general con el identificador del usuario y ahí
         // dentro meter las carpetas con las imágenes
-	$directory = $this->get('kernel')->getRootDir() . '/../web/file/profileicons/originals/' . ($profileiconid % 256) . '/';
+        $directory = $this->get('kernel')->getRootDir() . '/../web/file/profileicons/originals/' . ($profileiconid % 256) . '/';
         ld($directory);
-		
-	// Comprobamos que el directorio existe o lo creamos si no existe
-	$create=true;
-	$recursive=true;
-	$status = true;
-	$directory = trim($directory);
-	
-	if(!is_dir($directory)) {
-		if (!$create) {
-			$status = false;
-		} else {
-			$mask = umask(0000);
-			$status = @mkdir($directory, 0700, true);
-			umask($mask);
-		}
-	}
-	
-	// Copiamos la imagen en el directorio
-	$image = $directory . $profileiconid;
-	//ld($image);
+
+        // Comprobamos que el directorio existe o lo creamos si no existe
+        $create = true;
+        $recursive = true;
+        $status = true;
+        $directory = trim($directory);
+
+        if (!is_dir($directory)) {
+            if (!$create) {
+                $status = false;
+            } else {
+                $mask = umask(0000);
+                $status = @mkdir($directory, 0700, true);
+                umask($mask);
+            }
+        }
+
+        // Copiamos la imagen en el directorio
+        $image = $directory . $profileiconid;
+        //ld($image);
         copy($tempname, $image);
-	
-	// Comprobamos que el archivo se ha creado y existe para poder borrar el archivo temporal
-	$file = $image;
-	if (file_exists($file)) {
-		ld('existe');
-	} else {
-		ld('no existe');
-	}
-        
-        
+
+        // Comprobamos que el archivo se ha creado y existe para poder borrar el archivo temporal
+        $file = $image;
+        if (file_exists($file)) {
+            ld('existe');
+        } else {
+            ld('no existe');
+        }
+
+
         return new Response('ok');
         /*
-        return $this->render('VideonaUserBundle:Default:new.html.twig', array(
-            'form' => $form->createView(),
-        ));
+          return $this->render('VideonaUserBundle:Default:new.html.twig', array(
+          'form' => $form->createView(),
+          ));
          * 
          */
     }
+
 }
