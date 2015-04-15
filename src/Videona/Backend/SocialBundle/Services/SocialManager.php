@@ -60,7 +60,7 @@ class SocialManager {
      * @return ObjectManager
      */
     public function getServiceManager($serviceName) {
-        $socialManager = $serviceName.'Manager';
+        $socialManager = mb_strtolower($serviceName).'Manager';
         
         return $this->$socialManager;
     }
