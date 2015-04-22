@@ -33,7 +33,6 @@ class AccountController extends Controller {
         
         $availableSocialNetworks = $this->container->getParameter('social_networks');
         $numSocialNetworks = count($availableSocialNetworks);
-        $userSocialData = array();
                 
         // Delete social data
         for ($i = 0; $i < $numSocialNetworks; $i++) {
@@ -42,7 +41,7 @@ class AccountController extends Controller {
             $socialDataId = $user->$getterId();
             if ($socialDataId) {
                 // Delete social data
-                $manager = 'my_'.$availableSocialNetworks[$i].'_manager';
+                $manager = $availableSocialNetworks[$i].'_manager';
                 $socialManager = $this->get($manager);
                 $socialManager->deleteSocialData($socialDataId);   
             }

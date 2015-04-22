@@ -15,7 +15,8 @@ parameters:
     debug_redirects: false
     use_assetic_controller: true
     remember_me_key: videona_vlf_secret_key
-    facebook_id: 1530256123873085
+    social_networks: [facebook, google, twitter]
+    facebook_id: '1530256123873085'
     facebook_key: 2dc3d24e943e23b8c29d32100f904254
     google_id: 107134464495-ruserbd6t4lb47u8qvqto8n3ov3fla2v.apps.googleusercontent.com
     google_key: LlfKSLK1AecDcuf3U0IIDViv
